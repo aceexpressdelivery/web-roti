@@ -1,0 +1,176 @@
+*, html {
+    margin:0;
+    padding:0;  
+}
+
+div.top_menu {
+        background-color:platinum;
+   margin-left: 5%;
+        width: 80%;
+        height: 2%;
+        float: left;
+        margin-top: 5px;
+
+}      
+
+
+div.portal {
+       margin-top: 150px;
+        margin-left: 10%;
+        width: 80%;
+        height: 30%;
+        float: left;
+       
+ }
+ 
+ div.welcome_portal {
+       margin-top: 50px;
+        margin-left: 10%;
+        width: 80%;
+        height: 30%;
+        float: left;
+       
+ }
+
+ .showhover:hover  {
+  background-color:#AED6F1  ;
+}
+
+.calendricalDatePopup{
+	background-color:lightblue;
+}
+
+
+/*div.where{*/
+     /* div.picture{
+		/*  background-color:brown;*/
+		/* margin-left: 2%;
+        padding-left: 100px;
+        width: 1300px;
+        height: 150px;
+        margin-top: 50%;
+		padding-top:2%;
+		float: left;
+      }*/
+
+	 /* div.div_carousel{
+		
+        margin-left: 2%;
+       margin-top: 20%;
+        width: 1300px;
+        height: 350px;
+       padding-top:10%;
+	  
+      }*/
+	  
+	  div.div_footer{
+		   position: relative;
+	margin-top: -1%; /* negative value of footer height */
+	height: -20%;
+	clear:both;
+		 background-color:seagreen;
+		 padding-right:0px;
+        margin-left:2%;
+        width: 1300px;
+        height: 250px;
+        float:bottom;
+      /* margin-top: 100%;*/
+		padding-top:3%;
+      }
+	  
+
+tr.spaceUnder>td {
+	  padding-bottom: 1em;
+}
+tr.spaceUnder_rest {
+  margin-bottom: 1.1em;
+}
+
+
+
+/* Popup container */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+body {overflow-x: hidden;}
+ .container
+{
+    display:table;
+    width: 100%;
+}
+.row
+{
+    height: 100%;
+    display: table-row;
+}
+.col-sm-4
+{
+    display: table-cell;
+}
+        ol {
+            display: inline-block;
+            list-style: none;
+        }
+
+       
+        .error {
+            color: red;
+        }
+div.modal-header
+{border:none}
+
+div.modal-footer
+{border:none}
+
+
+ 
+		
+	

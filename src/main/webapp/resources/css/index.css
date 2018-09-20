@@ -1,0 +1,688 @@
+*, html {
+    margin:0;
+    padding:0;  
+}
+body {overflow-x: hidden;}
+div.top_menu {
+        background-color:platinum;
+		margin-left: 5%;
+        width: 80%;
+        height: 2%;
+        float: left;
+        margin-top: 5px;
+
+}      
+
+
+/*div.picture {
+        background-color:blue;
+        margin-left: 10%;
+        width: 80%;
+        height: 30%;
+        float: left;
+       
+ }*/
+
+
+/*div.where{*/
+
+#logohome{
+	padding-bottom:35px;
+	margin-bottom:0px;
+	padding-right:50px;
+	height:120px;
+	width:140px;
+	margin-right:300px;
+	cursor: pointer;
+}
+#gohome{
+	cursor: pointer;
+	text-decoration:none;
+	color:MediumVioletRed;
+	font-family:Georgia;
+	font-weight:300px;
+	width:400px;
+	margin-right:10px;
+	padding-left:100px;
+	margin-bottom:42px;
+	padding-bottom:40px
+}
+
+      div.div_address{
+		/*  background-color:brown;*/
+		 margin-left: 2%;
+        padding-left: 100px;
+        width: 1300px;
+        height: 250px;
+       
+       margin-top: 80px;
+		padding-top:6%;
+      }
+
+	  div.div_carousel{
+		
+        margin-left: 2%;
+       
+        width: 1300px;
+        height: 350px;
+       
+      }
+	  
+	  div.div_footer{
+		/*   position: ab;*/
+	margin-top: -20%; /* negative value of footer height */
+	height: -20%;
+	clear:both;
+		 background-color:seagreen;
+		 padding-right:0px;
+        margin-left:2%;
+        width: 1300px;
+        height: 250px;
+      /*  float:bottom;
+       margin-top: 100%;*/
+		padding-top:3%;
+      }
+	  
+div.when{
+        background-color:lightgray;
+       margin-left: 2%;
+        width: 1300px;
+        height: 8%;
+        margin-top:10px;
+		
+       padding-top: 0.7%;
+		padding-bottom: 1%;
+      }
+
+#backto_rest{
+		background-color:indianred;
+        margin-left: 2%;
+        width: 1300px;
+        height: 7%;
+        margin-top:10px;
+		padding-top: 0.5%;
+		padding-bottom: 1%;
+		
+      }
+
+
+div.restAndCartContainer{
+		background-color:white;
+        padding-left: 10px;
+        width: 1300px;
+        
+        /*float: left;*/
+        padding-top: 1%;
+      }
+	  
+	  div.div_menus{
+		background-color:white;
+ 
+         
+        float: left;
+        padding-top: 1%;
+      }
+      
+ div.restName{
+	/*  position: absolute;*/
+ 		background-color:white;
+         width: 1300px;
+        float: left;
+        height: auto;
+		margin-bottom:10px;
+		  
+      }   
+
+div.cart{
+        position: absolute;
+    	background:white;
+    	height: auto;
+   		margin-left:72%;
+        width: 25%;
+		border: 1px solid #dadada;
+		float:right;
+		margin-bottom:150px;
+		vertical-align:top;
+        }
+    
+/*table.restName {
+		width: 100%;
+
+}*/      
+
+
+faintLine {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+tr.spaceUnder>td {
+	  padding-bottom: 1em;
+}
+tr.spaceUnder_rest {
+  margin-bottom: 1.1em;
+}
+
+
+#cartLogo {
+height:250px;	
+width: auto;
+  padding-bottom: 1em;
+}	
+
+#dataTable1:hover  {
+  background-color:#AED6F1  ;
+}
+#select_rest tr:hover {
+   background-color:#AED6F1  ;
+}
+
+
+div.href {
+	display: block;
+}
+
+.stuck{
+    position:fixed;
+    z-index:100;
+    width:100%;
+    top:0;
+}
+i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+ 
+}
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+	  
+}
+#pop_menuDetail { 
+    display:none; /* Hide the DIV */
+    position:fixed;  
+    _position:absolute; /* hack for internet explorer 6 */  
+    height:300px;  
+    width:600px;  
+    background:#FFFFFF;  
+    left: 300px;
+    top: 150px;
+    z-index:100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
+    margin-left: 15px;  
+   }
+
+/* Popup container */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
+ .container
+{
+    display:table;
+    width: 100%;
+}
+.row
+{
+    height: 100%;
+    display: table-row;
+}
+.col-sm-4
+{
+    display: table-cell;
+}
+        ol {
+            display: inline-block;
+            list-style: none;
+        }
+
+        #myform {
+            text-align: center;
+            padding: 5px;
+            border: 1px dotted #ccc;
+            margin: 2%;
+        }
+
+        
+
+        #qtyminus2 {
+           width: 40px;
+            height: 45px;
+  float:left;
+padding: 5px;
+        }
+
+        #qtyplus2 {
+           width: 40px;
+            height: 45px;
+  float:left;
+padding: 5px;
+        }
+        #qtyplus {
+            width: 40px;
+            height: 45px;
+  float:left;
+padding: 5px;
+        }
+
+        #qtyminus {
+            width: 40px;
+            height: 45px;
+  float:left;
+padding: 5px;
+        }
+
+        #qty {
+            width: 40px;
+            height: 45px;
+            text-align: center;
+  float:left;
+padding: 5px;
+        }
+
+        #qty2 {
+            width: 40px;
+            height: 45px;
+            text-align: center;
+  float:left;
+padding: 5px;
+        }
+
+        #qtycart {
+            width: 490px;
+            height: 45px;
+            text-align: center;
+            padding: 5px;
+  float:right;
+        }
+
+        #update_qtycart {
+            width: 490px;
+            height: 45px;
+            text-align: center;
+            padding: 5px;
+  float:right;
+        }
+
+        #textarea1 {
+            width: 630px;
+            resize: none;
+
+        }
+
+        #textarea_address {
+            width: 350px;
+            resize: none;
+        }
+
+        #textarea_notes {
+            width: 350px;
+            resize: none;
+        }
+
+        #review_order {
+            width: 250px;
+            height: 40px;
+            text-align: center;
+            padding: 5px;
+        }
+		#review{
+			background-color:pink;
+		}
+		#account_login
+		{
+			border: 1px solid #dadada;
+		align:center;
+		background-color:pink;
+		margin-top:100px;
+		margin-left:350px;
+		}
+		#account
+		{
+		border: 1px solid #dadada;
+		align:center;
+		background-color:pink;
+		margin-top:100px;
+		margin-left:350px;
+		}
+		#payment
+		{
+		border: 1px solid #dadada;
+		align:center;
+		background-color:pink;
+		}
+#display4 > #myimage {
+  width: 100%;
+  height : 100%;
+  
+}
+		
+        .error {
+            color: red;
+			
+        }
+div.modal-header
+{border:none}
+
+div.modal-footer
+{border:none}
+
+
+ 
+	   #locationField, #controls {
+        position: relative;
+        width: 480px;
+      }
+#autocomplete {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 99%;
+      }
+	  #find_btn
+	  {
+		   position;absolute;
+		  
+		   margin-left:310%;
+		   margin-bottom:none;
+		   
+	  }
+      .label {
+        text-align: right;
+        font-weight: bold;
+        width: 120px;
+        color: #303030;
+      }
+      #address {
+		   position: relative;
+		   height:auto;
+		   top: 20px;
+        left: 300px;
+        border: 1px solid white;
+        background-color: none;
+        width: 480px;
+        padding-right: 150px;
+      }
+      #address td {
+        font-size: 10pt;
+      }
+      .field {
+        width: 99%;
+      }
+      .slimField {
+        width: 80px;
+      }
+      .wideField {
+        width: 200px;
+      }
+      #locationField {
+        height: 20px;
+        margin-bottom: 2px;
+      }
+	  
+	  .icon-trash {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  overflow: hidden;
+  margin-left: 25px;
+  
+}
+
+.icon-trash .trash-lid {
+  width: 62%;
+  height: 10%;
+  position: absolute;
+  left: 50%;
+  margin-left: -31%;
+  top: 10.5%;
+  background-color: #000;
+  border-top-left-radius: 80%;
+  border-top-right-radius: 80%;
+  -webkit-transform: rotate(-5deg);
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  transform: rotate(-5deg); 
+}
+
+.icon-trash .trash-lid:after {
+  content: "";
+  width: 26%;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: -13%;
+  margin-top: -10%;
+  background-color: inherit;
+  border-top-left-radius: 30%;
+  border-top-right-radius: 30%;
+  -webkit-transform: rotate(-1deg);
+  -moz-transform: rotate(-1deg);
+  -ms-transform: rotate(-1deg);
+  transform: rotate(-1deg); 
+}
+
+.icon-trash .trash-container {
+  width: 56%;
+  height: 65%;
+  position: absolute;
+  left: 50%;
+  margin-left: -28%;
+  bottom: 10%;
+  background-color: #000;
+  border-bottom-left-radius: 15%;
+  border-bottom-right-radius: 15%;
+}
+
+.icon-trash .trash-container:after {
+  content: "";
+  width: 110%;
+  height: 12%;
+  position: absolute;
+  left: 50%;
+  margin-left: -55%;
+  top: 0;
+  background-color: inherit;
+  border-bottom-left-radius: 45%;
+  border-bottom-right-radius: 45%;
+}
+
+.icon-trash .trash-line-1 {
+  width: 4%;
+  height: 50%;
+  position: absolute;
+  left: 38%;
+  margin-left: -2%;
+  bottom: 17%;
+  background-color: #252527;
+}
+
+.icon-trash .trash-line-2 {
+  width: 4%;
+  height: 50%;
+  position: absolute;
+  left: 50%;
+  margin-left: -2%;
+  bottom: 17%;
+  background-color: #252527;
+}
+
+.icon-trash .trash-line-3 {
+  width: 4%;
+  height: 50%;
+  position: absolute;
+  left: 62%;
+  margin-left: -2%;
+  bottom: 17%;
+  background-color: #252527;
+}
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+#account_orders{
+	 height: 230px;
+    max-height: 230px;
+    overflow-x: hidden;
+}
+#card_details{
+	height: 80px;
+    max-height: 80px;
+    overflow-x: hidden;
+}
+/*
+#tid{
+	height: 50px;
+    max-height: 50px;
+    overflow-x: hidden;
+	overflow-y: scroll;
+}*/
+#myModal_terms_conditions
+{
+	height:500px;
+	width:650px;
+}
+
+   .has-error input {
+            border-width: 1px solid red;;
+        }
+
+        .validation.text-danger:after {
+            content: 'Validation failed';
+			border:  1px solid red;
+        }
+
+        .validation.text-success:after {
+            content: 'Validation passed';
+        }
+		
+	.errorClass { border:  1px solid red; }
+	
+	#snackbar_acc_created {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: lightblue;
+    color: black;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+     bottom: 50%;
+    right: 10%;
+    font-size: 17px;
+}
+
+#snackbar_acc_created.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+	#hideerror_details {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+   background-color: green;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    bottom: 70%;
+    right: 10%;
+    font-size: 17px;
+}
+
+#hideerror_details.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+
+@-webkit-keyframes fadein {
+    from {right: 0; opacity: 0;} 
+    to {right: 10%; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {right: 0; opacity: 0;}
+    to {right: 10%; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {right: 10%;; opacity: 1;} 
+    to {right: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {right: 10%; opacity: 1;}
+    to {right: 0; opacity: 0;}
+}
+.showinfo{
+color: cornflowerblue;
+background-color: white;
+border-color: skyblue;
+}
+.showinfo:hover{
+color: #fff;
+background-color: skyblue;
+border-color: skyblue;
+}
+/*46b8da*/
