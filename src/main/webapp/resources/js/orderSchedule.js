@@ -74,7 +74,7 @@ function s_acc_created() {
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 
-function snack_error() {
+/*function snack_error() {
 		var addressbar = $("#autocomplete").val();
 		if(addressbar==0)
 		{
@@ -92,11 +92,106 @@ function snack_error() {
 			 {
 			   var msg2="";
 			}
+		
+		
 
 			 var show_errormsg = "Please select "+msg1+ " "+msg2+ " "+ " to proceed";
 			 console.log("show_errormsg "+show_errormsg);
 			 $("#hideerror_details").text(show_errormsg);
+}*/
+
+
+function snack_error() {
+	var n = $("#datepicker").val();
+	var myarray = n.split(',');
+	var arr=[];
+	for (var z = 0; z < myarray.length; z++) {
+	arr[z] = myarray[z];
+	}
+	var addressbar = $("#autocomplete").val();
+	if(addressbar==0)
+	{
+		var msg1="Address,";
+	}
+	else{
+		var msg1="";
+	}
+	
+	if ($('#dd_btn3').text().trim() == "Select Apartment Complex") 
+		 {
+			 var msg2="Apartment Complex";
+      	 }
+	 else
+		 {
+		   var msg2="";
+		}
+	if(arr=="")
+	{
+	
+	var msg="Dates"
+	}
+else{
+	var msg="";
+	
 }
+	
+
+		 var show_errormsg = "Please select "+msg1+ " "+msg2+ " "+ "and "+ msg+" to proceed";
+		 console.log("show_errormsg "+show_errormsg);
+		 $("#hideerror_details").text(show_errormsg);
+}
+
+/*function sheduleOrder_error() {
+	alert("se");
+	var n = $("#datepicker").val();
+	var myarray = n.split(',');
+	var arr=[];
+	for (var z = 0; z < myarray.length; z++) {
+	arr[z] = myarray[z];
+	}
+	if(arr=="")
+		{
+		
+		var msg="dates"
+		}
+	else{
+		var msg="";
+		
+	}
+	
+	for(var i=0; i<arr.length;i++)
+		{
+		if(arr=="")
+			{
+			
+			console.log("arraynull"+arr);
+			}
+		else{
+			console.log("array dates"+arr[i]);
+			
+		}
+		
+		}
+	
+console.log("schedule error"+arr.val());
+	if(arr.length==1)
+	{
+		var msg="dates"
+
+	}
+	else{
+		var msg="";
+
+	}
+	 var show_errormsg = "Please select "+msg+" "+ " to proceed";
+	 $("#hideerror_details").text(show_errormsg);
+	 
+	 var show_errormsg = "Please select "+msg1+ " "+msg2+ " "+ " to proceed";
+		 console.log("show_errormsg "+show_errormsg);
+		 $("#hideerror_details").text(show_errormsg);
+}*/
+
+
 function openModal(id){
 		 //alert(id);
 		 var name = $('#'+id).attr("name");
@@ -132,6 +227,8 @@ function qtyPlus(id){
 	//alert(data);
 	sales_price = $('#' + data).attr('sales_price');
 	//alert(sales_price);
+	/*var n = $("#datepicker").val();
+	console.log(n);*/
 	cost=quantity * sales_price;
 	//alert(cost);
 	$('#' + data).attr('quantity',quantity);
@@ -221,6 +318,7 @@ function qtyPlus(id){
 	    			 
 	          
 	    	    $('#cartTable tbody').append(tabledata);
+	    	  
 	    		calculate();
 	    		if(theTotal==0)
 	    		{   
@@ -697,8 +795,8 @@ function setDay(){
 	   if(hours<16){
 		  // alert("Today");
 		   var day=date.toLocaleDateString();
-		   $('#dd_btn1').html('Today');
-			$('#dd_btn1').attr("value",day);
+		   $('#date_time_corp').find('#dd_btn1').text('Today');
+			$('#date_time_corp').find('#dd_btn1').attr("value",day);
    
 	   }else
 	   {
@@ -707,8 +805,8 @@ function setDay(){
 			 date.setDate(date.getDate() + 1);
 			 var day=date.toLocaleDateString();
 			//alert(day); 
-			$('#dd_btn1').html('Tomorrow');
-			$('#dd_btn1').attr("value",day);
+			$('#date_time_corp').find('#dd_btn1').text('Tomorrow');
+			$('#date_time_corp').find('#dd_btn1').attr("value",day);
 	   }
 	   $("#date_time_corp").css("display", "block");
 	   $("#when").css("display", "block");
@@ -778,7 +876,7 @@ function final_calculate(){
 		$("#sales_review_place_order_total").text(rest_subtotal);
 	}	
 
-function setmenu() {
+/*function setmenu() {
 		
 		//var ordertype = document.getElementById("tryme_rest").getAttribute("ordertype");
 		//var select_rest = $(this).text();
@@ -792,145 +890,53 @@ function setmenu() {
 		var ordertype ="CORP";
 		var select_rest="Roti";
 		$.ajax({
-      		url: pageURL+"menus",
+      		url: pageURL,
       		type: "GET",
-      	    data: {"id" : "1"},
+      	    data: {},
       		success: function(data){
+      			
+            	var array =  data;
 				j=0;
 				$("#choose_rest").css("display", "none");
 				$("#backto_rest").css("display", "block"); 
 				//$("#back_restname").html('<b style="padding-bottom:10px">'+select_rest+'</b>');
-				var today = moment();
-				var result = {
-				  day: today.format("dddd"),
-				  month: today.format("MMM")
-				}
-		
-				var today=result.day.toLowerCase();
-	
-				var enable=null;
 					var html = '';
-					var day='';
 					$.each(data, function(key, value) { 
 					j++;
-					if(today=="monday"){
-						day=value['mon'];
-						if(day==false)
-						{
-								enable="disabled";
-						}
-							else{
-								enable=" ";
-							}
-					}
-					else if(today=="tuesday"){
-						day=value['tue'];
-						if(day==false)
-						{
-								enable="disabled";
-						}
-							else{
-								enable=" ";
-							}
-					}
-					else if(today=="wednesday"){
-						day=value['wed'];
-						if(day==false)
-						{
-								enable="disabled";
-						}
-							else{
-								enable=" ";
-							}
-					}
-					else if(today=="thursday"){
-						day=value['thu'];
-						if(day==false)
-						{
-								enable="disabled";
-						}
-							else{
-								enable=" ";
-							}
-					}
-					else if(today=="friday"){
-						day=value['fri'];
-						if(day==false)
-						{
-								enable="disabled";
-						}
-							else{
-								enable=" ";
-							}
-					}
-					else if(today=="saturday"){
-						day=value['sat'];
-						if(day==false)
-						{
-								enable="disabled";
-						}
-							else{
-								enable=" ";
-							}
-					}
-					else if(today=="sunday"){
-						day=value['sun'];
-						if(day==false)
-						{
-								enable="disabled";
-						}
-							else{
-								enable=" ";
-								}
-					}
-						
-					//console.log(data.mon);
 					var p='qtyplus_'+j;
 					var m='qtyminus_'+j;
 					var q='qty_'+j;
-					html += '<div  id="data'+j+
-					'"value="'+value['id']+
-					'" ordertype="' + ordertype +
-					'" select_rest="' + select_rest +
-					'" restid="' + value['restaurantBustypeId'] +
-					'" name="'+value['name']+
-					'" days="'+day+
-					'" sales_price="'+value['salesPrice']+
-					'" base_price="'+value['basePrice']+
-					'" restaurant_price="'+value['restaurantPrice']+
-					'" active="'+value['active']+
-					'" description="'+value['description']+
-					'" quantity="1'+
-					'" total="'+value['salesPrice']+
-					'" src="/delivery/resources/images/'+value['menuImage']+
-					'" style="border:1px solid #c4c4c4;border-radius: 10px;height:125px;padding-left:5px;margin-bottom:3px;">'+
-
-					'<div id="image'+j+'" data-toggle="modal" onclick="openModal(this.id)" class="col-md-2 nopadding" name="'+value['name']+'" description="'+value['description']+'">'+
-						'<label for="imagesrc">'+
-							'<img style="width:100px;height:90px;padding-left:5px;padding-top:5px;margin-top: 15px;"'+
-								'src= "/delivery/resources/images/'+value['menuImage']+'"/>'+
-						'</label>'+
-					'</div>'+
-					'<div id="menuDetails'+j+'" class="col-md-3" id="tryme" align="left" style="padding-left:30px;white-space: normal;padding-top:20px;" >'+ 
-							'<h4><label>' + value['name'] + '</label></h4><h4 style="color:blue">'+
-								'<label>$' + value['salesPrice']+ '</label></h4>'+
-					'</div>'+
-					'<div id="addQty'+j+'" inputf="quantity'+j+'" class="col-md-3 col-md-offset-2" style="padding-top:30px;">'+
-							'<div class="row">'+
-								'<div class="input-group">'+
-									'<span class="input-group-btn">'+
-										'<button type="button" field="quantity'+j+'" dataid="data'+j+'" buttonid="addQty'+j+'" onclick="qtyMinus(this.id)" id="qtyMinus_'+j+'" dataid="data'+j+'"'+enable+' imageid="image'+j+'" style="height:45px;width:40px" class="quantity-left-minus btn btn-danger btn-number">'+
-											'<span class="glyphicon glyphicon-minus">'+
-									'</span></button>'+
-									'</span>'+
-									'<input class="form-control input-number" type="text" name="quantity'+j+'" value="0" id="qty_'+j+'" style="text-align:center;height:45px;width:40px" />'+
-									'<span class="input-group-btn">'+
-										'<button type="button" field="quantity'+j+'" dataid="data'+j+'" buttonid="addQty'+j+'" onclick="qtyPlus(this.id)" id="qtyPlus_'+j+'" '+enable+' imageid="image'+j+'" style="height:45px;width:40px" class="quantity-right-plus btn btn-success btn-number"><span class="glyphicon glyphicon-plus"></span></button>'+
-									'</span>'+
+								
+					html += '<div id="data'+j+
+							'"value="'+value['id']+
+							'" ordertype="' + ordertype +
+							'" select_rest="' + select_rest +
+							'" restid="' + rest_id +
+							'" name="'+value['name']+
+							'" sales_price="'+value['salesPrice']+
+							'" base_price="'+value['basePrice']+
+							'" restaurant_price="'+value['restaurantPrice']+
+							'" active="'+value['active']+
+							'" description="'+value['description']+
+							'" quantity="1'+
+							'" total="'+value['salesPrice']+
+							'" src="/delivery/resources/images/'+value['menuImage']+
+							'" style="border:1px solid #c4c4c4;border-radius: 10px;height:125px;padding-left:5px;">'+
+								'<div id="image'+j+'" data-toggle="modal" onclick="openModal(this.id)" class="col-md-2 nopadding" name="'+value['name']+'" description="'+value['description']+'"><label for="imagesrc"><img style="width:100px;height:90px;padding-left:5px;padding-top:5px;margin-top: 15px;"'+
+									'src= "/delivery/resources/images/'+value['menuImage']+'"/></label></div>'+
+								'<div id="menuDetails'+j+'" class="col-md-3" id="tryme" align="left" style="padding-left:30px;white-space: normal;padding-top:20px;" >'+ 
+									'<h4><label>' + value['name'] + '</label></h4><h4 style="color:blue">'+
+									'<label>$' + value['salesPrice']+ '</label></h4></div>'+
+								'<div id="addQty'+j+'" inputf="quantity'+j+'" class="col-md-4" style="padding-top:30px;">'+
+									'<button type="button" field="quantity'+j+'" dataid="data'+j+'" buttonid="addCart'+j+'" addId="addToCart'+j+'" updateId="updateToCart'+j+'" onclick="qtyMinus(this.id)" id="'+m+'" style="height:45px;width:40px" class="glyphicon glyphicon-minus-sign btn btn-danger"></button>'+
+									'<input type="text" name="quantity'+j+'" value="1" id="'+q+'" style="text-align:center;height:45px;width:40px" />'+
+									'<button type="button" field="quantity'+j+'" dataid="data'+j+'" buttonid="addCart'+j+'" addId="addToCart'+j+'" updateId="updateToCart'+j+'" onclick="qtyPlus(this.id)" id="'+p+'" style="height:45px;width:40px" class="glyphicon glyphicon-plus-sign btn btn-success"></button>'+
 								'</div>'+
-							'</div>'+
-					'</div></div>';	
-						});
+							'<div id="addCart'+j+'" style="display:block;padding-top:35px;"><button onclick="addToCart(this.id)" dataid="data'+j+'" buttonid="addQty'+j+'" imageid="image'+j+'" updateid="updateToCart'+j+'" type="button" name="addCart" id="addToCart'+j+'"  class="btn btn-danger" style="display:block;padding-left:15px;width:150px">Add To Cart - $'+value['salesPrice']+'</button>'+
+							'<button onclick="updateToCart(this.id)" dataid="data'+j+'" imageid="image'+j+'" type="button" name="updateCart" addid="addToCart'+j+'" id="updateToCart'+j+'"  class="btn btn-danger" style="display:none;padding-left:15px;width:150px">Update To Cart - $'+value['salesPrice']+'</button></div>'+
+							'</div>';
+						}
+						);
 					$('#table_menus').last().append(html);				
 				$('#restaurants').hide();
       		},
@@ -943,9 +949,8 @@ function setmenu() {
 		{
 			$("#show_empty_cart").css("display", "block");
 			$("#showcart").css("display", "none");
-		}
-		
-}
+			}
+		}*/
 
 function s_time() {
 	var x = document.getElementById("hideerror_details");
@@ -1738,7 +1743,7 @@ function ordertype_rest()
 		 }
 		
    }
-   
+   //
 function goto_corp_review_order()
    {
 	   $('#autocomplete').prop('disabled', true);
@@ -1760,6 +1765,7 @@ function goto_corp_review_order()
 			
 		$('#review_details').css("display", "block");	
 		$('#review_corp_delivery_details').css("display", "block");
+		$('#datepicker').css("display", "none");
 		$("#login").css("display", "none");
 		$("#register").css("display", "none");
 		/*$('#review_paymentcard_details').css("display", "none");
@@ -1824,7 +1830,16 @@ function goto_corp_review_order()
 		});
 	
 		for(var i=0; i < things.rest_thing.length; i++){
-			$("#cart_item_details").append('<tr class="count_restaurant" restid='+ things.rest_thing[i].id+' name='+things.rest_thing[i].name+' style="display: block;margin-bottom:10px;"><td number="'+i+'" id='+things.rest_thing[i].name+' style="width:700px"><b>'+things.rest_thing[i].name+'</b></td></tr>');
+		$("#cart_item_details").append('<tr class="count_restaurant" restid='+ things.rest_thing[i].id+' name='+things.rest_thing[i].name+' style="display: block;margin-bottom:10px;"><td number="'+i+'" id='+things.rest_thing[i].name+' style="width:700px"><b>'+things.rest_thing[i].name+'</b></td></tr>');
+		var n = $("#datepicker").val();
+		var myarray = n.split(',');
+		var arr=[];
+		for (var z = 0; z < myarray.length; z++) {
+		arr[z] = myarray[z];
+		}
+		//var schedule_date_details=$("#address_delivery").text();
+		$("#schedule_date_details").text(arr);
+		
 		}
 	 
 	
@@ -1836,8 +1851,8 @@ function goto_corp_review_order()
              i_quantity = $tds.eq(0).text(),
              i_product = $tds.eq(1).text(),
 			 i_cost = $tds.eq(2).text(),
-             i_price = $tds.eq(4).text();
-             i_description = $tds.eq(5).text();
+             i_price = $tds.eq(5).text();
+             i_description = $tds.eq(6).text();
              i_restname = $tds.eq(7).text();
 		     i_restid = $tds.eq(8).text();
 			 i_ordertype = $tds.eq(9).text();
@@ -1948,7 +1963,8 @@ function goto_corp_review_order()
 		});
 		   
 		for(var i=0; i < thelist.length; i++){
-			$("#cart_item_details").append('<tr class="count_restaurant" restid='+ thelist[i].id+' name='+thelist[i].name+' style="display: block;margin-bottom:10px;"><td number="'+i+'" id='+thelist[i].name+'><b>'+thelist[i].name+'</b></td></tr>');
+			$("#cart_item_details").append();
+			/*$("#cart_item_details").append('<tr class="count_restaurant" restid='+ thelist[i].id+' name='+thelist[i].name+' style="display: block;margin-bottom:10px;"><td number="'+i+'" id='+thelist[i].name+'><b>'+thelist[i].name+'</b></td></tr>');*/
 		}
 			
 		table.find('tr').each(function (i,e) {
@@ -2031,11 +2047,9 @@ function ValidateCreditCardNumber(){
 
 
 $(document).ready(function() {
-	 pageURL = $(location).attr("href");
 		footer();
 		calculate();
-		setmenu();
-	
+		
     $('#logged_in').click(function(e){
 		$("#profile_details").modal();
 	  });
@@ -2133,7 +2147,7 @@ $(document).ready(function() {
             
     });
 	
-	 
+	  pageURL = $(location).attr("href");
 	// alert(pageURL);
 	
 	$("input[name$='creditcard']").click(function() {
@@ -2611,9 +2625,15 @@ $(document).ready(function() {
 	});
 	
 	$("#review_order").click(function (e){
+       var n = $("#datepicker").val();
 		
+		var myarray = n.split(',');
+		var arr=[];
+		for (var z = 0; z < myarray.length; z++) {
+		arr[z] = myarray[z];
+		}
 		var addressbar = $("#autocomplete").val();
-		if( (addressbar==0) || ($('#dd_btn3').text().trim() == "Select Apartment Complex") ){
+		if( (addressbar==0) || ($('#dd_btn3').text().trim() == "Select Apartment Complex")||arr=="" ){
 			snack_error();
 			s_time();
 		}
@@ -2632,6 +2652,51 @@ $(document).ready(function() {
 			 
 	
 	});
+	
+	
+	/*$("#review_order").click(function (e){
+		var n = $("#datepicker").val();
+		
+		var myarray = n.split(',');
+		var arr=[];
+		for (var z = 0; z < myarray.length; z++) {
+		arr[z] = myarray[z];
+		}
+		
+		if(arr=="")
+		{
+			sheduleOrder_error();
+			s_time();
+			alert("h");
+
+		}
+		else{
+			console.log("contain  date");
+		}
+		
+		
+        if( (addressbar==0) || ($('#dd_btn3').text().trim() == "Select Apartment Complex")){
+			snack_error();
+			s_time();
+		}
+		else{
+			if ( $("#login").css('display') == 'block')
+			{
+			  $('#myModal_review_login').modal('show');
+			}
+			else {
+			goto_corp_review_order();
+			//goto_rest_review_order();
+		 }
+			
+		}
+		
+			 
+	
+	});
+	*/
+	
+	
 	
 	var month = new Array();
     month[0] = "Jan";
@@ -2680,28 +2745,17 @@ $(document).ready(function() {
 			document.getElementById("demo"+i).setAttribute("datevalue", d.getMonth()+1+"/"+m+"/"+y);
 		}
 	} */
-	var time=$('#time').val();
-	//alert(time);
-	for(i=0;i<=6;i++){
+		
+	for(i=1;i<=6;i++){
 		var d = new Date();
 		d.setDate(d.getDate() + i);
 		var n= month[d.getMonth()];
 		var m = d.getDate();
 		var l= weekday[d.getDay()];
 		//console.log(y);
-		
-		//alert(d.toLocaleDateString());
-		//alert(new Date().toLocaleDateString());
-		if(d.toLocaleDateString()==new Date().toLocaleDateString()){
-			$("#demo0"+i).attr('value', d.toLocaleDateString());
-			//alert("today");
-			document.getElementById("demo0"+i).innerHTML ="Today";
-		}else{
-			$("#demo0"+i).attr('value', d.toLocaleDateString());
-			document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
-		}
-		//document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
-		//$("#demo0"+i).attr('datevalue', order_date);
+		var order_date=  new Date().toLocaleDateString();
+		document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
+		$("#demo0"+i).attr('datevalue', order_date);
 	}
 	
 		
@@ -2777,15 +2831,11 @@ $("#dd_date_corp a").on('click', function(e) {
 	});
 
       
-	/*$("#btn_guestlogin").on('click', function(e) {
-		goto_corp_review_order();
-		$("#hide_userid").text('Guest');
-	});*/
-	
 	$("#btn_guestlogin").on('click', function(e) {
 		goto_corp_review_order();
-		$("#hide_userid").text('0');
+		$("#hide_userid").text('Guest');
 	});
+	
 	
 	$("#submit_forgotpass").on('click', function(e) {
 		
@@ -2811,13 +2861,14 @@ $("#dd_date_corp a").on('click', function(e) {
 		});
 	});
 	
-	 $("#schedule_order").click(function(e){ 
+	
+	 $("#scehdule_order").click(function(e){ 
 	    	window.open('http://localhost:8080/delivery/orderSchedule/');
 	    	//window.location.replace("http://localhost:8080/delivery/orderRestaurant/");
-	   });
+
+	    	});
 	 
-	
-/*	$("#schedule_order").click(function(e){
+/*	$("#scehdule_order").click(function(e){
 		if($('#logged_in').css('display') == 'block'){
 			if ( $('#card_details').text().length != 0 ) {
 				alert("You can Schedule order");
@@ -2829,8 +2880,8 @@ $("#dd_date_corp a").on('click', function(e) {
 		else{
 		alert("Please Login to schedule order");
 		}
-	});*/
-	
+	});
+	*/
 	
 	$("#submit_login").click(function(e){
 		
@@ -4015,7 +4066,11 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		final_calculate();
 	});
 	
-	$("#review_order_submit").click(function(e){
+	
+	
+	
+	
+   $("#review_order_submit").click(function(e){
 	
 		if ($('#corp_name_delivery').val() == '') {
 			$('#corp_name_delivery').css('border', '1px solid red');
@@ -4030,7 +4085,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			//alert("... test Trying 123...");
 			var name=$('#corp_name_delivery').val();
 			var phone=$('#corp_phone_delivery').val();
-			var email=$('#corp_email_delivery').val();
+			var email=$('#corp_corp_pemail_delivery').val();
 			
 			var textarea_delivery=$('#textarea_delivery').val();
 
@@ -4068,15 +4123,12 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 								restaurantId:restid,
 								name:restname
 							});
+				
 			});
 			
 			for(j=0;j<the_rest.length;j++){
-				var d = new Date(); // for now
-				var hr = d.getHours(); // => 9
-				var min = d.getMinutes(); // =>  30
-				var sec = d.getSeconds(); // => 51
 				
-				//alert("restaurantId"  + the_rest[j].restaurantId + "name"  + the_rest[j].name);
+				
 				var menu_table = $("#cart_item_details .menu_"+the_rest[j].name).length;
 				var table=$("#cart_item_details .menu_"+the_rest[j].name);
 				
@@ -4124,8 +4176,9 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 									description :i_description, 
 									quantity:i_quantity
 									
-								});
-						
+								})
+					
+					//console.log("menu list"+JSON.stringify(the_menu));
 				});
 				
 				
@@ -4139,37 +4192,44 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 										"restaurantPrice":restaurantPrice,
 										"baseRestaurantPrice":baseRestaurantPrice
 									})
-									
-				//console.log("listOfObjects- "+JSON.stringify(listOfObjects));
 			}//end of outer for loop
+			
+			//console.log("menu- "+JSON.stringify(the_menu));
+			//JSON.stringify(the_menu);
+			for(j=0;j<the_menu.length;j++){
+				console.log(the_menu[j].name);
+				console.log(the_menu[j].quantity);
+			}
 	
 			//var restlist=JSON.stringify(listOfObjects);
 			//console.log(the_creditcard);
 		
-		
+			var dates=$("#datepicker").val();
+		alert(dates);
 			var hide_userid= $("#hide_userid").text();
 			var corp_name_delivery= $("#corp_name_delivery").val();
 			var corp_phone_delivery= $("#corp_phone_delivery").val();
 			var corp_email_delivery= $("#corp_email_delivery").val();
 			var zipbusid = $("#hide_zipid").text();
+			var cc=$("#cc-number").val();
+			alert("ccno"+cc);
 			var orderForm = 
 			{
 				"userId": hide_userid,
 				"name": corp_name_delivery,
 				"age":"29",							//remove
 			    "phone":corp_phone_delivery,
-			    
-			    "currentDate": order_date,
 				//"currentDate": "08/08/2018",
-			   
 				//"time":"10.00", 
+				
+				"currentDate": date_delivery,
 				//"time":order_h+":"+order_m+":"+order_s,
 				
 				"restEmail":corp_email_delivery,   
 				"deliveryAddress": deliveryAddress+ deliveryAddress1,						
 				"deliveryCity": deliveryCity,
 				"deliveryState": deliveryState,
-				//"deliveryCharge": review_delivery_charges,
+			//	"deliveryCharge": review_delivery_charges,
 				"deliveryZip": deliveryZip,
 		
 				// pending
@@ -4179,18 +4239,17 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 				
 				"restaurantForms": listOfObjects,
 				
-				"description": "NA",                //No need of this
-				"instructions": textarea_delivery,
+				//"description": "NA",                //No need of this
+				//"instructions": textarea_delivery,
+				
 				"orderType": 'CORP',
-				
 				"orderDate": date_delivery,
-				//"orderDate":"10/4/2018",
-				
-				"orderTime":hr+":"+min+":"+sec,
 				//"orderTime": time_delivery,
-				"orderTime":"11:30:00",
-				
+				//"orderDate": "2018-07-28",
+				"orderTime": "11.00",
+				//"orderId": "273",					  //No need of this
 				"zipBusTypeMerchantId": "1",       
+				
 				
 				"cardType": "VISA",
 				"lastFourDigits": the_creditcard[0].lastdigits,
@@ -4209,10 +4268,8 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 				"subTotalSales" : sales_review_subtotal,
 				"taxSales" : review_tax,
 				"totalSales" : review_place_order_total,
-				
 				"totalBase" : base_review_place_order_total,
 				"totalRestaurant" : sales_review_place_order_total,
-				
 				"tip" : driver_tip,
 				
 				// order status
@@ -4261,6 +4318,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			//console.log("subTotalSales-"+sales_review_subtotal,"taxSales-" +review_tax,"totalSales-"+ review_place_order_total,
 			//"totalBase-" +base_review_place_order_total,"totalRestaurant-"+sales_review_place_order_total,"tip-"+ driver_tip);
 			
+			alert("orderform1");
 			console.log(JSON.stringify(orderForm));
 			
 			$.ajax({
@@ -4287,6 +4345,72 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			});	
 		}
 	});
+	
+	
+ /* $('#review_order_submit').click(function(e){
+	  
+	if($("#corp_name_delivery").val()=='')
+		{
+		$('#corp_name_delivery').css('border','1px solid red');
+		alert("NEHAPATEL754");
+		alert("Name Field is empty");
+		}
+	else if($("#corp_phone_delivery").val()=='')
+		{
+		$("#corp_phone_delivery").css('border','1px solid red');
+		alert("Phone no is empty");
+		}
+	else if($("#corp_email_delivery").val()=='')
+		{
+		$("#corp_email_delivery").css('border','1px solid red');
+		}
+	else if($("#disply_new_card").is(':empty'))
+		{
+		alert("Please select cart to proceed");
+		}
+	else{
+		alert("NEHAPATEL75411111");
+		var name=$("#corp_name_delivery").val();
+		var phone=$("#corp_phone_delivery").val();
+		var email=$("#corp_email_delivery").val();
+		var textarea_delivery =$("#textarea_delivery").val();
+		var street_number=$("#street_number").val();
+		var sales_review_subtotal=$("#sales_review_subtotal").text().replace("$","");
+		
+		var the_rest=[];
+		
+		$('#cart_item_details .count_restaurant').each(function(){
+			
+			var restid=$(this).attr('restid');
+			var restname=$(this).attr('name');
+			 
+			
+			
+			the_rest.push({
+				restaurantId:restid,
+				name:restname
+			});
+	
+			
+		});
+		
+		
+		for(i=0;i<the_rest.length;i++)
+		{
+			
+			//alert("restaurantId "+the_rest[i].restaurantId+" "+"name "+the_rest[i].name);
+			alert("restaurantId"  + the_rest[i].restaurantId + "name"  + the_rest[i].name);
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+});*/
 	
 	$('#print_pdf').click(function(){
 		//alert("pdfprint");
@@ -4799,3 +4923,132 @@ $('#edit_email').keyup(function(){
 		}
 	});
 }); 
+
+
+
+
+
+$(document).ready(
+		function() {
+			pageURL = $(location).attr("href");
+
+			$('.timepicker').pickatime({
+				/*
+				 * $("#datepicker").click(function(){
+				 * $('#datefilter').prop('disabled', true); });
+				 */
+				onSet : function() {
+					// $('#datefilter').prop('disabled', true);
+					var $input = $('.timepicker').pickatime();
+					var picker = $input.pickatime('picker');
+					var n = picker.get();
+					console.log(n)
+					if (n.length > 0) {
+						var result = "";
+						for (var i = 0; i < n.length; i++) {
+							var newTime = picker.get();
+						}
+						result += "<b>" + newTime + " " + "</b>";
+					} else {
+						result = "No Times selected.";
+					}
+					$("#result").append(result);
+				}
+
+			});
+
+			$('input[name="datefilter"]').daterangepicker({
+				minDate : new Date(),
+				autoUpdateInput : false,
+				locale : {
+					cancelLabel : 'Clear'
+				}
+			});
+
+			$('input[name="datefilter"]').on(
+					'apply.daterangepicker',
+					function(ev, picker) {
+						$(this).val(
+								picker.startDate.format('MM/DD/YYYY') + ' - '
+										+ picker.endDate.format('MM/DD/YYYY'));
+
+					});
+
+			$('input[name="datefilter"]').on('cancel.daterangepicker',
+					function(ev, picker) {
+						$(this).val('');
+					});
+
+			$('#datepicker').datepicker({
+				startDate : new Date(),
+				multidate : true,
+				format : "dd/mm/yyyy",
+				datesDisabled : [ 'su' ],
+				language : 'en'
+			}).on(
+
+					'changeDate',
+					function(e) {
+						// `e` here contains the extra attributes
+
+						$(this).find('.input-group-addon .count').text(
+								' ' + e.dates.length);
+
+					});
+
+			$("#Submit_Order1").click(function(e) {
+				var n = $("#datepicker").val();
+			//	console.log(n);
+				//var time = $("#order_time").val();
+				var myarray = n.split(',');
+				var arr=[];
+				
+				for (var z = 0; z < myarray.length; z++) {
+					arr[z] = myarray[z];
+
+					console.log("arr"+myarray[z]);
+				}
+		var id=1;
+
+				$.ajax({
+					url : "/delivery/orderRestaurant/multipleDates",
+					type : "POST",
+					data : {mydates:arr},
+					
+					success : function(data) {
+						alert("hi");
+						var arry=[];
+						for (var z = 0; z < data.length; z++) {
+							arr[z] = data[z];
+							console.log(data[z]);
+
+						}
+						console.log("Nehapppp"+data);
+
+					},
+					error : function() {
+						alert("Bye");
+					}
+
+				});
+
+			});
+
+	
+
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

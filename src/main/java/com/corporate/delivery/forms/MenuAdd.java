@@ -18,6 +18,17 @@ public class MenuAdd {
 
 	private Boolean active;
 	
+	private Boolean mon;	
+	
+	private Boolean tue;	
+	private Boolean wed;	
+	private Boolean thu;	
+	private Boolean fri;	
+	private Boolean sat;	
+	private Boolean sun;
+	
+	private Boolean schedule;	
+	
 	
 	public Integer getId() {
 		return id;
@@ -98,86 +109,53 @@ public class MenuAdd {
 		this.restaurantPrice = restaurantPrice;
 	}
 	
-	
-	 /*private int id;	 
-	 private int restaurantBustypeId;	
-	 private int groupNumber;
-	 private String groupName;
-	 private int groupMenuNumber;
-	 private String name;	 
-	 private String description;	
-	 private String menuImage;	 
-	 private int price;	 	 
-	 private Boolean active;
-	 
-	public int getId() {
-		return id;
+	public Boolean getMon() {
+		return mon;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setMon(Boolean mon) {
+		this.mon = mon;
 	}
-	
-	public int getRestaurantBustypeId() {
-		return restaurantBustypeId;
+	public Boolean getTue() {
+		return tue;
 	}
-	public void setRestaurantBustypeId(int restaurantBustypeId) {
-		this.restaurantBustypeId = restaurantBustypeId;
+	public void setTue(Boolean tue) {
+		this.tue = tue;
 	}
-	
-	public int getGroupNumber() {
-		return groupNumber;
+	public Boolean getWed() {
+		return wed;
 	}
-	public void setGroupNumber(int groupNumber) {
-		this.groupNumber = groupNumber;
+	public void setWed(Boolean wed) {
+		this.wed = wed;
 	}
-	
-	public String getGroupName() {
-		return groupName;
+	public Boolean getThu() {
+		return thu;
 	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
+	public void setThu(Boolean thu) {
+		this.thu = thu;
 	}
-	
-	public int getGroupMenuNumber() {
-		return groupMenuNumber;
+	public Boolean getFri() {
+		return fri;
 	}
-	public void setGroupMenuNumber(int groupMenuNumber) {
-		this.groupMenuNumber = groupMenuNumber;
+	public void setFri(Boolean fri) {
+		this.fri = fri;
 	}
-	
-	public String getName() {
-		return name;
+	public Boolean getSat() {
+		return sat;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setSat(Boolean sat) {
+		this.sat = sat;
+	}
+	public Boolean getSun() {
+		return sun;
+	}
+	public void setSun(Boolean sun) {
+		this.sun = sun;
+	}
+	public Boolean getSchedule() {
+		return schedule;
+	}
+	public void setSchedule(Boolean schedule) {
+		this.schedule = schedule;
 	}
 	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getMenuImage() {
-		return menuImage;
-	}
-	public void setMenuImage(String menuImage) {
-		this.menuImage = menuImage;
-	}
-	
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	
-	public Boolean getActive() {
-		return active;
-	}
-	public void setActive(Boolean active) {
-		this.active = active;
-	}	
-	*/
 }

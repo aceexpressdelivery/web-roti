@@ -679,7 +679,21 @@ THE SECTION BELOW ENTITLED "DISPUTE RESOLUTION" HAS A MANDATORY ARBITRATION PROV
                     <input type="text" class="form-control" name="menu_name" id="menu_name"/>
                 </div>
              
-               
+             	<div class="form-group col-md-12">
+	                    <div class="dropdown">
+					        <button id="select_active_inactive" class="btn dropdown-toggle" type="button" style="width:150px;background-color:#eec591" data-toggle="dropdown">
+					            Select
+					            <span class="caret"></span>
+					        </button>
+					        <ul id="dd_active_inactive" class="dropdown-menu" style="width:150px">
+							
+					            <li><a id="radio_btn">Active</a></li>
+					            <li><a id="check_box">InActive</a></li>
+					            
+					        </ul>
+	    				</div>
+				</div>
+				
                 <div class="form-group col-md-6">
                     <label>Group Number</label>
                     <input type="text" class="form-control" name="groupNumber" id="groupNumber"  onkeypress="return isNumber(event)"/>
@@ -729,159 +743,171 @@ THE SECTION BELOW ENTITLED "DISPUTE RESOLUTION" HAS A MANDATORY ARBITRATION PROV
     </div>
   </div>
   
-  <div class="modal fade" id="myModal_edit_menu" role="dialog">
-    <div class="modal-dialog">
+<div class="modal fade" id="myModal_edit_menu" role="dialog">
+	<div class="modal-dialog">
     
-    
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="margin-left:200px">Edit Menu</h4>
-        </div>
-        <div class="modal-body">
-          <div id="hidemenuid" style="display:none"></div>
-		  <div class="form-group col-md-12">
-                    <label>Menu name</label>
-                    <input type="text" class="form-control" name="edit_menu_name" id="edit_menu_name"/>
-                </div>
-               
-               
-                <div class="form-group col-md-6">
-                    <label>Group Number</label>
-                    <input type="text" class="form-control" name="edit_groupNumber" id="edit_groupNumber"  onkeypress="return isNumber(event)"/>
-                </div>
-				 <div class="form-group col-md-offset-6">
-                    <label>Group Name:</label>
-                    <input type="text" class="form-control" name="edit_groupName" id="edit_groupName" />
-                </div>
-				
-				<div class="form-group col-md-6">
-                    <label>Group Menu Number:</label>
-                    <input type="text" class="form-control" name="edit_groupMenuNumber" id="edit_groupMenuNumber"  onkeypress="return isNumber(event)" />
-                </div>
-				<div class="form-group col-md-offset-6">
-                    <label>Base Price:</label>
-                    <input type="text" class="form-control" name="edit_baseprice" id="edit_baseprice" onkeypress="return isNumber(event)"/>
-                </div>
-				
-				<div class="form-group col-md-6">
-                    <label>Sales Price:</label>
-                    <input type="text" class="form-control" name="edit_salesprice" id="edit_salesprice" onkeypress="return isNumber(event)"/>
-                </div>
-				
-				 <div class="form-group col-md-offset-6">
-                    <label>Restaurant Price:</label>
-                    <input type="text" class="form-control" name="edit_restaurantprice" id="edit_restaurantprice" onkeypress="return isNumber(event)"/>
-                </div>
-				
+	    <div class="modal-content">
+			<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	         	<h4 class="modal-title" style="margin-left:200px">Edit Menu</h4>
+	        </div>
+	        <div class="modal-body">
+	        	<div id="hidemenuid" style="display:none"></div>
+	        	
 				<div class="form-group col-md-12">
-                    <label>Description:</label>
-                    <input type="text" class="form-control" name="edit_description" id="edit_description"/>
-                </div>
-				
-               <div class="form-group col-md-12">
-                    <label>Image</label>
-                    <input type="text" class="form-control" name="edit_menuImage" id="edit_menuImage"/>
-                </div>
-		  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="submit_edit_menu">Save</button>
-		    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
+	                    <label>Menu name</label>
+	                    <input type="text" class="form-control" name="edit_menu_name" id="edit_menu_name"/>
+	            </div>
+	            
+	            	<div class="form-group col-md-12">
+	                    <div class="dropdown">
+					        <button id="select_active_inactive_edit" class="btn dropdown-toggle" type="button" style="width:150px;background-color:#eec591" data-toggle="dropdown">
+					            Select
+					            <span class="caret"></span>
+					        </button>
+					        <ul id="dd_active_inactive_edit" class="dropdown-menu" style="width:150px">
+							
+					            <li><a id="radio_btn">Active</a></li>
+					            <li><a id="check_box">InActive</a></li>
+					            
+					        </ul>
+	    				</div>
+				</div>
+	                          
+	           	<div class="form-group col-md-6">
+	                    <label>Group Number</label>
+	                    <input type="text" class="form-control" name="edit_groupNumber" id="edit_groupNumber"  onkeypress="return isNumber(event)"/>
+	           	</div>
+				<div class="form-group col-md-offset-6">
+	                    <label>Group Name:</label>
+	                    <input type="text" class="form-control" name="edit_groupName" id="edit_groupName" />
+	           	</div>
+					
+				<div class="form-group col-md-6">
+	                    <label>Group Menu Number:</label>
+	                    <input type="text" class="form-control" name="edit_groupMenuNumber" id="edit_groupMenuNumber"  onkeypress="return isNumber(event)" />
+	            </div>
+				<div class="form-group col-md-offset-6">
+	                    <label>Base Price:</label>
+	                    <input type="text" class="form-control" name="edit_baseprice" id="edit_baseprice" onkeypress="return isNumber(event)"/>
+	            </div>
+					
+				<div class="form-group col-md-6">
+	                    <label>Sales Price:</label>
+	                    <input type="text" class="form-control" name="edit_salesprice" id="edit_salesprice" onkeypress="return isNumber(event)"/>
+	            </div>
+					
+				<div class="form-group col-md-offset-6">
+	                    <label>Restaurant Price:</label>
+	                    <input type="text" class="form-control" name="edit_restaurantprice" id="edit_restaurantprice" onkeypress="return isNumber(event)"/>
+	            </div>
+					
+				<div class="form-group col-md-12">
+	                    <label>Description:</label>
+	                    <input type="text" class="form-control" name="edit_description" id="edit_description"/>
+	            </div>
+					
+	            <div class="form-group col-md-12">
+	                    <label>Image</label>
+	                    <input type="text" class="form-control" name="edit_menuImage" id="edit_menuImage"/>
+	            </div>
+			  
+	        </div>
+	        <div class="modal-footer">
+	          	<button type="button" class="btn btn-primary" id="submit_edit_menu">Save</button>
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        </div>
+		</div>      
+	</div>
+</div>
   
-  
-  
-  
-  
-  
-  <div class="modal fade" id="myModal_add_section" role="dialog">
+
+<div class="modal fade" id="myModal_add_section" role="dialog">
     <div class="modal-dialog">
-    
-    
-      <div class="modal-content" style="width:450px">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" style="margin-left:200px">Select sections</h4>
-        </div>
-        <div class="modal-body">
-          
-		  
-				 <div>
-				<div class="form-group">
-				                   
-                    <input type="text" class="form-control" name="section_text1" id="section_text1" placeholder="Heading 1" style="width:300px"/>
-                </div>
+      	<div class="modal-content" style="width:450px">
+        	<div class="modal-header">
+          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+          		<h4 class="modal-title" style="margin-left:200px">Select sections</h4>
+        	</div>
+        	<div class="modal-body">
+				<div>
+					<div class="form-group">           
+                    	<input type="text" class="form-control" name="section_text1" id="section_text1" placeholder="Heading 1" style="width:300px"/>
+                	</div>
                
-				<div class="form-group">
-                    <div class="dropdown">
-        <button id="select_section" class="btn dropdown-toggle" type="button" style="width:150px;background-color:#eec591" data-toggle="dropdown">
-            Select
-            <span class="caret"></span>
-        </button>
-        <ul id="dd_section" class="dropdown-menu" style="width:150px">
-		
-            <li><a id="radio_btn">Radio Button</a></li>
-            <li><a id="check_box">Checkbox</a></li>
-            
-        </ul>
-    </div>
-	</div></div>
+					<div class="form-group">
+	                    <div class="dropdown">
+					        <button id="select_section" class="btn dropdown-toggle" type="button" style="width:150px;background-color:#eec591" data-toggle="dropdown">
+					            Select
+					            <span class="caret"></span>
+					        </button>
+					        <ul id="dd_section" class="dropdown-menu" style="width:150px">
+							
+					            <li><a id="radio_btn">Radio Button</a></li>
+					            <li><a id="check_box">Checkbox</a></li>
+					            
+					        </ul>
+	    				</div>
+					</div>
+				</div>
 	
-	<div class="col-md-12">
-				 <div class="form-group col-md-6">
-				 <input type="text" id="type1" class="form-control" style="width:200px;" placeholder="Type 1"/>
+				<div class="col-md-12">
+					<div class="form-group col-md-6">
+						<input type="text" id="type1" class="form-control" style="width:200px;" placeholder="Type 1"/>
+					</div>
+					
+					<div class="form-group col-md-6">
+	                   	<input type="text" class="form-control" name="section_price1" style="width:100px;float:right" id="section_price1" placeholder="Price 1"  onkeypress="return isNumber(event)" />
+	                </div><br/>
+	                
+					<div class="form-group col-md-6">
+						<input type="text" id="type2" class="form-control" style="width:200px" placeholder="Type 2"/>
+					</div>
+					
+					<div class="form-group col-md-6">
+	                   	<input type="text" class="form-control" name="section_price2" style="width:100px;float:right" id="section_price2" placeholder="Price 2"  onkeypress="return isNumber(event)" />
+	                </div><br/>
+	                
+					<div class="form-group col-md-6">
+						<input type="text" id="type3" class="form-control" style="width:200px" placeholder="Type 3"/>
+					</div> 
+					
+					<div class="form-group col-md-6">
+	                   	<input type="text" class="form-control" name="section_price3" style="width:100px;float:right" id="section_price3" placeholder="Price 3"  onkeypress="return isNumber(event)" />
+	                </div><br/>
+	                
+					<div class="form-group col-md-6">
+						<input type="text" id="type4" class="form-control" style="width:200px" placeholder="Type 4"/>
+					</div> 
+					
+					<div class="form-group col-md-6">
+	                   	<input type="text" class="form-control" name="section_price4" style="width:100px;float:right" id="section_price4" placeholder="Price 4"  onkeypress="return isNumber(event)" />
+	                </div><br/>
+	                
+					<div class="form-group col-md-6">
+					 	<input type="text" id="type5" class="form-control" style="width:200px" placeholder="Type 5"/>
+					 </div> 
+					 
+					<div class="form-group col-md-6">
+	                   	<input type="text" class="form-control" name="section_price5" style="width:100px;float:right" id="section_price5" placeholder="Price 5"  onkeypress="return isNumber(event)" />
+	                </div><br/>
+	                
+					<div class="form-group col-md-6">
+					 	<input type="text" id="type6" class="form-control" style="width:200px" placeholder="Type 6"/>
+					 </div>
+					 
+					<div class="form-group col-md-6">
+	                   	<input type="text" class="form-control" name="section_price6" style="width:100px;float:right" id="section_price6" placeholder="Price 6"  onkeypress="return isNumber(event)" />
+	                </div><br/>
 				</div>
-				<div class="form-group col-md-6">
-                   <input type="text" class="form-control" name="section_price1" style="width:100px;float:right" id="section_price1" placeholder="Price 1"  onkeypress="return isNumber(event)" />
-                </div><br/>
-				<div class="form-group col-md-6">
-				<input type="text" id="type2" class="form-control" style="width:200px" placeholder="Type 2"/>
-				</div>
-				<div class="form-group col-md-6">
-                   <input type="text" class="form-control" name="section_price2" style="width:100px;float:right" id="section_price2" placeholder="Price 2"  onkeypress="return isNumber(event)" />
-                </div><br/>
-				<div class="form-group col-md-6">
-				<input type="text" id="type3" class="form-control" style="width:200px" placeholder="Type 3"/>
-				</div> 
-				<div class="form-group col-md-6">
-                   <input type="text" class="form-control" name="section_price3" style="width:100px;float:right" id="section_price3" placeholder="Price 3"  onkeypress="return isNumber(event)" />
-                </div><br/>
-				<div class="form-group col-md-6">
-				<input type="text" id="type4" class="form-control" style="width:200px" placeholder="Type 4"/>
-				</div> 
-				<div class="form-group col-md-6">
-                   <input type="text" class="form-control" name="section_price4" style="width:100px;float:right" id="section_price4" placeholder="Price 4"  onkeypress="return isNumber(event)" />
-                </div><br/>
-				<div class="form-group col-md-6">
-				 <input type="text" id="type5" class="form-control" style="width:200px" placeholder="Type 5"/>
-				 </div> 
-				<div class="form-group col-md-6">
-                   <input type="text" class="form-control" name="section_price5" style="width:100px;float:right" id="section_price5" placeholder="Price 5"  onkeypress="return isNumber(event)" />
-                </div><br/>
-				<div class="form-group col-md-6">
-				 <input type="text" id="type6" class="form-control" style="width:200px" placeholder="Type 6"/>
-				 </div>
-				 
-				<div class="form-group col-md-6">
-                   <input type="text" class="form-control" name="section_price6" style="width:100px;float:right" id="section_price6" placeholder="Price 6"  onkeypress="return isNumber(event)" />
-                </div><br/>
 			</div>
-				
-				
-				
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="submit_add_section">Save</button>
-		    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-      
-    </div></div>
+        	<div class="modal-footer">
+          		<button type="button" class="btn btn-primary" id="submit_add_section">Save</button>
+		    	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        	</div>
+		</div>
+	</div>
+</div>
 	
 	
 		<div class="modal fade" id="myModal_edit_section" role="dialog">

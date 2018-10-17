@@ -362,64 +362,7 @@ $('[data-toggle="tooltip"]').tooltip();
 		$('#myModal_add_section').on('hidden.bs.modal', function () {
 				$('.modal-body').find('lable,input,textarea').val('');
 		});
-		 
-		
 
-	/*$("#logohome").on('click', function(e) {
-						
-						if(theTotal==0)
-						{
-						//$('#home').prop('disabled', false);
-						$("#logohome").html('<a href="'+pageURL+'"></a>');
-						}
-		
-						else
-						{
-				var r = confirm("Your cart will be dismissed. Are you sure you want to go to the home page?");
-				if (r == true) 
-				{
-				// $('#home').prop('disabled', false);
-				$("#logohome").html('<a href="'+pageURL+'"></a>');
-				} 
-				else 
-				{
-				e.preventDefault();
-				}
-						}					
-		});
-		
-		$("#gohome").on('click', function(e) {
-						
-						if(theTotal==0)
-						{
-						//$('#home').prop('disabled', false);
-						$("#gohome").html('<a href="'+pageURL+'"></a>');
-						}
-		
-						else
-						{
-				var r = confirm("Your cart will be dismissed. Are you sure you want to go to the home page?");
-				if (r == true) 
-				{
-				// $('#home').prop('disabled', false);
-				$("#gohome").html('<a href="'+pageURL+'"></a>');
-				}
-				else 
-				{
-				e.preventDefault();
-				}
-						}					
-		});*/
-	
-	/*$("#login_btn").click(function(e){
-		
-		$("#portal").css("display","none");
-		$("#welcome_portal").css("display","block");
-		
-	});*/
-		
-
-	
 	$("#submit_login").click(function(e){
 		var login_user=$("#login_user").val();
 		var login_pass=$("#login_pass").val();
@@ -460,8 +403,8 @@ $('[data-toggle="tooltip"]').tooltip();
 							$('#hide_merchantid').text(u_id);
 							$('#hide_merchantfname').text(u_fname);
 							$("#portal").css("display","none");
-		$("#welcome_portal").css("display","block");
-		$("#myModal_login").modal('hide');
+							$("#welcome_portal").css("display","block");
+							$("#myModal_login").modal('hide');
 						}
 						   
 			}, 
@@ -520,7 +463,7 @@ $('[data-toggle="tooltip"]').tooltip();
 					$('#logged_in').html('<p class="fa fa-user-circle-o" style="font-size:24px"></p>'+' '+firstname);
 					$('#nameofuser').html(' '+email);
 					$("#portal").css("display","none");
-		$("#welcome_portal").css("display","block");
+					$("#welcome_portal").css("display","block");
 					$('#phone_delivery').val(phone);
 					$('#name_delivery').val(firstname+" "+lastname);
 					
@@ -564,35 +507,38 @@ $("#sign_out").click(function(e){
 			$.each(data, function(key, value) {
 			
 				html='<tr id="'+value['id']+'" zipBustypeMerchantId="'+value['zipBustypeMerchantId']+'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
-				'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+value['name']+'</td><td  style="width:100px;padding-left: 10px;">'+value['managerName']+'</td>'+
-				'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+ value['email']+'</td><td style="width:100px;padding-left: 10px;">'+ value['phone']+
-				'</td><td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+
-				value['address']+'</td><td style="display:none">'+value['city']+'</td><td style="display:none">'+value['state']+'</td><td style="display:none">'+value['zip']+
-				'</td><td style="display:none">'+value['tagLine']+'</td><td style="display:none">'+value['opencloseTime']+'</td><td style="display:none">'+
-				value['timeRange']+'</td><td style="display:none">'+value['pricelevel']+'</td><td style="display:none">'+value['image']+'</td>'+
-				'<td style="display:none">'+value['contractPercent']+'</td><td style="display:none">'+value['active']+
+				'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+value['name']+'</td>'+
+				'<td  style="width:100px;padding-left: 10px;">'+value['managerName']+'</td>'+
+				'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+ value['email']+'</td>'+
+				'<td style="width:100px;padding-left: 10px;">'+ value['phone']+'</td>'+
+				'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+value['address']+'</td>'+
+				'<td style="display:none">'+value['city']+'</td>'+
+				'<td style="display:none">'+value['state']+'</td>'+
+				'<td style="display:none">'+value['zip']+'</td>'+
+				'<td style="display:none">'+value['tagLine']+'</td>'+
+				'<td style="display:none">'+value['opencloseTime']+'</td>'+
+				'<td style="display:none">'+value['timeRange']+'</td>'+
+				'<td style="display:none">'+value['pricelevel']+'</td>'+
+				'<td style="display:none">'+value['image']+'</td>'+
+				'<td style="display:none">'+value['contractPercent']+'</td>'+
+				'<td style="display:none">'+value['active']+
 				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn showhover" id="show_menu"'+
-				'style="border-color:blue;background-color:white;color:blue;width:80px;">Menu</button></td>'+
+					'style="border-color:blue;background-color:white;color:blue;width:80px;">Menu</button></td>'+
 				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn showhover" id="edit_details" '+
-				'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+					'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
 				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn showhover" id="delete_restaurant"'+
-				'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td>'+
+					'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td>'+
 				'</tr>';
 		
 				
 				$('#table_rest').append(html);
 			});
-			
-				
-                    $('#table_rest tr td').each(function (k, cellObj) {
+            $('#table_rest tr td').each(function (k, cellObj) {
                         this.setAttribute('title', cellObj.innerText);
                         this.setAttribute('data-toggle', "tooltip");
 						this.setAttribute('data-placement', "top");
-                    });
-                
-				
-			
-							
+            });
+               			
 		}, 
        error: function() {
     //       alert('Something went wrong');
@@ -600,7 +546,6 @@ $("#sign_out").click(function(e){
 	   
    });
 });
-
 
 
 $('#table_rest').on('click', '#edit_details', function () {
@@ -733,19 +678,27 @@ $('#table_rest').on('click', '#edit_details', function () {
 					//		alert(ID);
 						
 		
-				$('#'+ID).html('<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+edit_restaurantname+'</td><td style="width:100px;padding-left: 10px;">'+edit_managername+'</td>'+
-				'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+ edit_rest_email+'</td><td style="width:100px;padding-left: 10px;">'+ edit_rest_phone+
-				'</td><td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+
-				edit_rest_address+'</td><td style="display:none">'+edit_rest_city+'</td><td style="display:none">'+edit_rest_state+'</td><td style="display:none">'+edit_rest_zip+
-				'</td><td style="display:none">'+edit_rest_tagline+'</td><td style="display:none">'+edit_rest_openclosetime+'</td><td style="display:none">'+
-				edit_rest_timerange+'</td><td style="display:none">'+edit_rest_pricelevel+'</td><td style="display:none">'+edit_rest_image+'</td>'+
-				'<td style="display:none">'+edit_contractpercent+'</td><td style="display:none"></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="show_menu"'+
-				'style="border-color:blue;background-color:white;color:blue;width:80px;">Menu</button></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_details" '+
-				'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_restaurant"'+
-				'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>');
+					$('#'+ID).html('<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+edit_restaurantname+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+edit_managername+'</td>'+
+						'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+ edit_rest_email+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+ edit_rest_phone+'</td>'+
+						'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+edit_rest_address+'</td>'+
+						'<td style="display:none">'+edit_rest_city+'</td>'+
+						'<td style="display:none">'+edit_rest_state+'</td>'+
+						'<td style="display:none">'+edit_rest_zip+'</td>'+
+						'<td style="display:none">'+edit_rest_tagline+'</td>'+
+						'<td style="display:none">'+edit_rest_openclosetime+'</td>'+
+						'<td style="display:none">'+edit_rest_timerange+'</td>'+
+						'<td style="display:none">'+edit_rest_pricelevel+'</td>'+
+						'<td style="display:none">'+edit_rest_image+'</td>'+
+						'<td style="display:none">'+edit_contractpercent+'</td>'+
+						'<td style="display:none"></td>'+
+						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="show_menu"'+
+							'style="border-color:blue;background-color:white;color:blue;width:80px;">Menu</button></td>'+
+						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_details" '+
+							'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_restaurant"'+
+							'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>');
 				
 				
 							$("#myModal_edit_restaurant").modal('hide');	
@@ -826,21 +779,25 @@ $('#table_rest').on('click', '#edit_details', function () {
 						console.log(data);
 							
 						$('#table_rest').last().append('<tr id="'+data+'" zipBustypeMerchantId="'+zip_ID+'" style="border:1px solid #dadada;margin-bottom:1.1em;">'+
-						'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+name+
-						'</td><td style="width:100px;padding-left: 10px;">'+managername+'</td>'+
-						'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+ rest_email+
-						'</td><td style="width:100px;padding-left: 10px;">'+ rest_phone+
-						'</td><td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+
-						address+'</td><td style="display:none">'+city+'</td><td style="display:none">'+state+'</td><td style="display:none">'+zip+
-						'</td><td style="display:none">'+tagLine+'</td><td style="display:none">'+opencloseTime+'</td><td style="display:none">'+
-						timeRange+'</td><td style="display:none">'+pricelevel+'</td><td style="display:none">'+image+'</td>'+
-						'<td style="display:none">'+rest_contractpercent+'</td><td style="display:none"></td>'+
+						'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+name+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+managername+'</td>'+
+						'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+ rest_email+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+ rest_phone+'</td>'+
+						'<td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+address+'</td>'+
+						'<td style="display:none">'+city+'</td><td style="display:none">'+state+'</td><td style="display:none">'+zip+'</td>'+
+						'<td style="display:none">'+tagLine+'</td>'+
+						'<td style="display:none">'+opencloseTime+'</td>'+
+						'<td style="display:none">'+timeRange+'</td>'+
+						'<td style="display:none">'+pricelevel+'</td>'+
+						'<td style="display:none">'+image+'</td>'+
+						'<td style="display:none">'+rest_contractpercent+'</td>'+
+						'<td style="display:none"></td>'+
 						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="show_menu"'+
-						'style="border-color:blue;background-color:white;color:blue;width:80px;">Menu</button></td>'+
+							'style="border-color:blue;background-color:white;color:blue;width:80px;">Menu</button></td>'+
 						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_details" '+
-						'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+							'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
 						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_restaurant"'+
-						'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>');
+							'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>');
 			
 						$("#myModal_add_restaurant").modal('hide');	
 					},
@@ -851,65 +808,90 @@ $('#table_rest').on('click', '#edit_details', function () {
 				});	 
 		}
     });
-           
-		   $('#table_rest').on('click', '#delete_restaurant', function (){
-		   //$("#delete_restaurant").on('click', function(e) {
-			    var par = $(this).parent().parent();
-				var ID =$(this).closest('tr').attr('id');
-		  $.ajax({
-    	            url: "/delivery/merchants/deleteRestaurant",
-    	            data: {"id":ID},
-    	            type:'GET',
-    	            cache:false,
-    	            success:function(data){
-						alert("Deleted successfully");
-    	              console.log(data); 
-					  $('#'+ID).empty();
-					},
-    	            error:function(){
+    
+    $('#table_rest').on('click', '#delete_restaurant', function (){
+		//$("#delete_restaurant").on('click', function(e) {
+		var par = $(this).parent().parent();
+		var ID =$(this).closest('tr').attr('id');
+		$.ajax({
+    	        url: "/delivery/merchants/deleteRestaurant",
+    	        data: {"id":ID},
+    	        type:'GET',
+    	        cache:false,
+    	        success:function(data){
+					alert("Deleted successfully");
+    	            console.log(data); 
+    	            $('#'+ID).empty();
+				},
+    	        error:function(){
     	              //alert('error');
-    	            }
-    	         });
+    	        }
 		});
+    });
 		
-		$('#table_menu').on('click', '#delete_menu', function (){
+	$('#table_menu').on('click', '#delete_menu', function (){
+		//$("#delete_restaurant").on('click', function(e) {
+		var par = $(this).parent().parent();
+		var ID =$(this).closest('tr').attr('menuid');
+		
+		console.log('ID:'+ID);
+		
+		$.ajax({
+			url: "/delivery/merchants/deleteMenu",
+			data: {"id":ID},
+			type:'GET',
+			cache:false,
+			success:function(data){
+				alert("Deleted successfully");
+				console.log(data); 
+				$('#'+ID).empty();
+			},
+			error:function(){
+				//alert('error');
+			}
+		});
+	});
+	
+	
+	
+	/*$('#table_menu').on('click', '#delete_menu', function (){
 		   //$("#delete_restaurant").on('click', function(e) {
 			    var par = $(this).parent().parent();
 				var ID =$(this).closest('tr').attr('menuid');
 		  $.ajax({
-    	            url: "/delivery/merchants/deleteMenu",
-    	            data: {"id":ID},
-    	            type:'GET',
-    	            cache:false,
-    	            success:function(data){
+ 	            url: "/delivery/merchants/deleteMenu",
+ 	            data: {"id":ID},
+ 	            type:'GET',
+ 	            cache:false,
+ 	            success:function(data){
 						alert("Deleted successfully");
-    	              console.log(data); 
+ 	              console.log(data); 
 					  $('#'+ID).empty();
 					},
-    	            error:function(){
-    	              //alert('error');
-    	            }
-    	         });
-		});
+ 	            error:function(){
+ 	              //alert('error');
+ 	            }
+ 	         });
+		});*/
 		
-			$('#table_section').on('click', '#delete_section', function (){
-				var par = $(this).parent().parent();
-				var ID =$(this).closest('tr').attr('id');
-		  $.ajax({
-    	            url: "/delivery/merchants/deleteMenuSection",
-    	            data: {"id":ID},
-    	            type:'GET',
-    	            cache:false,
-    	            success:function(data){
-						alert("Deleted successfully");
-    	              console.log(data); 
-					  $('#'+ID).empty();
-					},
-    	            error:function(){
-    	              //alert('error');
-    	            }
-    	         });
+	$('#table_section').on('click', '#delete_section', function (){
+		var par = $(this).parent().parent();
+		var ID =$(this).closest('tr').attr('id');
+		$.ajax({
+    	     url: "/delivery/merchants/deleteMenuSection",
+    	     data: {"id":ID},
+    	     type:'GET',
+    	     cache:false,
+    	     success:function(data){
+				alert("Deleted successfully");
+    	        console.log(data); 
+    	        $('#'+ID).empty();
+			},
+    	    error:function(){
+    	         //alert('error');
+    	    }
 		});
+	});
 		
 	$("#go_to_welcome_pg").click(function(e){
 		
@@ -917,20 +899,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 	    $("#summary_page").css("display","none");
 		$("#welcome_portal").css("display","block");
 	});	
-/*	$('#table_summary').on('click', '#go_back', function (){
-		
-		//$("#rest_page").css("display","none");
-	    $("#summary_page").css("display","none");
-		$("#welcome_portal").css("display","block");
-	});	
-	
-	$('#table_report').on('click', '#report_go_back', function (){
-		
-		//$("#rest_page").css("display","none");
-	    $("#report_page").css("display","none");
-		$("#welcome_portal").css("display","block");
-	});	 */
-	
+
 	$(".go_back").click(function(e){
 		$("#report_page").css("display","none");
 		$("#summary_page").css("display","none");
@@ -944,7 +913,6 @@ $('#table_rest').on('click', '#edit_details', function () {
 	});		
 	
 	$('#table_rest').on('click', '#show_menu', function (){
-	
 		var	ID =$(this).closest('tr').attr('id');	
 		$("#rest_page").css("display","none");
 		$("#menu_page").css("display","block");
@@ -956,45 +924,91 @@ $('#table_rest').on('click', '#edit_details', function () {
 			type: "GET",
 			data: {"id":ID},
 			success: function(data) {
-			
 				
-			   $('#table_menu').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
-		   '<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Name</label></td>'+
-		   '<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Description</label></td>'+
-		   '<td style="width:200px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Base Price</label></td>'+
-		   '<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Sales Price</label></td>'+
-		   '<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Restaurant Price</label></td>'+
-		   '<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Section</label></td>'+
-		   '<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Edit</label></td>'+
-		   '<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Delete</label></td></tr>');
+				console.log('success:'+data);
+				
+				$('#table_menu').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Name</label></td>'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Description</label></td>'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Base Price</label></td>'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Sales Price</label></td>'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Restaurant Price</label></td>'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Status</label></td>'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Edit</label></td>'+
+						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Delete</label></td></tr>');
 		   
-				$.each(data, function(key, value) {	
-				
-					html='<tr restid="'+ID+'" menuid="'+value['id']+'" restaurantBustypeId="'+ value['restaurantBustypeId']+
-					'" style="border:1px solid #dadada;margin-bottom:1.1em"><td style="width:100px;height:50px;display:none">'+value['groupMenuNumber']+
-					'</td><td style="width:100px;display:none">'+ value['groupNumber']+'</td><td style="width:100px;display:none">'+ value['groupName']+'</td>'+
-					'<td style="width:100px;padding-left: 10px;">'+value['name']+'</td><td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+value['description']+
-					'</td><td style="width:100px;padding-left: 10px;">'+value['basePrice']+
-					'</td><td style="width:100px;padding-left: 10px;">'+value['salesPrice']+'</td><td style="width:100px;padding-left: 10px;">'+value['restaurantPrice']+
-					'</td><td style="display:none">'+value['menuImage']+'</td><td style="width:100px;height:50px;display:none"><a id="go_to_section_pg">'+
-					'Sections</a></td><td style="display:none"><input type="checkbox" value="'+value['active']+'"/></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="go_to_section_pg"'+
-					'style="border-color:blue;background-color:white;color:blue;width:80px;">Section</button></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
-				    'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
-					'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>';
+				$.each(data, function(key, value) {
 					
-					$('#table_menu').append(html);
+					console.log(key,value);
+					console.log("active:"+value.active);
+					
+					//var Ststval='InActive';
+					if(value['active']==true){
+						var Ststval='Active';
+					}else if(value['active']==false){
+						var Ststval='InActive';
+					}
+					
+				
+					
+					
+					html='<tr restid="'+ID+'" menuid="'+value['id']+'" restaurantBustypeId="'+ value['restaurantBustypeId']+
+							'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
+						'<td style="width:100px;height:50px;display:none">'+value['groupMenuNumber']+'</td>'+
+						'<td style="width:100px;display:none">'+ value['groupNumber']+'</td>'+
+						'<td style="width:100px;display:none">'+ value['groupName']+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+value['name']+'</td>'+
+						'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+value['description']+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+value['basePrice']+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+value['salesPrice']+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+value['restaurantPrice']+'</td>'+
+						'<td style="display:none">'+value['menuImage']+'</td>'+
+						//'<td style="width:100px;height:50px;display:none"><a id="go_to_section_pg">'+'Sections</a></td>'+
+						//'<td style="display:none"><input type="checkbox" value="'+Ststval+'"/></td>'+
+						
+						'<td style="width:100px;padding-left: 10px;">'+Ststval+'</td>'+
+							
+						/*'<td style="width:100px;height:50px;padding-left: 10px;">'+
+							'<div class="dropdown">'+
+								'<button id="select_active_inactive_edit" class="btn dropdown-toggle" type="button" data-toggle="dropdown"'+
+									'style="border-color:blue;background-color:white;color:blue;width:150px;">Select<span class="caret"></span>'+
+								'</button>'+
+								'<ul id="dd_active_inactive_edit" class="dropdown-menu" style="width:150px">'+
+									'<li><a id="radio_btn">Active</a></li><li><a id="check_box">InActive</a>'+
+									'</li>'+
+								'</ul>'+
+							'</div>'+
+						'</td>'+*/
+						
+						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
+					    	'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
+							'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>';
+					
+						$('#table_menu').append(html);
+						//go_to_section_pg
+						
+						/*<div class="form-group col-md-12">
+	                    <div class="dropdown">
+					        <button id="select_active_inactive_edit" class="btn dropdown-toggle" type="button" style="width:150px;background-color:#eec591" data-toggle="dropdown">
+					            Select
+					            <span class="caret"></span>
+					        </button>
+					        <ul id="dd_active_inactive_edit" class="dropdown-menu" style="width:150px">
+							
+					            <li><a id="radio_btn">Active</a></li>
+					            <li><a id="check_box">InActive</a></li>
+					            
+					        </ul>
+	    				</div>
+	    				*/
 					
 					});
-					  $('#table_menu tr td').each(function (k, cellObj) {
+					$('#table_menu tr td').each(function (k, cellObj) {
                         this.setAttribute('title', cellObj.innerText);
                         this.setAttribute('data-toggle', "tooltip");
 						this.setAttribute('data-placement', "top");
-                    });
-                
-								
+                    });		
 			}, 
 			error: function() {
 			//   alert('Something went wrong');
@@ -1016,6 +1030,16 @@ $('#table_rest').on('click', '#edit_details', function () {
 		){
 			fill_menu();
 		} else {
+			
+			var select_active_inactive=	$("#select_active_inactive").text();	
+			if(select_active_inactive=="Active"){
+				var active="true";
+			} else if(select_active_inactive=="InActive"){
+				var active="false";
+			}
+			
+			alert("active:"+active);
+			
 			var count = $('#table_menu tr').length;				
 			var groupNumber = $("#groupNumber").val();
 			var groupName = $("#groupName").val();
@@ -1027,7 +1051,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 			var salesprice	= $("#salesprice").val();
 			var restaurantprice	= $("#restaurantprice").val();
 			var restaurantBustypeId;
-			var active;
+			//var active;
 				  		
 			var jsonObj ={ 
 					//"id":ID,
@@ -1040,10 +1064,11 @@ $('#table_rest').on('click', '#edit_details', function () {
 					"menuImage":menuImage,
 					"basePrice":baseprice,
 					"salesPrice":salesprice,
-					"restaurantPrice":restaurantprice
+					"restaurantPrice":restaurantprice,
+					"active":active
 			}; 
 										
-		//	alert("menu add test");			
+			//alert("menu add test");			
 			$.ajax({
 	                    url:  "/delivery/merchants/addMenu",
 						contentType: "application/json",
@@ -1052,33 +1077,39 @@ $('#table_rest').on('click', '#edit_details', function () {
 						dataType: 'json',
 	                    success: function (data) {
 	                      //  alert('success'+data);
-							console.log(data);
-							
-							/*html='<tr menuid="'+data+'" restaurantBustypeId="'+ID+'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
-							'<td style="width:100px;height:50px;padding-left:20px"><button type="button" class="btn" id="edit_menu">'+
-							'Edit</button></td><td style="width:100px;height:50px;">'+groupMenuNumber+'</td><td style="width:100px">'+ groupNumber+
-							'</td><td style="width:100px">'+ groupName+'</td>'+
-							'<td style="width:100px">'+name+'</td><td style="width:100px">'+description+'</td><td style="width:100px">'+baseprice+
-							'</td><td style="width:100px">'+salesprice+'</td><td style="width:100px">'+restaurantprice+
-							'</td><td>'+menuImage+'</td><td style="width:100px;height:50px;"><a id="go_to_section_pg">Sections</a></td><td><input type="checkbox" value="'+
-							active+'"/></td></tr>';*/
+							console.log("sucess:"+data);
 			
-					html='<tr restid="'+ID+'" menuid="'+data+'" restaurantBustypeId="'+ ID+
-					'" style="border:1px solid #dadada;margin-bottom:1.1em"><td style="width:100px;height:50px;display:none">'+groupMenuNumber+
-					'</td><td style="width:100px;display:none">'+ groupNumber+'</td><td style="width:100px;display:none">'+ groupName+'</td>'+
-					'<td style="width:100px;padding-left: 10px;">'+name+'</td><td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+
-					description+'</td><td style="width:100px;padding-left: 10px;">'+baseprice+
-					'</td><td style="width:100px">'+salesprice+'</td><td style="width:100px;padding-left: 10px;">'+restaurantprice+
-					'</td><td style="display:none">'+menuImage+'</td><td style="width:100px;height:50px;display:none"><a id="go_to_section_pg">'+
-					'Sections</a></td><td style="display:none"><input type="checkbox" value="'+active+'"/></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="go_to_section_pg"'+
-					'style="border-color:blue;background-color:white;color:blue;width:80px;">Section</button></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
-				    'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
-					'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>';
-					
-					
+					html='<tr restid="'+ID+'" menuid="'+data+'" restaurantBustypeId="'+ ID+'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
+						'<td style="width:100px;height:50px;display:none">'+groupMenuNumber+'</td>'+
+						'<td style="width:100px;display:none">'+ groupNumber+'</td><td style="width:100px;display:none">'+ groupName+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+name+'</td>'+
+						'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+description+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+baseprice+'</td>'+
+						'<td style="width:100px">'+salesprice+'</td>'+
+						'<td style="width:100px;padding-left: 10px;">'+restaurantprice+'</td>'+
+						'<td style="display:none">'+menuImage+'</td>'+
+						//'<td style="width:100px;height:50px;display:none"><a id="go_to_section_pg">'+'Sections</a></td>'+
+						//'<td style="display:none"><input type="checkbox" value="'+active+'"/></td>'+
+						/*'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="go_to_section_pg"'+
+									'style="border-color:blue;background-color:white;color:blue;width:80px;">Section</button></td>'+*/
+						/*'<td style="width:100px;height:50px;padding-left: 10px;">'+
+							'<div class="dropdown">'+
+								'<button id="select_active_inactive_edit" class="btn dropdown-toggle" type="button" data-toggle="dropdown"'+
+									'style="border-color:blue;background-color:white;color:blue;width:150px;">Select<span class="caret"></span>'+
+								'</button>'+
+								'<ul id="dd_active_inactive_edit" class="dropdown-menu" style="width:150px">'+
+									'<li><a id="radio_btn">Active</a></li><li><a id="check_box">InActive</a>'+
+									'</li>'+
+								'</ul>'+
+							'</div>'+*/
+						'<td style="width:100px;padding-left: 10px;">'+value['active']+'</td>'+
+						'</td>'+
+						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
+					    			'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
+									'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td>'+
+						'</tr>';
+			
 							$('#table_menu').append(html);
 					
 							$("#myModal_add_menu").modal('hide');
@@ -1089,7 +1120,17 @@ $('#table_rest').on('click', '#edit_details', function () {
 			});		
 		}		
 	});
+	
+	
+	$("#dd_active_inactive").on('click', 'li', function () {
+		var selText = $(this).text();
+		$("#select_active_inactive").text(selText);
+	});
 	    
+	$("#dd_active_inactive_edit").on('click', 'li', function () {
+		var selText = $(this).text();
+		$("#select_active_inactive_edit").text(selText);
+	});
 	           
 	$('#table_menu').on('click', '#edit_menu', function () {
 		
@@ -1097,7 +1138,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 		var	ID =$(this).closest('tr').attr('menuid');
 		console.log("menuid "+ID);		
 		//alert(row);				 
-		 var text1 = row.find("td:nth-child(1)").text(); 
+		var text1 = row.find("td:nth-child(1)").text(); 
 		var text2 = row.find("td:nth-child(2)").text(); 
 		var text3 = row.find("td:nth-child(3)").text();
 		var text4 = row.find("td:nth-child(4)").text(); 
@@ -1110,19 +1151,18 @@ $('#table_rest').on('click', '#edit_details', function () {
 		var text11 = row.find("td:nth-child(11)").text();				 
 		var text12 = row.find("td:nth-child(12)").text();
 		
-			/*	  console.log("text1 "+text1);
-				  console.log("text2 "+text2);
-				  console.log("text3 "+text3);
-				  console.log("text4 "+text4);
-				  console.log("text5 "+text5);
-				  console.log("text6 "+text6);
-				  console.log("text7 "+text7);
-				  console.log("text8 "+text8);
-				  console.log("text9 "+text9);
-				  console.log("text10 "+text10);
-				  console.log("text11 "+text11);
-				  console.log("text12 "+text12);
-		*/
+		console.log("text1 "+text1);
+		console.log("text2 "+text2);
+		console.log("text3 "+text3);
+		console.log("text4 "+text4);
+		console.log("text5 "+text5);
+		console.log("text6 "+text6);
+		console.log("text7 "+text7);
+		console.log("text8 "+text8);
+		console.log("text9 "+text9);
+		console.log("text10 "+text10);
+		console.log("text11 "+text11);
+		console.log("text12 "+text12);
 		
 		$("#myModal_edit_menu").modal();	
 		$("#hidemenuid").text(ID);
@@ -1135,7 +1175,17 @@ $('#table_rest').on('click', '#edit_details', function () {
 		$("#edit_baseprice").val(text6);
 		$("#edit_salesprice").val(text7);
 		$("#edit_restaurantprice").val(text8);
-		//$("#active").val(text9);				
+		console.log("SSS="+text10);
+
+		var select=	$("#select_active_inactive_edit").text();
+		console.log("select ="+select);
+		if(text10=="Active"){
+			$("#select_active_inactive_edit").text('Active');
+		}else if(text10=="InActive"){
+			$("#select_active_inactive_edit").text('InActive');
+		}
+		
+		$("#active").val(text10);	
 	});
 	   
 	  
@@ -1152,6 +1202,9 @@ $('#table_rest').on('click', '#edit_details', function () {
 			edit_fill_menu();
 		} else {
 			var	ID =$("#hidemenuid").text();
+			
+			
+			
 			var count = $('#table_menu tr').length;				
 			var groupNumber = $("#edit_groupNumber").val();
 			var groupName = $("#edit_groupName").val();
@@ -1163,7 +1216,14 @@ $('#table_rest').on('click', '#edit_details', function () {
 			var salesprice	= $("#edit_salesprice").val();
 			var restaurantprice	= $("#edit_restaurantprice").val();
 			var restaurantBustypeId;
-			var active;			
+			var active = $("#active").val();
+			
+			var select_active_inactive=	$("#select_active_inactive_edit").text();	
+			if(select_active_inactive=='Active'){
+				var active="true";
+			} else if(select_active_inactive=='InActive'){
+				var active="false";
+			}
 			
 			
 			var jsonObj = { 
@@ -1177,7 +1237,8 @@ $('#table_rest').on('click', '#edit_details', function () {
 				"menuImage":menuImage,
 				"basePrice":baseprice,
 				"salesPrice":salesprice,
-				"restaurantPrice":restaurantprice
+				"restaurantPrice":restaurantprice,
+				"active":active
 			};
 			//alert(price);
 			console.log(jsonObj);
@@ -1191,33 +1252,35 @@ $('#table_rest').on('click', '#edit_details', function () {
                 //	alert('success'+data);
 					console.log(data);
 					
-		/*			$('#'+ID).html('<td style="width:100px;height:50px;padding-left:20px"><button type="button" class="btn" id="edit_menu">'+
+				
+					
+					/*$('#'+ID).html('<td style="width:100px;height:50px;padding-left:20px"><button type="button" class="btn" id="edit_menu">'+
 					'Edit</button></td><td style="width:100px;height:50px;">'+groupMenuNumber+'</td><td style="width:100px">'+ groupNumber+
 					'</td><td style="width:100px">'+ groupName+'</td>'+
 					'<td style="width:100px">'+name+'</td><td style="width:100px">'+description+'</td><td style="width:100px">'+baseprice+
 					'</td><td style="width:100px">'+salesprice+'</td><td style="width:100px">'+restaurantprice+
 					'</td><td>'+menuImage+'</td><td style="width:100px;height:50px;"><a id="go_to_section_pg">Sections</a></td><td><input type="checkbox" value="'+active+'"/></td>');
 	
-	*/
+					 	*/
 	
-	$("#myModal_edit_menu").modal('hide');	
+					$("#myModal_edit_menu").modal('hide');	
 	
-					$('#'+ID).html('<td style="width:100px;height:50px;display:none">'+groupMenuNumber+'</td><td style="width:100px;display:none">'+groupNumber+
-					'</td><td style="width:100px;display:none">'+ groupName+'</td>'+'<td style="width:100px;padding-left: 10px;">'+name+
-					'</td><td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left: 10px;">'+
-					description+'</td><td style="width:100px;padding-left: 10px;">'+baseprice+
-					'</td><td style="width:100px;padding-left: 10px;">'+salesprice+'</td><t style="width:100px;padding-left: 10px;">'+restaurantprice+
-					'</td><td style="display:none">'+menuImage+'</td><td style="width:100px;height:50px;display:none"><a id="go_to_section_pg">'+
-					'Sections</a></td><td style="display:none"><input type="checkbox" value="'+active+'"/></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="go_to_section_pg"'+
-					'style="border-color:blue;background-color:white;color:blue;width:80px;">Section</button></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
-				    'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
-					'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
-					'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td>');
-					
-					
-					
+					$('#'+ID).html('<td style="width:100px;height:50px;display:none">'+groupMenuNumber+'</td>'+
+							'<td style="width:100px;display:none">'+groupNumber+'</td>'+
+							'<td style="width:100px;display:none">'+ groupName+'</td>'+
+							'<td style="width:100px;padding-left: 10px;">'+name+'</td>'+
+							'<td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left: 10px;">'+description+'</td>'+
+							'<td style="width:100px;padding-left: 10px;">'+baseprice+'</td>'+
+							'<td style="width:100px;padding-left: 10px;">'+salesprice+'</td>'+
+							'<td style="width:100px;padding-left: 10px;">'+restaurantprice+'</td>'+
+							'<td style="display:none">'+menuImage+'</td>'+
+							'<td style="width:100px;padding-left: 10px;">'+value['active']+'</td>'+
+							'</td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
+								'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
+								'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td>');
+				
 				},
                 error: function () {
                         //alertify.error(err.statusText);
@@ -1305,11 +1368,9 @@ $('#table_rest').on('click', '#edit_details', function () {
 				'<td style="width:100px;height:50px;padding-left: 10px;">'+value['option6']+'</td>'+
 				'<td style="width:100px;height:50px;padding-left: 10px;">'+value['price6']+'</td>'+
 				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_section" '+
-				'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+					'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
 		        '<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_section"'+
-				'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>';
-					
-				
+					'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>';
 					
 					$('#table_section').append(html);
 				});
@@ -1340,6 +1401,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 		} else if(select_section=="Checkbox"){
 			var type="C";
 		}
+		
 		var section_text1 = $("#section_text1").val();
 		
 		var type1 = $("#type1").val();
@@ -1411,12 +1473,10 @@ $('#table_rest').on('click', '#edit_details', function () {
 				'<td style="width:100px;height:50px;padding-left: 10px;">'+type6+'</td>'+
 				'<td style="width:100px;height:50px;padding-left: 10px;">'+section_price6+'</td>'+
 				'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_section" '+
-				'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
+					'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
 		        '<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_section"'+
-				'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>');
-					
-								
-				
+					'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>');
+		
 				$("#myModal_add_section").modal('hide');
 	        },
 	        error: function (err){
@@ -1439,7 +1499,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 	});
 		
 	$("#dd_section_edit").on('click', 'li', function () {
-		// e.preventDefault(); 
+		 e.preventDefault(); 
 		var selText = $(this).text();
 		$("#select_section_edit").text(selText);
 	});
@@ -1623,13 +1683,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Total sales</label></td></tr>');
 			   
 				$.each(data, function(key, value) {
-					/*html='<tr id="'+value['id']+'" zipBustypeMerchantId="'+value['zipBustypeMerchantId']+'" style="border:1px solid #dadada;margin-bottom:1.1em"><td style="width:100px;height:50px;padding-left:20px"><button type="button" class="btn" id="edit_details">'+
-					'Edit</button></td><td style="width:150px;height:50px;">'+value['orderDate']+'</td><td style="width:150px"></td><td style="width:150px">'+ value['id']+
-					'</td><td style="width:150px">'+value['']+'</td><td style="width:150px">'+value['subTotalSales']+'</td><td style="width:150px">'+value['']+
-					'</td><td style="width:150px">'+value['']+'</td><td style="width:150px">'+value['taxSales']+'</td><td style="width:150px">'+value['tip']+
-					'</td><td style="width:150px">'+value['deliveryCharge']+'</td><td style="width:150px;height:50px;"><button type="button" class="btn" id="show_menu">'+
-					'Menu</button></td></tr>';*/
-				
+					
 					html='<tr id="'+value['id']+'" zipBustypeMerchantId="'+value['zipBustypeMerchantId']+
 					'" style="border:1px solid #dadada;margin-bottom: 1.1em;padding-left: 10px;">'+
 					'<td style="width:150px;height:50px;padding-left: 10px;">'+value['orderDate']+'</td>'+
@@ -1685,37 +1739,38 @@ $('#table_rest').on('click', '#edit_details', function () {
 			},  */
 			success: function(data) {   
 			     	 var html = '';	
-				$('#table_report').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Date</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Order ID</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant ID</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant name</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Menu name</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Custom Price</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base Price</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant Price</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Tax</label></td></tr>');
+					$('#table_report').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Date</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Order ID</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant ID</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant name</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Menu name</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Custom Price</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base Price</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant Price</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Tax</label></td></tr>');
 			   
 			  
 				$.each(data, function(key, value) {
 					console.log(data);
 					console.log(key, value);
 					var len=value.length;		
-console.log(len);					
-console.log(value['id']);
+					console.log(len);					
+					console.log(value['id']);
+					
 					for(i=0; i < len; i++){
 				
-					html += '<tr id="'+value[i]['id']+'" '+
-					'" style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada;padding-left: 10px;">'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['orderDate']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['orderId']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantId']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantName']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Menuname</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['saleRestaurantPrice']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['baseRestaurantPrice']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantPrice']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['deliveryCharge']+'</labeel></td></tr>';
+						html += '<tr id="'+value[i]['id']+'" '+
+						'" style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada;padding-left: 10px;">'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['orderDate']+'</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['orderId']+'</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantId']+'</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantName']+'</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>Menuname</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['saleRestaurantPrice']+'</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['baseRestaurantPrice']+'</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantPrice']+'</label></td>'+
+						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['deliveryCharge']+'</labeel></td></tr>';
 					}
 					
 				});
@@ -1732,64 +1787,4 @@ console.log(value['id']);
 		$("#welcome_portal").css("display","none");
 		$("#report_page").css("display","block");
 		});
-	/*	var id=$("#hide_merchantid").text();
-		var date = $("#date_start1").val();
-		var myarray = date.split('to');
-		var store_myrray1;
-		var store_myrray2;
-		for(var z = 0; z < myarray.length; z++){
-			store_myrray1 = myarray[0];
-			store_myrray2 = myarray[1];
-		}
-		
-		console.log('dates: '+store_myrray1+' '+store_myrray2);
-		$.ajax({
-			url: pageURL+"orderHeaderReportBetweenDates",
-			type: "GET",
-			data: {"id":id,"fromDate":store_myrray1, "toDate":store_myrray2},
-			success: function(data) {   
-			     		
-				$('#table_report').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Date</label></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order ID</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>No of items in order</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Customer Subtotal Price</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base Subtotal Price</label></td>'+
-				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant Subtotal Price</label></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tax</label></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tip</label></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Delivery Charge</label></td>'+
-				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Total</label></td></tr>');
-			   
-				$.each(data, function(key, value) {*/
-					/*html='<tr id="'+value['id']+'" zipBustypeMerchantId="'+value['zipBustypeMerchantId']+'" style="border:1px solid #dadada;margin-bottom:1.1em"><td style="width:100px;height:50px;padding-left:20px"><button type="button" class="btn" id="edit_details">'+
-					'Edit</button></td><td style="width:150px;height:50px;">'+value['orderDate']+'</td><td style="width:150px"></td><td style="width:150px">'+ value['id']+
-					'</td><td style="width:150px">'+value['']+'</td><td style="width:150px">'+value['subTotalSales']+'</td><td style="width:150px">'+value['']+
-					'</td><td style="width:150px">'+value['']+'</td><td style="width:150px">'+value['taxSales']+'</td><td style="width:150px">'+value['tip']+
-					'</td><td style="width:150px">'+value['deliveryCharge']+'</td><td style="width:150px;height:50px;"><button type="button" class="btn" id="show_menu">'+
-					'Menu</button></td></tr>';*/
-				
-				/*	html='<tr id="'+value['id']+'" zipBustypeMerchantId="'+value['zipBustypeMerchantId']+
-					'" style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada;padding-left: 10px;">'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value['orderDate']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value['id']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>No of items in order</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Customer Subtotal Price</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base Subtotal Price</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant Subtotal Price</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value['taxSales']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value['tip']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value['deliveryCharge']+'</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Total</label></td></tr>';
-					
-					$('#table_report').append(html);
-				});
-			}, 
-			error: function() {
-				//alert('Something went wrong');
-			}   
-		});
-	}); */
-	
-
 	});

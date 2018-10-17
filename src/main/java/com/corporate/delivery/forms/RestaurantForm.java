@@ -5,6 +5,7 @@ import java.util.List;
 public class RestaurantForm {
 	
 	private Integer id;
+	
 	private String zipBustypeMerchantId;
 	
 	private String name;
@@ -173,7 +174,16 @@ public class RestaurantForm {
 		this.active = active;
 	}*/
 	
-	
+	@Override
+	public String toString() {
+		return "RestaurantForm [id=" + id + ", zipBustypeMerchantId=" + zipBustypeMerchantId + ", name=" + name
+				+ ", managerName=" + managerName + ", restEmail=" + restEmail + ", restPhone=" + restPhone
+				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", image=" + image
+				+ ", tagLine=" + tagLine + ", opencloseTime=" + opencloseTime + ", timeRange=" + timeRange
+				+ ", pricelevel=" + pricelevel + ", contractPercent=" + contractPercent + ", baseRestaurantPrice="
+				+ baseRestaurantPrice + ", restaurantPrice=" + restaurantPrice + ", salesRestaurantPrice="
+				+ salesRestaurantPrice + ", salesRestaurantTax=" + salesRestaurantTax + ", menus=" + menus + "]";
+	}
 	
 
 }

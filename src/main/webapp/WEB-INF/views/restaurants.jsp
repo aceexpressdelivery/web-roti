@@ -1,13 +1,11 @@
 <html>
 	<head>
-		<%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+		<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 		<link href="${pageContext.request.contextPath}/resources/css/index.css" rel="stylesheet">
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/index.js"></script>
-
-		
 		
 		<!-- Address LookUp -->
 
@@ -36,26 +34,30 @@
 			async defer></script>
 
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-			
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 			<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 		<meta charset="utf-8">
 	</head>
-	<body>
-		<div class="top_menu" id="top_menu">   
+	<body onload="setDay()">
+	
+		<div class="top_menu" id="top_menu">	
+		<input type="hidden" id="time" value='${time}'/>
+		<input type="hidden" id="list" value='${message2}'/>
+		<input type="hidden" id="list" value='${message1}'/>
 			<table cellpadding=0 id="menu" style="font-weight:bold;width: 1400px;">
 				<tr class="spaceUnder">
 					<td width=8%><img id="logohome" src="${pageContext.request.contextPath}/resources/images/delivery22.jpg"/></td>
 					<td width=15%>
 						<a id="gohome" >
-							<b style="font-size:30px;">Ace </b><br/>
-							<span style="padding-left:50px;">Express Delivery</span>
+					<b style="font-size:30px;">Ace Roti </b><br/>
+						
 						</a>
 					</td>
 					<td width=350px></td>
 					<td width=150px style="text-decoration:none;margin-top:50px;cursor: pointer;margin-left:70px">
-						<a id="login" style="color:red;display:block;margin-left:50px;margin-top:10px" data-toggle="modal" data-target="#myModal_login">
-							<b>Sign In</b>
-						</a>
+						<button type="button" id="login" value="Sign In" class="btn btn-danger btn-group-justified" style="width:80px;height:auto;border-radius: 30px;display:block;margin-left:50px;" data-toggle="modal" data-target="#myModal_login">
+						Sign In
+						</button>
 						<a id="logged_in" style="display:none;color:black;margin-top:10px"></a>
 					</td>
 					<td>
@@ -83,12 +85,12 @@
 				<tr>
 					<td width=75%>
 						<input id="autocomplete" placeholder=" Street address, city, state"
-							onFocus="geolocate()" type="text" style="position:relative;width:500px;margin-left:270px;height:35px; font-size:14pt;"/>
+							onFocus="geolocate()" type="text" style="position:relative;width:500px;margin-left:240px;height:35px; font-size:14pt;"/>
 					</td>
-					<td>
-						<button type="submit" id="find_btn" value="Find" class="btn btn-danger btn-group-justified"
-						style="width:55px;height:auto;margin-left:30px;">Find</button>
-					</td>
+					<!-- <td>
+						<button type="submit" id="schedule_order" value="schedule_order" class="btn btn-danger btn-group-justified"
+						style="width:125px;height:auto;margin-left:30px;">Recurrening Schedule</button>
+					</td> -->
 				</tr>
 			</table>
 		</div>
@@ -117,40 +119,49 @@
 	
 		<div id="select_btn" style="display:none"></div>
 		<div id="hideerror_details" style="display:none"></div>
-	
+		
 		<table>
-			<tr id="date_time_corp" style="display:none">
+			<tr style="display:block">
 				<td>
-					<div class="dropdown" style="margin-left:360px;margin-top:30px;width:130px">
-						<button id="dd_btn1" class="btn dropdown-toggle" type="button" style="width:130px;background-color:#eec591" data-toggle="dropdown" onclick="set_corp_time()">
-							Select Date
+				<div class="dropdown" style="margin-left: 190%;
+    margin-top: 18%;text-align:center;width:130px;background-color:#eec591"">
+						<button id="dd_btn11" class="btn dropdown-toggle btn-group-justified" type="button" style="border-radius:10px;width:120px;background-color:#eec591" data-toggle="dropdown">
+							 Select Date
 							<span class="caret"></span>
 						</button>
-						<ul id="dd_date_corp" class="dropdown-menu" style="width:130px">
-							<li><a  id="demo0" >Today</a></li>
-							<li><a id="demo1"></a></li>
-							<li><a id="demo2"></a></li>
-							<li><a id="demo3"></a></li>
-							<li><a id="demo4"></a></li>
-							<li><a id="demo5"></a></li>
-							<li><a id="demo6"></a></li>
+						<ul id="dd_date_rest" class="dropdown-menu" style="width:120px">
+							<li><a id="demo00"></a></li>
+							<li><a id="demo01"></a></li>
+							<li><a id="demo02"></a></li>
+							<li><a id="demo03"></a></li>
+							<li><a id="demo04"></a></li>
+							<li><a id="demo05"></a></li>
+							<li><a id="demo06"></a></li>	
 						</ul>
 					</div>
+					<!-- <div id="dd_btn1" value="" class="well-sm col-md-2" style="margin-left: 190%;
+    margin-top: 18%;text-align:center;width:130px;background-color:#eec591">
+				</div> -->
 				</td>
 				<td>
-					<div class="dropdown" id="time"  style="margin-left:50px;margin-top:30px;width:130px;">
-						<button id="dd_btn2" class="btn dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#eec591;width:130px;" onclick="set_time()">
-						   Select Time
-							<span class="caret"></span>
-						</button>
-						<ul id="dd_time_corp" class="dropdown-menu" style="width:130px">
-							<li><a id="time11">11.30 AM</a></li>
-							<li><a id="time12">12.30 PM</a></li>
-							<li><a id="time13">01.30 PM</a></li>
-						</ul>
-					</div>
+						<button type="submit" id="schedule_order" value="schedule_order" class="btn btn-danger btn-group-justified"
+						style="width: 160px;height:auto;margin-left: 190%;margin-top: 13%;">Recurrening Schedule</button>
 				</td>
 			</tr>
+		</table> 
+	<!-- <div class="row">
+		
+				
+		<div class="col-md-2">
+	
+		</div>
+		</div> -->
+
+		<%-- <div style="margin-left:425px;margin-top:30px;font-size:1.3vw">
+			<label><font color="#727675">Delivery Time:${message1} to ${message2}</font></label>		
+		</div> --%>
+		
+			<table>
 			<tr id="date_time_rest" style="display:none">
 				<td>
 					<div class="dropdown" style="margin-left:360px;margin-top:30px;width:150px">
@@ -159,7 +170,7 @@
 							<span class="caret"></span>
 						</button>
 						<ul id="dd_date_rest" class="dropdown-menu" style="width:120px">
-							<li><a id="demo00"></a>    Today  </li>
+							<li><a id="demo00"></a></li>
 							<li><a id="demo01"></a></li>
 							<li><a id="demo02"></a></li>
 							<li><a id="demo03"></a></li>
@@ -266,159 +277,251 @@
   </div>
   </div>
 
-  
-  
-<div id="div_carousel" style="display:block;margin-top:10px;">
-  
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-	  </ol>
 
-    
-    <div class="carousel-inner">
-
-      <div class="item active">
-        <img src="${pageContext.request.contextPath}/resources/images/pic7.jpg" style="width:1300px;height:350px;margin-left:2%;">
-      </div>
-      <div class="item">
-        <img src="${pageContext.request.contextPath}/resources/images/pic6.jpg" style="width:1300px;height:350px;margin-left:2%;">
-      </div>
-	  <div class="item">
-        <img src="${pageContext.request.contextPath}/resources/images/pic5.jpg" style="width:1300px;height:350px;margin-left:2%;">
-      </div>
-    </div>
-
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" style="transform: rotate(-135deg);"></span>
-      <span class="sr-only">Previous</span>
-	  </a>
 	
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-      </a>
-     </div>
-	 </div> 
+<div class="when well well-lg col-md-12" id="when" style="display:none">  
+  		<div class="col-md-2 col-md-offset-0.5">
+		<div class="dropdown">
+			<button id="dd_btn3" class="btn dropdown-toggle" style="background-color:orange;" type="button" data-toggle="dropdown">Select Apartment Complex
+				<span class="caret"></span></button>
+					<ul id="dd3" class="dropdown-menu">
+					</ul>
+		</div>
+   </div>
+   <div class="col-md-3" style="font-size:1.2vw;margin-left: 21%;padding-top: 0.3%;">
+   <label><font color="#727675">Delivery Time: ${message1} P.M. to ${message2} P.M.</font></label>
+   </div>
+	</div>   
+
+<div id="restAndCartContainer" class="col-md-12" >
 	
-	<div class="when" id="when" style="display:none">   
- 	<table border=0 width=100% cellpadding=0 >
-  	 <tr>
-	 <td style="margin-left:10px;width:270px;">  
-	 <div class="dropdown">
-        <button id="dd_btn3" class="btn dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:orange;margin-left:10px" >
-            Select Corporate Center
-            <span class="caret"></span>
-        </button>
-        <ul id="dd3" class="dropdown-menu">
-            
-        </ul>
-    </div>
-    </td>
-	<td style="width:250px;margin-right:20px;margin-left:20px;float:left"> 
-		<input type="text" class="form-control" placeholder="Company name" id="company_name"/>
-	</td>
-	<td style="width:120px;margin-left:30px;float:left;">
-		<input type="text" class="form-control" placeholder="Suite number" id="suite_number"/>
-	</td>
-</tr>
-</table>    
-</div>    
-
-
-
-	<div id="backto_rest" style="display:none;" type="button" class="btn btn default">
-		<p class="glyphicon glyphicon-chevron-left" style="vertical-align:top;float:left;font-size:22px;position:relative" id="back_restname"></p>
+	<div id="table_menus" class = "col-md-8" style="margin-bottom:10px;">
+	
+	
 	</div>
-
-	<div>
-	<div id="restAndCartContainer" class = "restAndCartContainer">
-	<div id="restaurants" class = "restName">
- 
-	<table class="restName">
-		<tr>
-			<td>
-		<div class="href">
-  	<table align="top" class="restName" id="select_rest" style="width:1100px;display:none;">	
- 	</table>
-  	</div>
-  	</td>
-  </tr>
-  </table>
-  </div>
-  
-  <div id="div_menus" class = "restName col-md-8">
-	   <table class="restName">
-	      <tr>
-	         <td>
-	            <div class="href">
-	               <table id="table_menus" align="top" class="restName" style="width:1100px;display:none;margin-bottom:10px;">
-	               </table>
-	            </div>
-	         </td>
-	       </tr>
-		 </table>
-	</div>
-  
-  
-  </div>
-  
-  
 	
-	<div class = "cart" class="col-md-3" id="showcart" style="display:none;">
-		<div class="col-md-12" style="font-family:Times New Roman">
-			<br />
-			<div class="col-md-12">
-				<table border=1 style="width:100%;margin-left:0px;padding-left:0px;" >
-					<tr><td><img src="${pageContext.request.contextPath}/resources/images/icon_cart.png" />&nbsp;&nbsp;Your Cart</td></tr>
-					
+<%-- 	<c:forEach items="${list}" var="list">
+		
+		<c:set var="j" value="${j + 1}" scope="page"/>	
+		
+		<div id="data${j}" 
+			value="${list.id}" 
+			ordertype="CORP" 
+			select_rest="Roti" 
+			restid="${list.restaurantBustypeId}" 
+			name="${list.name}" 
+			sales_price="${list.salesPrice}" 
+			base_price="${list.basePrice}" 
+			restaurant_price="${list.restaurantPrice}" 
+			active="${list.active}" 
+			description="${list.description}" 
+			quantity="1" 
+			total="${list.salesPrice}" 
+			src="/delivery/resources/images/${list.menuImage}" 
+			
+			style="border:1px solid #c4c4c4;border-radius: 10px;height:125px;padding-left:5px;margin-bottom:3px;">
+			
+			<div id="image${j}" data-toggle="modal" onclick="openModal(this.id)" class="col-md-2 nopadding" 
+					name="${list.name}" 
+					description="${list.description}">
+				<label for="imagesrc">
+					<img style="width:100px;height:90px;margin-left:5px;margin-top:5px;margin-top: 15px;" src="/delivery/resources/images/${list.menuImage}"/>
+				</label>
+			</div>
+			
+			<div id="menuDetails${j}" class="col-md-3 col-md-offset-0.5" id="tryme" align="left" style="padding-left:30px;white-space: normal;padding-top:20px;">
+				<h4>
+					<label>${list.name}</label>
+				</h4>
+				<h4 style="color:blue">
+					<label>$${list.salesPrice}</label>
+				</h4>
+			</div>
+			<div id="addQty${j}" 
+				inputf="quantity${j}" class="col-md-3 col-md-offset-2" style="padding-top:30px;">
+					<div class="row">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button type="button" 
+										field="quantity${j}" 
+										dataid="data${j}" 
+										buttonid="addQty${j}" 
+										onclick="qtyMinus(this.id)" 
+										id="qtyMinus_${j}" 
+										dataid="data${j}" 
+										imageid="image${j}" 
+										style="height:45px;width:40px" class="quantity-left-minus btn btn-danger btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+			 				</span>
+				<input class="form-control input-number" type="text" name="quantity${j}" value="0" id="qty_${j}" style="text-align:center;height:45px;width:40px" />
+							<span class="input-group-btn">
+								<button type="button" 
+										field="quantity${j}" 
+										dataid="data${j}" 
+										buttonid="addQty${j}" 
+										onclick="qtyPlus(this.id)" 
+										id="qtyPlus_${j}" 
+										imageid="image${j}" 
+										style="height:45px;width:40px" class="quantity-right-plus btn btn-success btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+							 </span>
+							 
+						</div>
+					</div>
+			</div>
+		</div>
+		</c:forEach> --%>
+	
+	
+	<%-- <div id="table_menus" class = "col-md-8" style="margin-bottom:10px;">
+	
+	<c:forEach items="${list}" var="list">
+		
+		<c:set var="j" value="${j + 1}" scope="page"/>	
+		
+		<div id="data${j}" 
+			value="${list.id}" 
+			ordertype="CORP" 
+			select_rest="Roti" 
+			restid="${list.restaurantBustypeId}" 
+			name="${list.name}" 
+			sales_price="${list.salesPrice}" 
+			base_price="${list.basePrice}" 
+			restaurant_price="${list.restaurantPrice}" 
+			active="${list.active}" 
+			description="${list.description}" 
+			quantity="1" 
+			total="${list.salesPrice}" 
+			src="/delivery/resources/images/${list.menuImage}" 
+			
+			style="border:1px solid #c4c4c4;border-radius: 10px;height:125px;padding-left:5px;">
+			
+			<div id="image${j}" data-toggle="modal" onclick="openModal(this.id)" class="col-md-2 nopadding" 
+					name="${list.name}" 
+					description="${list.description}">
+				<label for="imagesrc">
+					<img style="width:100px;height:90px;padding-left:5px;padding-top:5px;margin-top: 15px;" src="/delivery/resources/images/${list.menuImage}"/>
+				</label>
+			</div>
+			
+			<div id="menuDetails${j}" class="col-md-3" id="tryme" align="left" style="padding-left:30px;white-space: normal;padding-top:20px;">
+				<h4>
+					<label>${list.name}</label>
+				</h4>
+				<h4 style="color:blue">
+					<label>$${list.salesPrice}</label>
+				</h4>
+			</div>
+			<div id="addQty${j}" 
+				inputf="quantity${j}" class="col-md-4" style="padding-top:30px;">
+					<div class="row">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button type="button" 
+										field="quantity${j}" 
+										dataid="data${j}" 
+										buttonid="addCart${j}" 
+										addId="addToCart${j}" 
+										updateId="updateToCart${j}" 
+										onclick="qtyMinus(this.id)" 
+										id="qtyMinus_${j}" 
+										style="height:45px;width:40px" class="quantity-left-minus btn btn-danger btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+			 				</span>
+				<input class="form-control input-number" type="text" name="quantity${j}" value="1" id="qty_${j}" style="text-align:center;height:45px;width:40px" />
+							<span class="input-group-btn">
+								<button type="button" 
+										field="quantity${j}" 
+										dataid="data${j}" 
+										buttonid="addCart${j}" 
+										addId="addToCart${j}" 
+										updateId="updateToCart${j}" 
+										onclick="qtyPlus(this.id)" 
+										id="qtyPlus_${j}" 
+										style="height:45px;width:40px" class="quantity-right-plus btn btn-success btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+							 </span>
+							 
+						</div>
+					</div>
+			</div>
+			<div id="addCart${j}" style="display:block;padding-top:35px;">
+				
+				<button onclick="addToCart(this.id)" 
+						dataid="data${j}" 
+						buttonid="addQty${j}" 
+						imageid="image${j}" 
+						updateid="updateToCart${j}" 
+						type="button" 
+						name="addCart" 
+						id="addToCart${j}"  class="btn btn-danger" style="display:block;padding-left:15px;width:150px">Add To Cart - ${list.salesPrice}</button>
+				
+				<button onclick="updateToCart(this.id)" 
+						dataid="data${j}" 
+						imageid="image${j}" 
+						type="button" 
+						name="updateCart" 
+						addid="addToCart${j}" 
+						id="updateToCart${j}"  class="btn btn-danger" style="display:none;padding-left:15px;width:150px">Update To Cart - ${list.salesPrice}</button>
+			</div>
+		</div>
+		</c:forEach>
+	</div> --%>
 
-					<table id="cartTable" style="width:100%; align-items:left">
-						<tbody id="tid" style="width:100%;height:50px;overflow-y: auto;"></tbody>
-					</table>
+<!--Show Cart-->		
+			<div class="col-md-4">
+					<div class="col-md-1">
+					</div>
 					
-					<table style="width:100%; align-items:left;margin-top:10px;">
-						<tr style="margin-bottom:10px;"><td width=10%></td> 
-							<td style="font-size:16px;font-weight:bold;width:150px">Subtotal</td>
+					<div class="col-md-10" id="showcart" style="display:none;border:1px solid #c4c4c4;border-radius: 10px;">
+						<div class="row">
+							<div style="padding-left:60px;padding-top:10px;"><img src="${pageContext.request.contextPath}/resources/images/icon_cart.png" />&nbsp;&nbsp;Your Cart is Empty
+							</div>
+						</div>
+						<div class="row">
+								<div style="padding-left:25px;padding-bottom:10px;">
+										<table id="cartTable" style="align-items:left">
+											<tbody id="tid" style="height:50px;overflow-y: auto;"></tbody>
+										</table>
 						
-							<td>
-								<span id="sales_subtotal" style="font-size:16px;font-weight:bold;float:left;"></span>
-							</td>
-							<td id="base_subtotal" style="display:none"></td>
-							<td id="rest_subtotal" style="display:none"></td>
-						</tr>
-					</table><br/>
-					<button type="submit" name="Review Your Order" id="review_order" style="margin-bottom:10px;"
-							class="btn btn-success btn-group-justified">
-						Review Your Order
-					</button>
-				</table>
+										<table style="margin-bottom:10px;align-items:left;margin-top:10px;">
+												<tr style="margin-bottom:10px;"><td width=10%></td> 
+													<td style="font-size:16px;font-weight:bold;width:150px">Subtotal</td>
+													<td>
+													<span id="sales_subtotal" style="font-size:16px;font-weight:bold;float:left;"></span>
+													</td>
+													<td id="base_subtotal" style="display:none"></td>
+													<td id="rest_subtotal" style="display:none"></td>
+												</tr>
+										</table>
+										<button type="submit" name="Review Your Order" id="review_order" style="margin-bottom:10px;"
+										class="btn btn-success btn-group-justified">
+											Review Your Order
+										</button>
+								</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+					</div>
 			</div>
-		</div> 
-  	</div> 
+					
 	
-	<div class = "cart" class="col-md-push-3" id="show_empty_cart" style="display:none;margin-bottom:10px;">
-		<table>
-			<div class="col-md-12" style="font-family:Times New Roman">
-				<div class="col-md-12">
-					<table border=1 style="width:100%;">
-						<tr>
-							<img src="${pageContext.request.contextPath}/resources/images/icon_cart.png" 
-									style="padding-left:70px;"/>&nbsp;&nbsp;Your Cart is Empty
-						</tr><br/>
-						<tr>
-							<img src="${pageContext.request.contextPath}/resources/images/shopping_cart_red.png" 
-								style="height:100px;width:120px;margin-left:100px;"/>
-						</tr>
-					</table>
+	<!--Empty Cart-->
+			<div class="col-md-4">
+				<div class="col-md-1">
 				</div>
-			</div>
- 		</table>
-  	</div> 
-	</div>
+				<div class="col-md-10" id="show_empty_cart" style="border:1px solid #c4c4c4;border-radius: 10px;margin-bottom:10px;">
+				<div class="row">
+					<div style="padding-left:60px;padding-top:10px;"><img src="${pageContext.request.contextPath}/resources/images/icon_cart.png" />&nbsp;&nbsp;Your Cart is Empty
+					</div>
+				</div>
+				<div class="row">
+					<div style="padding-bottom:10px;">
+						<img src="${pageContext.request.contextPath}/resources/images/shopping_cart_red.png" 
+								style="margin-left:90px;height:100px;width:120px;"/>
+					</div>
+				</div>
+				</div>
+				<div class="col-md-1">
+				</div>
+			</div> 
+  </div>
 	
 	<div class="modal fade" id="myModal_login" role="dialog">
 		<div class="modal-dialog">
@@ -616,110 +719,91 @@ THE SECTION BELOW ENTITLED "DISPUTE RESOLUTION" HAS A MANDATORY ARBITRATION PROV
             <div id="myModal1" class="modal fade" >
                 <div class="modal-dialog" style="width:52%">
                     <div class="modal-content" class="col-md-12">
-
                         <div class="modal-header" class="col-md-12">
-						
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-
-                                &times;
-                            </button>
-
-                            <div class="modal-title">
-							<span class="col-md-12">
-							<div class="col-md-6"><span>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        	<div class="modal-title">
                                 <div style="font-size:26px; font-weight:500; padding-bottom:none;" name="display1" id="display1"></div>
-
-                                <div style="font-size:26px; font-weight:500; padding:none; color:blue;" name="sales_price" id="sales_price"></div>
-								<div style="display:none" name="base_price" id="base_price"></div>
-								<div style="display:none" name="rest_price" id="rest_price"></div></span>
-                           <br/><p &nbsp&nbsp;&nbsp; style="font-size:14px" name="display3" id="display3"></p>
-                              
-							</div>
-							<div class="col-md-6">
-							<h4 style="height:200px;width:300px" id="display4" name="display4"></h4>
-							</div></span>
-							</div>
-                        </div>
-						<div style="display:none" name="display5" id="display5"></div>
-						<div style="display:none" name="display6" id="display6"></div>
-						<div style="display:none" name="display7" id="display7"></div>
-						<div style="display:none" name="zipid" id="zipid"></div>
-						<div style="display:none" name="save_menuid" id="save_menuid"></div>
-<br/>
-						<div class="modal-body col-md-12" style="color:steelblue; padding-top:inherit; padding-bottom:inherit">
-                        <div class="modal-body col-md-12" id="section_chk">
-                            <br/>
-							
-							</div>
-                             <table id="hide_section_id" style="display:none">
-							 </table>
-							 <table id="hide_id" style="display:none">
-							 </table>
-                        
-				<textarea placeholder="Special instructions" class="form-control" rows="2" cols="15" id="textarea1"></textarea>
+                       		 </div>
+                         </div>
+                      <div class="modal-body">
+                                <!-- <div style="font-size:26px; font-weight:500; padding:none; color:blue;" name="sales_price" id="sales_price"></div> -->
+								<!-- <div style="display:none" name="base_price" id="base_price"></div>
+								<div style="display:none" name="rest_price" id="rest_price"></div> -->
+								<table cellpadding="0">
+								<tr><td>
+                        <p style="font-size:14px;align="left" id="display3"></p></td><td>
+					 <h4 style="height:300px;width:300px" id="display4"></h4></td>
+					 </tr></table>
+					</div>
+					</div>
 				</div>
-                        <div class="modal-footer btn-group btn-group-justified" id="addcart">
-                            <span class="pull-left">
-							 <button  type="button" id="qtyminus" field="quantity" class="glyphicon glyphicon-minus-sign btn btn-group-justified
-                                        btn-danger" ></button>
-                               
-                                <input type="text" name="quantity" value="1" id="qty" readonly="readonly"/>
-                                <button type="button" id="qtyplus" field="quantity" class="glyphicon glyphicon-plus-sign btn btn-group-justified btn-success" ></button> 
-								&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" id="qtycart" field="quantity"
-                                                                class="btn btn-success btn-group-justified col-md-push-3" data-dismiss="modal">
-								
-                                   
-                                </button>
-                           </span>
-                        </div>
-						
-						<div class="modal-footer btn-group btn-group-justified" id="updatecart" style="display:none">
-                             <span class="pull-left">
-                                <button type="button" id="qtyminus2" field="item_qty" class="glyphicon glyphicon-minus-sign btn btn-group-justified
-                                        btn-danger"></button>
-                                <input type="text" name="item_qty" id="qty2" value="1" readonly="readonly" />
-                                <button type="button" id="qtyplus2" field="item_qty" class="glyphicon glyphicon-plus-sign btn btn-group-justified btn-success"></button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="update to cart" id="update_qtycart" field="item_qty"
-                                                                class="btn btn-success btn-group-justified col-md-push-5" data-dismiss="modal">
-                                  
-                                </button>
-                            </span>
-                        </div>
-						<p id="updaterowid" style="display:none"></p>
-                    </div>
-                </div>
             </div>
+	</div>
+</div>
+<div class="container-fluid col-md-12" id="popupclose">
+		<div class="row">
+			<div id="myModal2" class="modal fade">
+				<div class="modal-dialog" style="width: 52%">
+					<div class="modal-content" class="col-md-12">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<div class="modal-title">
+								<div class="col-md-12" name="display1" id="display1">
+								</div>
+							</div>
+						</div>
+						<div class="modal-body col-md-12" style="color: steelblue;">
+							<div class="col-md-6">
+									<div name="display2" id="display2"></div>
+									<div name="display3" id="display3"></div>
+									<div style="display: block" name="base_price" id="base_price"></div>
+									<div style="display: block" name="rest_price" id="rest_price"></div>
+									<div style="display: block" name="display5" id="display5"></div>
+									<div style="display: block" name="display6" id="display6"></div>
+									<div style="display: block" name="display7" id="display7"></div>
+									<div style="display: block" name="save_menuid" id="save_menuid"></div>
+							</div>
+							<div class="col-md-6" id="display4" name="display4">
+							</div>
+							
+						</div>
+						<div class="modal-footer col-md-12" id="updatecart">
+							<div class="col-md-3 col-md-offset">
+								<button type="button" id="qtyminus2" field="item_qty" class="glyphicon glyphicon-minus-sign btn btn-group-justified btn-danger"></button>
+								<input type="text" name="item_qty" id="qty2" value="1" />
+								<button type="button" id="qtyplus2" field="item_qty" class="glyphicon glyphicon-plus-sign btn btn-group-justified btn-success"></button>
+							</div>
+							<div class="col-md-9">
+								<button type="submit" style="height:45px;" name="updatetocart" id="update_qtycart" field="item_qty" class="btn btn-success btn-group-justified col-md-push-5" data-dismiss="modal"></button>
+								<p id="updaterowid" style="display: none"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        </div>
-    </div>
   
   
   <div class="modal fade" id="myModal_payment" role="dialog">
-   
      <div class="modal-dialog">
-    
       <!-- Modal content-->
       <div class="modal-content" style="width:480px;height:300px">
-       
 		 <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title" align="center" style="color:black"><b>My Payment Details</b></h4>
 		  <span>
             <div class="form-group">
-               
-                <input id="cc-number" type="tel" class="form-control cc-number" autocomplete="cc-number" placeholder="Card Number" onkeyup="ValidateCreditCardNumber()"
+<input id="cc-number" type="tel" class="form-control cc-number" autocomplete="cc-number" placeholder="Card Number" onkeyup="ValidateCreditCardNumber()"
 				style="width:250px;float:left;margin-bottom:10px" required>
             </div>
-
             <div class="form-group">
-               
-                <input id="cc-exp" type="tel" class=" form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY"  onkeyup="ValidateCreditCardNumber()"
+               <input id="cc-exp" type="tel" class=" form-control cc-exp" autocomplete="cc-exp" placeholder="MM / YY"  onkeyup="ValidateCreditCardNumber()"
 				style="width:85px;float:left;margin-left:12px;margin-bottom:10px"	required>
              </div>
-
             <div class="form-group">
-                
-                <input id="cc-cvc" type="tel" class="form-control cc-cvc" autocomplete="off" placeholder="CVC"  onkeyup="ValidateCreditCardNumber()"
+			<input id="cc-cvc" type="tel" class="form-control cc-cvc" autocomplete="off" placeholder="CVC"  onkeyup="ValidateCreditCardNumber()"
 				style="width:80px;float:right;margin-left:8px;margin-bottom:10px" required>
             </div><br/><br/></span>
  <div class="form-group">
@@ -853,17 +937,12 @@ THE SECTION BELOW ENTITLED "DISPUTE RESOLUTION" HAS A MANDATORY ARBITRATION PROV
   
   
   <div class="col-md-12" style="float:left;padding-left:13px;display:none;" id="review_details"> 
-  <div class="col-md-12" style="margin-left:1%;padding-left:13px;background-color:lightgray;height:40px;margin-bottom:5px;width:1300px;padding-top:10px;">
+  <div class="greybar col-md-12" id="greybar">
   <div class="col-md-8" style="display:none;" id="back_corp_checkout_panel">
- <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;" id="corp_review_rest_back">Restaurant </a><p style="font-size:18px" class="fa">&#xf054;</p>
  <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;" id="corp_review_menu_back"> Menu </a><p style="font-size:18px" class="fa">&#xf054;</p>
  <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;">  Checkout </a>
  <a style="text-decoration:none;color:black;font-size:16px;margin-left:250px" id="corp_review_orderno"></a></div>
  
- <div class="col-md-8" style="display:none;" id="back_rest_checkout_panel">
- <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;" id="rest_review_rest_back">Restaurant </a><p style="font-size:18px" class="fa">&#xf054;</p>
- <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;" id="rest_review_menu_back"> Menu </a><p style="font-size:18px" class="fa">&#xf054;</p>
- <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;">  Checkout </a></div>
  
   <div class="col-md-4">
   <a style="float:right;padding-right:15px;font-size:16px;display:none" id="print_pdf">Print as PDF</a>
@@ -873,7 +952,7 @@ THE SECTION BELOW ENTITLED "DISPUTE RESOLUTION" HAS A MANDATORY ARBITRATION PROV
   <div id="review_corp_delivery_details" style="border:1px solid #dadada;padding-left:10px;margin-bottom:5px;display:none">
   <h4 style="font-size:24px; font-family: Times New Roman">
   Delivery Details</h4><br/>
-  <label style="width:70px;margin-bottom:5px;font-weight:lighter">When:</label><label style="width:200px;font-weight:lighter"" align="left" id="date_delivery"></label>
+  <label style="width:70px;margin-bottom:5px;font-weight:lighter">When:</label><label style="width:200px;font-weight:lighter" align="left" for="date_delivery" id="date_delivery"></label>
   <br/>
   <div id="where_corp"><label style="width:70px;margin-bottom:5px;font-weight:lighter;">Where:</label><label id="corp_address_delivery" style="font-weight:lighter"></label><br/>
  <label style="width:70px;margin-bottom:5px;font-weight:lighter"></label> <label id="address_delivery" style="font-weight:lighter"></label></div><br/><br/>
@@ -898,7 +977,7 @@ THE SECTION BELOW ENTITLED "DISPUTE RESOLUTION" HAS A MANDATORY ARBITRATION PROV
   <div id="review_rest_delivery_details" style="border:1px solid #dadada;padding-left:10px;margin-bottom:5px;display:none">
   <h4 style="font-size:24px; font-family: Times New Roman">
   Delivery Details</h4><br/>
-  <label style="width:70px;margin-bottom:5px;font-weight:lighter">When:</label><label style="width:400px;font-weight:lighter" align="left" id="rest_date_delivery"></label>
+  <label style="width:70px;margin-bottom:5px;font-weight:lighter">When:</label><label style="width:400px;font-weight:lighter;" align="left" id="rest_date_delivery"></label>
   <br/>
   <label style="width:70px;margin-bottom:5px;font-weight:lighter;">Where:</label>
   <label id="rest_address_delivery" style="font-weight:lighter"></label><br/><br/>
@@ -925,7 +1004,7 @@ THE SECTION BELOW ENTITLED "DISPUTE RESOLUTION" HAS A MANDATORY ARBITRATION PROV
   <div id="print_delivery_details" style="width:850px;border:1px solid #dadada;;padding-left:10px;margin-bottom:15px;display:none">
   <h4 style="font-size:24px; font-family: Times New Roman">
   Delivery Details</h4><br/>
-  <label style="width:70px;margin-bottom:5px;font-weight:lighter">When:</label><label style="width:400px;font-weight:lighter"" align="left" id="print_date_delivery"></label>
+  <label style="width:70px;margin-bottom:5px;font-weight:lighter">When:</label><label style="width:400px;font-weight:lighter" align="left" id="print_date_delivery"></label>
   <br/>
   <label style="width:70px;margin-bottom:5px;font-weight:lighter">Where:</label><label id="print_corp_address_delivery" style="font-weight:lighter"></label><br/>
  <label style="width:70px;margin-bottom:5px;font-weight:lighter"></label> <label id="print_address_delivery" style="font-weight:lighter"></label><br/><br/>

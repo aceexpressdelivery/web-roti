@@ -8,23 +8,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.corporate.deliver.utils.Utils;
-import com.corporate.delivery.forms.MenuSectionForm;
 import com.corporate.delivery.model.Menu;
 import com.corporate.delivery.model.MenuSection;
 import com.corporate.delivery.model.Restaurant;
@@ -58,13 +62,47 @@ public class RestaurantController {
     
     @Autowired
     ZipCorpCenterService zipCorpCenterService;
+    
+    @Autowired
+    private Environment environment;
  
     private static final Logger logger = Logger.getLogger(RestaurantController.class);
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getMain(ModelMap model) {
+    	
+    	/*String rotiRestId="1";
+    	Calendar calendar = Calendar.getInstance();
+		Date date = calendar.getTime();
+		String dayOfWeek =new SimpleDateFormat("EE", Locale.ENGLISH).format(date.getTime());
+    	List<Menu>  restRotiList = restaurantMenuService.getRestaurantMenus(Integer.parseInt(rotiRestId), dayOfWeek.toLowerCase());
+    	model.addAttribute("list", restRotiList);*/
+   
+    	model.addAttribute("time", messageSource.getMessage("time", null, Locale.getDefault()));
+    	model.addAttribute("message1", messageSource.getMessage("delivery.time1", null, Locale.getDefault()));
+    	model.addAttribute("message2", messageSource.getMessage("delivery.time2", null, Locale.getDefault()));
+   
     	return "restaurants";
     }
+    
+
+	@RequestMapping(value = "/menus", method = RequestMethod.GET)
+    public  @ResponseBody List<Menu>  getMenus( @RequestParam("id") String restId) {
+    	System.out.println(restId);
+    	Calendar calendar = Calendar.getInstance();
+		Date date = calendar.getTime();
+		String dayOfWeek =new SimpleDateFormat("EE", Locale.ENGLISH).format(date.getTime());
+	    List<Menu>  list = restaurantMenuService.getRestaurantMenus(Integer.parseInt(restId),dayOfWeek.toLowerCase());
+	    System.out.println(list);
+   		return list;
+    }
+    
+    @RequestMapping(value = "/zipcorpcenter", method = RequestMethod.GET)
+    public  @ResponseBody List<ZipCorpCenter>   getZipCorpCenter( @RequestParam("corpZipCode") String corpZipCode) {
+      	List<ZipCorpCenter> zipCorpCenter = zipCorpCenterService.getZipCorpCenter(new Integer(Integer.parseInt(corpZipCode)));
+      	return zipCorpCenter;
+    }
+    
   
     @RequestMapping(value = "/restaurantsWithdateAndTime", method = RequestMethod.GET)
     public  @ResponseBody List<Restaurant>  getRestaurantsWithDateAndTime( 	@RequestParam("zipBustypeMerchantId") String zipBustypeMerchantId ,
@@ -112,39 +150,8 @@ public class RestaurantController {
     	return list;  	
     }
     
-    @RequestMapping(value = "/menus", method = RequestMethod.GET)
-    public  @ResponseBody List<Menu>  getMenus( @RequestParam("id") String restId) {
-    	
-	    List<Menu>  list = restaurantMenuService.getRestaurantMenus(Integer.parseInt(restId));
-   		return list;
-    }
-    
-    /*@RequestMapping(value = "/sections", method = RequestMethod.POST)
-   	public void menuSectionProcess(@RequestBody MenuSection  menuSection){
-	   
-	   menuSection.getDescription();
-	   menuSection.getId();
-	   menuSection.getMenuId();
-	   menuSection.getMenuItems();
-	   menuSection.getName();
-	   menuSection.getType();
-	   
-	   restaurantMenuSectionItemsService.insert(menuSection);
-   }*/
-    
-    private Date formatDate(String dateValue) {
-    	SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-    	Date date = null;
-	   
-    	try {
-    		date = formatter.parse(dateValue);
-    	}catch (ParseException e) {
-		   throw new RuntimeException("Invalid date passed. Date parse exception");
-    	}
-	   
-    	return date;
-    }
    
+   /* 
     @RequestMapping(value = "/sections", method = RequestMethod.GET)
     public  @ResponseBody List<MenuSectionForm>  getMenuSections( @RequestParam("id") String menuId) {
     	
@@ -160,9 +167,23 @@ public class RestaurantController {
 		 System.out.println("jsonCartList: " + jsonCartList);
 		
 		 return result;	   
-    }
+    }*/
     
-    private List<MenuSectionForm> populateMenuSectionForm(List<MenuSection> list) {
+    
+    private Date formatDate(String dateValue) {
+    	SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+    	Date date = null;
+	   
+    	try {
+    		date = formatter.parse(dateValue);
+    	}catch (ParseException e) {
+		   throw new RuntimeException("Invalid date passed. Date parse exception");
+    	}
+	   
+    	return date;
+    }
+   
+    /*private List<MenuSectionForm> populateMenuSectionForm(List<MenuSection> list) {
 		List<MenuSectionForm> result =  new ArrayList<MenuSectionForm>();
 		
 		for(MenuSection menuSection : list){
@@ -201,16 +222,8 @@ public class RestaurantController {
 			result.add(menuSectionForm);
 		}
 		return result;
-	}
+	}*/
 	
-	
-   
-    @RequestMapping(value = "/zipcorpcenter", method = RequestMethod.GET)
-    public  @ResponseBody List<ZipCorpCenter>   getZipCorpCenter( @RequestParam("corpZipCode") String corpZipCode) {
-      	List<ZipCorpCenter> zipCorpCenter = zipCorpCenterService.getZipCorpCenter(new Integer(Integer.parseInt(corpZipCode)));
-      	return zipCorpCenter;
-    }
-    
     public static void compareTimeJava8(String startTimeStr, String endTimeStr) {
  	   
 		LocalDate today = LocalDate.now();

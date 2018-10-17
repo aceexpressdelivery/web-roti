@@ -5,11 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -176,7 +173,10 @@ public class OrderController {
 		orderHeader.setTotalBase(orderForm.getTotalBase());
 		orderHeader.setTotalRestaurant(orderForm.getTotalRestaurant());
 		orderHeader.setTip(orderForm.getTip());	
+		//Integer.toString(orderForm.getUserId());
+		
 		orderHeader.setUserId(orderForm.getUserId());
+	
 		orderHeader.setZipBustypeMerchantId(orderForm.getZipBusTypeMerchantId());
 		orderHeader.setCouponCode(orderForm.getCouponCode());
 		orderHeader.setCouponType(orderForm.getCouponCode());
@@ -226,22 +226,7 @@ public class OrderController {
 				orm.setSalePriceTax(menuForm.getSalesTax());
 				orm.setMenuName(menuForm.getName());
 				orm.setDescription(menuForm.getDescription());
-				
-				// Create arraylist blank with orderRestaurantMenuSection
-				List<SectionForm> sectionList = menuForm.getSections();
-				List<OrderRestaurantMenuSection> orderRestaurantMenuSectionList = new ArrayList<OrderRestaurantMenuSection>();
-				
-				for(SectionForm sectionForm : sectionList) {
-					OrderRestaurantMenuSection orms = new OrderRestaurantMenuSection();
-					
-					orms.setName(sectionForm.getName());
-					orms.setValue(sectionForm.getValue());
-					orms.setOrderRestaurantMenu(orm);
-	
-					orderRestaurantMenuSectionList.add(orms);
-				};
-				// set arrylist on orm.
-				orm.setOrderRestaurantMenuSection(orderRestaurantMenuSectionList);
+			
 				orderRestaurantMenus.add(orm);
 			}
 			RestaurantMenuDto restaurantMenuDto = new RestaurantMenuDto(orderRestaurant, orderRestaurantMenus);

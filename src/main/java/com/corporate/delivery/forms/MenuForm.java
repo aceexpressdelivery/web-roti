@@ -5,6 +5,7 @@ import java.util.List;
 public class MenuForm {
 	
 	private Integer id;
+	
 	private String name;
 	
 	private Double basePrice;
@@ -87,4 +88,12 @@ public class MenuForm {
 	public void setSalesTax(Double salesTax) {
 		this.salesTax = salesTax;
 	}	
+	
+	@Override
+	public String toString() {
+		return "MenuForm [id=" + id + ", name=" + name + ", basePrice=" + basePrice + ", salesPrice=" + salesPrice
+				+ ", salesTax=" + salesTax + ", restaurantPrice=" + restaurantPrice + ", description=" + description
+				+ ", specialInstuctions=" + specialInstuctions + ", quantity=" + quantity + ", sections=" + sections
+				+ "]";
+	}
 }

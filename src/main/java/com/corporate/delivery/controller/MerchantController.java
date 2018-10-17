@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.corporate.deliver.utils.Utils;
 import com.corporate.delivery.forms.MenuAdd;
 import com.corporate.delivery.forms.MenuSectionForm;
 import com.corporate.delivery.forms.RestaurantForm;
@@ -24,7 +23,6 @@ import com.corporate.delivery.model.JsonResponse;
 import com.corporate.delivery.model.LoginType;
 import com.corporate.delivery.model.Menu;
 import com.corporate.delivery.model.MenuSection;
-import com.corporate.delivery.model.OrderRestaurantMenu;
 import com.corporate.delivery.model.Restaurant;
 import com.corporate.delivery.model.User;
 import com.corporate.delivery.model.order.OrderHeader;
@@ -183,11 +181,11 @@ public class MerchantController {
 	}
 	 */
 
-	@RequestMapping(value = "/menus", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/menus", method = RequestMethod.GET)
 	public @ResponseBody List<Menu> getMenus(@RequestParam("id") String restId) {
 		List<Menu> list = restaurantMenuService.getRestaurantMenus(Integer.parseInt(restId));
 		return list;
-	}
+	}*/
 
 	@RequestMapping(value = "/sections", method = RequestMethod.GET)
 	public @ResponseBody List<MenuSectionForm> getMenuSections(@RequestParam("id") String menuId) {
