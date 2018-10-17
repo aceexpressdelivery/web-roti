@@ -66,7 +66,7 @@ public class OrderController {
 	@Autowired
 	OrderRestaurantMenuService orderRestaurantMenuService;
 	
-	private static final Logger logger = Logger.getLogger(OrderController.class);
+	//private static final Logger logger = Logger.getLogger(OrderController.class);
 	 
 	
 	@RequestMapping(value = "/userOrders", method = RequestMethod.GET)
