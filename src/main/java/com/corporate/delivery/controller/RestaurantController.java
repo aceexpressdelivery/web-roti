@@ -89,10 +89,7 @@ public class RestaurantController {
 	@RequestMapping(value = "/menus", method = RequestMethod.GET)
     public  @ResponseBody List<Menu>  getMenus( @RequestParam("id") String restId) {
     	System.out.println(restId);
-    	Calendar calendar = Calendar.getInstance();
-		Date date = calendar.getTime();
-		String dayOfWeek =new SimpleDateFormat("EE", Locale.ENGLISH).format(date.getTime());
-	    List<Menu>  list = restaurantMenuService.getRestaurantMenus(Integer.parseInt(restId),dayOfWeek.toLowerCase());
+	    List<Menu>  list = restaurantMenuService.getRestaurantMenus(Integer.parseInt(restId));
 	    System.out.println(list);
    		return list;
     }

@@ -93,7 +93,12 @@ public class OrderForm {
 	private String delivered;
 	private String deliveredDate;
 	private String deliveredTime;
-		
+	
+	private Boolean schedule;
+	
+	private Integer orderStatus;
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -534,64 +539,18 @@ public class OrderForm {
 		this.restEmail = restEmail;
 	}
 	
-	@Override
-	public String toString() {
-		return "OrderForm [name=" + name + ", age=" + age + ", userId=" + userId + ", phone=" + phone + ", restEmail="
-				+ restEmail + ", time=" + time + ", currentDate=" + currentDate + ", corpCenter=" + corpCenter
-				+ ", companyName=" + companyName + ", suiteNumber=" + suiteNumber + ", deliveryAddress="
-				+ deliveryAddress + ", deliveryCity=" + deliveryCity + ", deliveryState=" + deliveryState
-				+ ", deliveryZip=" + deliveryZip + ", deliveryCharge=" + deliveryCharge + ", restaurantForms="
-				+ restaurantForms + ", description=" + description + ", instructions=" + instructions
-				+ ", businessType=" + businessType + ", orderType=" + orderType + ", orderDate=" + orderDate
-				+ ", orderTime=" + orderTime + ", orderId=" + orderId + ", zipBusTypeMerchantId=" + zipBusTypeMerchantId
-				+ ", restaurantId=" + restaurantId + ", cardType=" + cardType + ", lastFourDigits=" + lastFourDigits
-				+ ", expDate=" + expDate + ", token=" + token + ", cardNumber=" + cardNumber + ", cardHolderName="
-				+ cardHolderName + ", cvc=" + cvc + ", billingAddress=" + billingAddress + ", billingCity="
-				+ billingCity + ", billingState=" + billingState + ", billingZip=" + billingZip + ", subTotalSales="
-				+ subTotalSales + ", taxSales=" + taxSales + ", totalSales=" + totalSales + ", totalBase=" + totalBase
-				+ ", totalRestaurant=" + totalRestaurant + ", tip=" + tip + ", couponType=" + couponType
-				+ ", couponCode=" + couponCode + ", couponAmount=" + couponAmount + ", maxValidDate=" + maxValidDate
-				+ ", maxNumberOfUsages=" + maxNumberOfUsages + ", numberOfUsagesComplete=" + numberOfUsagesComplete
-				+ ", amountOffPerUsage=" + amountOffPerUsage + ", maxPercentageOffPerUsage=" + maxPercentageOffPerUsage
-				+ ", minOrderAmount=" + minOrderAmount + ", maxAmountOffPerUsage=" + maxAmountOffPerUsage + ", zip="
-				+ zip + ", newStatus=" + newStatus + ", newDate=" + newDate + ", newTime=" + newTime + ", openStatus="
-				+ openStatus + ", openDate=" + openDate + ", openTime=" + openTime + ", ackStatus=" + ackStatus
-				+ ", ackDate=" + ackDate + ", ackTime=" + ackTime + ", ready=" + ready + ", readyDate=" + readyDate
-				+ ", readyTime=" + readyTime + ", handover=" + handover + ", handoverDate=" + handoverDate
-				+ ", handoverTime=" + handoverTime + ", delivered=" + delivered + ", deliveredDate=" + deliveredDate
-				+ ", deliveredTime=" + deliveredTime + ", getName()=" + getName() + ", getAge()=" + getAge()
-				+ ", getUserId()=" + getUserId() + ", getPhone()=" + getPhone() + ", getTime()=" + getTime()
-				+ ", getCurrentDate()=" + getCurrentDate() + ", getDeliveryAddress()=" + getDeliveryAddress()
-				+ ", getDeliveryCity()=" + getDeliveryCity() + ", getDeliveryState()=" + getDeliveryState()
-				+ ", getDeliveryCharge()=" + getDeliveryCharge() + ", getDeliveryZip()=" + getDeliveryZip()
-				+ ", getDescription()=" + getDescription() + ", getInstructions()=" + getInstructions()
-				+ ", getBusinessType()=" + getBusinessType() + ", getOrderType()=" + getOrderType()
-				+ ", getOrderDate()=" + getOrderDate() + ", getOrderTime()=" + getOrderTime() + ", getOrderId()="
-				+ getOrderId() + ", getZipBusTypeMerchantId()=" + getZipBusTypeMerchantId() + ", getCardType()="
-				+ getCardType() + ", getLastFourDigits()=" + getLastFourDigits() + ", getExpDate()=" + getExpDate()
-				+ ", getToken()=" + getToken() + ", getCardNumber()=" + getCardNumber() + ", getCardHolderName()="
-				+ getCardHolderName() + ", getCvc()=" + getCvc() + ", getBillingAddress()=" + getBillingAddress()
-				+ ", getBillingCity()=" + getBillingCity() + ", getBillingState()=" + getBillingState()
-				+ ", getBillingZip()=" + getBillingZip() + ", getSubTotalSales()=" + getSubTotalSales()
-				+ ", getTaxSales()=" + getTaxSales() + ", getTotalSales()=" + getTotalSales() + ", getTotalBase()="
-				+ getTotalBase() + ", getTotalRestaurant()=" + getTotalRestaurant() + ", getTip()=" + getTip()
-				+ ", getCouponType()=" + getCouponType() + ", getCouponCode()=" + getCouponCode()
-				+ ", getMaxValidDate()=" + getMaxValidDate() + ", getMaxNumberOfUsages()=" + getMaxNumberOfUsages()
-				+ ", getNumberOfUsagesComplete()=" + getNumberOfUsagesComplete() + ", getAmountOffPerUsage()="
-				+ getAmountOffPerUsage() + ", getMaxPercentageOffPerUsage()=" + getMaxPercentageOffPerUsage()
-				+ ", getMinOrderAmount()=" + getMinOrderAmount() + ", getMaxAmountOffPerUsage()="
-				+ getMaxAmountOffPerUsage() + ", getNewStatus()=" + getNewStatus() + ", getNewDate()=" + getNewDate()
-				+ ", getNewTime()=" + getNewTime() + ", getOpenStatus()=" + getOpenStatus() + ", getOpenDate()="
-				+ getOpenDate() + ", getOpenTime()=" + getOpenTime() + ", getAckStatus()=" + getAckStatus()
-				+ ", getAckDate()=" + getAckDate() + ", getAckTime()=" + getAckTime() + ", getReady()=" + getReady()
-				+ ", getReadyDate()=" + getReadyDate() + ", getReadyTime()=" + getReadyTime() + ", getHandover()="
-				+ getHandover() + ", getHandoverDate()=" + getHandoverDate() + ", getHandoverTime()="
-				+ getHandoverTime() + ", getDelivered()=" + getDelivered() + ", getDeliveredDate()="
-				+ getDeliveredDate() + ", getDeliveredTime()=" + getDeliveredTime() + ", getZip()=" + getZip()
-				+ ", getCouponAmount()=" + getCouponAmount() + ", getRestaurantId()=" + getRestaurantId()
-				+ ", getRestaurantForms()=" + getRestaurantForms() + ", getCorpCenter()=" + getCorpCenter()
-				+ ", getCompanyName()=" + getCompanyName() + ", getSuiteNumber()=" + getSuiteNumber()
-				+ ", getRestEmail()=" + getRestEmail() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+	public Boolean getSchedule() {
+		return schedule;
 	}
+	public void setSchedule(Boolean schedule) {
+		this.schedule = schedule;
+	}
+	
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	
 }

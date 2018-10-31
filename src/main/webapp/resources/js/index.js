@@ -1,6 +1,7 @@
  
 
 	 var placeSearch, autocomplete;
+	 the_creditcard=[];
      var componentForm = {
         street_number: 'short_name',
         route: 'long_name',
@@ -104,9 +105,9 @@ function openModal(id){
 		// alert(name);
 		 //alert(description);
 		 var image=$('#'+id).find('label:eq(0)').html();
-		 alert(image);
+		// alert(image);
 		 var img=$(image).attr('src');
-		 alert(img);
+		// alert(img);
 		$("#display1").text(name);
 		$("#display3").text(description);
 		$("#display4").empty().append('<img style="height:200px;width:300px" src='+img+'/>');
@@ -115,6 +116,8 @@ function openModal(id){
 
 var count=1;
 function qtyPlus(id){
+	$("#showcart").css("display", "block");
+	$("#show_empty_cart").css("display", "none");
 	//alert(id);
 	fieldName = $('#' + id).attr('field');
 	var currentVal = parseInt($('input[name=' + fieldName + ']').val());
@@ -778,7 +781,67 @@ function final_calculate(){
 		$("#sales_review_place_order_total").text(rest_subtotal);
 	}	
 
-function setmenu() {
+
+function cancelOrder(id){
+	alert(id);
+	//$('#status'+id).text("Cancel");
+	var order_status="0";
+	var uid=$('#hide_userid').text();
+	$.ajax({
+		url: "/delivery/rests/updateOrderStatus",
+		contentType: "application/json",
+		type: "GET",
+		data: {"id":id,
+				"orderStatus":order_status} ,
+		dataType: 'json',
+		success: function(data) {
+			$.ajax({
+				url: "/delivery/rests/userOrders",
+				type: "GET",
+				data: {"userid":uid},
+				success: function(data) {
+					$('#account_orders').empty();
+						$.each(data, function(key, value) {
+							if(value['schedule']==false){
+								schedule_status="Non-scheduled";
+							}
+							if(value['schedule']==true){
+								schedule_status="Scheduled";
+							}
+							if(value['orderStatus']=='0'){
+								order_status="Cancel";
+								var disable="disabled";
+							}
+							if(value['orderStatus']=='1'){
+								order_status="Open";
+								var disable="";
+							}
+							if(value['orderStatus']=='2'){
+								order_status="Paid";
+								var disable="disabled";
+							}
+								$("#account_orders").append('<tr>'+
+								'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+								+'<td style="width:120px;text-align: center;">'+value['orderDate']
+								+'</td>'
+								+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+								+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+								+'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" style="margin-left: 20px" '+disable+'onclick="cancelOrder(this.id)" id="'+value['id']+'"></span></td></tr>');
+						});
+						}, 
+				error: function() {
+					//alert('Something went wrong');
+					}
+				});
+		}, 
+		error: function(err) {
+			// alert('Something went wrong');
+		}
+	});
+	
+	
+}
+function setmenu(updateday) {
 		
 		//var ordertype = document.getElementById("tryme_rest").getAttribute("ordertype");
 		//var select_rest = $(this).text();
@@ -800,20 +863,13 @@ function setmenu() {
 				$("#choose_rest").css("display", "none");
 				$("#backto_rest").css("display", "block"); 
 				//$("#back_restname").html('<b style="padding-bottom:10px">'+select_rest+'</b>');
-				var today = moment();
-				var result = {
-				  day: today.format("dddd"),
-				  month: today.format("MMM")
-				}
-		
-				var today=result.day.toLowerCase();
 	
 				var enable=null;
 					var html = '';
 					var day='';
 					$.each(data, function(key, value) { 
 					j++;
-					if(today=="monday"){
+					if(updateday=="monday"){
 						day=value['mon'];
 						if(day==false)
 						{
@@ -823,7 +879,7 @@ function setmenu() {
 								enable=" ";
 							}
 					}
-					else if(today=="tuesday"){
+					else if(updateday=="tuesday"){
 						day=value['tue'];
 						if(day==false)
 						{
@@ -833,7 +889,7 @@ function setmenu() {
 								enable=" ";
 							}
 					}
-					else if(today=="wednesday"){
+					else if(updateday=="wednesday"){
 						day=value['wed'];
 						if(day==false)
 						{
@@ -843,7 +899,7 @@ function setmenu() {
 								enable=" ";
 							}
 					}
-					else if(today=="thursday"){
+					else if(updateday=="thursday"){
 						day=value['thu'];
 						if(day==false)
 						{
@@ -853,7 +909,7 @@ function setmenu() {
 								enable=" ";
 							}
 					}
-					else if(today=="friday"){
+					else if(updateday=="friday"){
 						day=value['fri'];
 						if(day==false)
 						{
@@ -863,7 +919,7 @@ function setmenu() {
 								enable=" ";
 							}
 					}
-					else if(today=="saturday"){
+					else if(updateday=="saturday"){
 						day=value['sat'];
 						if(day==false)
 						{
@@ -873,7 +929,7 @@ function setmenu() {
 								enable=" ";
 							}
 					}
-					else if(today=="sunday"){
+					else if(updateday=="sunday"){
 						day=value['sun'];
 						if(day==false)
 						{
@@ -1159,8 +1215,6 @@ function enter_address(){
 			}
 		}
 	}
-
-
 
 function unique(list) {
 		var result = [];
@@ -1719,7 +1773,7 @@ function ordertype_corp()
    }
    
 
-function ordertype_rest()
+/*function ordertype_rest()
    {
 	     if ($('#dd_btn11').text().trim() == "Select Date") 
 		 {
@@ -1737,7 +1791,7 @@ function ordertype_rest()
 			 goto_rest_review_order();
 		 }
 		
-   }
+   }*/
    
 function goto_corp_review_order()
    {
@@ -1765,8 +1819,8 @@ function goto_corp_review_order()
 		/*$('#review_paymentcard_details').css("display", "none");
 	    $('#review_order_details').css("display", "none");
 		$('#review_order_summary').css("display", "none");*/
-		var date_delivery=$("#dd_btn1").attr('value');
-		var day=$('#dd_btn1').text();
+		var date_delivery=$("#dd_btn11").attr('value');
+		var day=$('#dd_btn11').attr("day");
 		//var time_delivery=$("#dd_btn2").text();
 		
 		
@@ -2034,10 +2088,72 @@ $(document).ready(function() {
 	 pageURL = $(location).attr("href");
 		footer();
 		calculate();
-		setmenu();
+		var today = moment();
+		var result = {
+		  day: today.format("dddd"),
+		}
+		var today=result.day.toLowerCase();
+		setmenu(today);
 	
+		
+		$("#date_corp a").on('click', function(e) {
+			var day=$(this).attr("day");
+			var value=$(this).attr("value");
+			var text=$(this).text();
+			$('#dd_btn11').attr("day",day);
+			$('#dd_btn11').attr("value",value);
+			$('#dd_btn11').text(text);
+			//day.toLowerCase();
+			setmenu(day.toLowerCase());
+			//alert(day);
+			//alert(value);
+			//alert(text);
+		});
+		
     $('#logged_in').click(function(e){
-		$("#profile_details").modal();
+    	var uid=$('#hide_userid').text();
+    	$.ajax({
+    		url: "/delivery/rests/userOrders",
+    		type: "GET",
+    		data: {"userid":uid},
+    		success: function(data) {
+    			$('#account_orders').empty();
+    				$.each(data, function(key, value) {
+    					if(value['schedule']==false){
+    						schedule_status="Non-scheduled";
+    					}
+    					if(value['schedule']==true){
+    						schedule_status="Scheduled";
+    					}
+    					if(value['orderStatus']=='0'){
+    						order_status="Cancel";
+    						var disable="disabled";
+    					}
+    					if(value['orderStatus']=='1'){
+    						order_status="Open";
+    						var disable="";
+    					}
+    					if(value['orderStatus']=='2'){
+    						order_status="Paid";
+    						var disable="disabled";
+    					}
+    						$("#account_orders").append('<tr>'+
+    						'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+    						+'<td style="width:120px;text-align: center;">'+value['orderDate']
+    						+'</td>'
+    						+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+    						+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+    						+'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" '+disable+' style="margin-left: 20px" onclick="cancelOrder(this.id)" id="'+value['id']+'"></span></td></tr>');
+    				});
+    				
+    				$("#profile_details").modal();
+    				
+    				}, 
+    		error: function() {
+    			//alert('Something went wrong');
+    			}
+    		});
+    	
 	  });
 		
 		
@@ -2100,6 +2216,7 @@ $(document).ready(function() {
 	
 	$('#myModal_payment').on('hidden.bs.modal', function () {
             $('.modal-body').find('lable,input,textarea').val('');
+            $('.modal-body').find('input').css('border-color','');
 	});
 	
 	
@@ -2648,13 +2765,13 @@ $(document).ready(function() {
     month[11] = "Dec";
 
 	var weekday = new Array(7);
-    weekday[0] = "Sun";
-    weekday[1] = "Mon";
-    weekday[2] = "Tue";
-    weekday[3] = "Wed";
-    weekday[4] = "Thu";
-    weekday[5] = "Fri";
-    weekday[6] = "Sat";
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
 
 
 	/* for(i=1;i<=6;i++){
@@ -2689,22 +2806,85 @@ $(document).ready(function() {
 		var m = d.getDate();
 		var l= weekday[d.getDay()];
 		//console.log(y);
+		var h=d.getHours();
+		//alert(h);
+		
+		//alert(d.toLocaleDateString());
+		//alert(new Date().toLocaleDateString());
+		if(d.toLocaleDateString()==new Date().toLocaleDateString()){
+			if(h<time){
+				$("#demo0"+i).attr('value', d.toLocaleDateString());
+				//alert("today");
+				//document.getElementById("demo0"+i).innerHTML ="Today";
+				$('#dd_btn11').text("Today");
+				$('#dd_btn11').attr("value",d.toLocaleDateString());
+				$('#dd_btn11').attr("day", weekday[d.getDay()]);
+				//alert("today");
+			}	
+			
+			else{
+				d.setDate(d.getDate() + 1);
+				$("#demo0"+i).attr('value', d.toLocaleDateString());
+				//alert("today");
+				//document.getElementById("demo0"+i).innerHTML ="Today";
+				$('#dd_btn11').text("Tomorrow");
+				$('#dd_btn11').attr("value",d.toLocaleDateString());
+				$('#dd_btn11').attr("day", weekday[d.getDay()]);
+				//alert("tommorrow");
+			}
+			
+		}else{
+			if($('#dd_btn11').text()=="Tomorrow"){
+				d.setDate(d.getDate() + 1);
+				$("#demo0"+i).attr('value', d.toLocaleDateString());
+				$("#demo0"+i).attr('day', weekday[d.getDay()]);
+				var n= month[d.getMonth()];
+				var m = d.getDate();
+				var l= weekday[d.getDay()];
+				document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
+				//alert("checked");
+			}
+			else{
+				
+			$("#demo0"+i).attr('value', d.toLocaleDateString());
+			$("#demo0"+i).attr('day', weekday[d.getDay()]);
+			document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
+			}
+		}
+		//document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
+		//$("#demo0"+i).attr('datevalue', order_date);
+	}
+	
+/*	var time=$('#time').val();
+	//alert(time);
+	for(i=0;i<=6;i++){
+		var d = new Date();
+		d.setDate(d.getDate() + i);
+		var n= month[d.getMonth()];
+		var m = d.getDate();
+		var l= weekday[d.getDay()];
+		//console.log(y);
 		
 		//alert(d.toLocaleDateString());
 		//alert(new Date().toLocaleDateString());
 		if(d.toLocaleDateString()==new Date().toLocaleDateString()){
 			$("#demo0"+i).attr('value', d.toLocaleDateString());
 			//alert("today");
-			document.getElementById("demo0"+i).innerHTML ="Today";
+			//document.getElementById("demo0"+i).innerHTML ="Today";
+			$('#dd_btn11').text("Today");
+			$('#dd_btn11').attr("value",d.toLocaleDateString());
+			$('#dd_btn11').attr("day", weekday[d.getDay()]);
+			
 		}else{
 			$("#demo0"+i).attr('value', d.toLocaleDateString());
+			$("#demo0"+i).attr('day', weekday[d.getDay()]);
 			document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
 		}
 		//document.getElementById("demo0"+i).innerHTML = l+" "+m+" "+n;
 		//$("#demo0"+i).attr('datevalue', order_date);
-	}
+	}*/
 	
-		
+
 $("#dd_date_corp a").on('click', function(e) {
 		//e.preventDefault(); 
 		var selText = $(this).text();
@@ -2756,7 +2936,7 @@ $("#dd_date_corp a").on('click', function(e) {
 	});
 
 	
-	$("#dd_date_rest a").click(function(e){
+	/*$("#dd_date_rest a").click(function(e){
 		e.preventDefault(); 
 		var selText = $(this).text();
 		var seldate =$(this).closest('a').attr('datevalue');
@@ -2764,9 +2944,9 @@ $("#dd_date_corp a").on('click', function(e) {
 		document.getElementById("dd_btn11").setAttribute("seldate", seldate);
 		date=selText;
 		time=$("#dd_btn22").val();
-	});
+	});*/
 
-	$("#dd_time_rest a").click(function(e){
+	/*$("#dd_time_rest a").click(function(e){
 		e.preventDefault(); 
 		var selText = $(this).text();
 		$("#dd_btn22").text(selText);
@@ -2775,7 +2955,7 @@ $("#dd_date_corp a").on('click', function(e) {
 		$("#time_delivery").text(time);
 		
 	});
-
+*/
       
 	/*$("#btn_guestlogin").on('click', function(e) {
 		goto_corp_review_order();
@@ -2812,9 +2992,10 @@ $("#dd_date_corp a").on('click', function(e) {
 	});
 	
 	 $("#schedule_order").click(function(e){ 
-	    	window.open('http://localhost:8080/delivery/orderSchedule/');
+		 	window.open('../orderSchedule/');
+	    	//window.open('http://localhost:8080/delivery/orderSchedule/');
 	    	//window.location.replace("http://localhost:8080/delivery/orderRestaurant/");
-	   });
+	 });
 	 
 	
 /*	$("#schedule_order").click(function(e){
@@ -2868,7 +3049,8 @@ $("#dd_date_corp a").on('click', function(e) {
 						var u_email;
 						var u_phone;
 						var myarray = data.split(',');
-					   
+						var schedule_status=null;
+						var order_status=null;
 						for(var k = 0; k < myarray.length; k++){
 							u_id = (myarray[0]);
 							u_fname = (myarray[1]);
@@ -2898,7 +3080,17 @@ $("#dd_date_corp a").on('click', function(e) {
 						$('#corp_name_delivery').val(u_fname+" "+u_lname);
 					
 						$('#back_corp_checkout_panel').css("display", "none");	
-						$('#review_details').css("display", "none");	
+						$('#review_details').css("display", "none");
+						$("#showcart").css("display", "none");
+						$("#show_empty_cart").css("display", "block");
+						
+						var today = moment();
+						var result = {
+						  day: today.format("dddd"),
+						}
+						var today=result.day.toLowerCase();
+						setmenu(today);
+						$("#cartTable #tid").empty();
 					}
 					
 					$.ajax({
@@ -2943,10 +3135,34 @@ $("#dd_date_corp a").on('click', function(e) {
 					type: "GET",
 					data: {"userid":u_id},
 					success: function(data) {
-							$.each(data, function(key, value) { 
-									$("#account_orders").append('<tr><td style="width:50px; id="'+value['id']+'"></td>'+
-									'<td style="width:200px;">'+value['id']+'</td>'+'<td style="width:210px;">'+value['orderDate']+'</td></tr>');
-								});
+						$('#account_orders').empty();
+							$.each(data, function(key, value) {
+								if(value['schedule']==false){
+									schedule_status="Non-scheduled";
+								}
+								if(value['schedule']==true){
+									schedule_status="Scheduled";
+								}
+								if(value['orderStatus']=='0'){
+									order_status="Cancel";
+									var disable="disabled";
+								}
+								if(value['orderStatus']=='1'){
+									order_status="Open";
+									var disable="";
+								}
+								if(value['orderStatus']=='2'){
+									order_status="Paid";
+									var disable="disabled";
+								}
+									$("#account_orders").append('<tr>'+
+									'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+									+'<td style="width:120px;text-align: center;">'+value['orderDate']
+									+'</td>'
+									+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+									+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+									+'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" style="margin-left: 20px" '+disable+' onclick="cancelOrder(this.id)" id="'+value['id']+'"></span></td></tr>');
+							});
 							}, 
 					error: function() {
 						//alert('Something went wrong');
@@ -3102,7 +3318,7 @@ $("#dd_date_corp a").on('click', function(e) {
 	});
 
 
-
+	
 	$("#sign_out").click(function(e){
 		
 		$('#profile_details').css("display", "none");
@@ -3496,7 +3712,7 @@ var lastdigits=number.slice( -Count);
 		 
 		 $("#disply_new_card").append('<tr id="'+id+'"><td><input type="radio" id="radcc" class="radioBtnClass" name="rad_cc" exp="'+exp+'" value="'+number+'"'+
 		 'cvc="'+cvc+'" cardholdername="'+name+'" address="'+address+'" city="'+city+'" state="'+state+'" zip="'+zip+'" lastdigits="'+lastdigits+'" /></td>'+
-		 '<td><label style="font-weight:lighter;margin-left:5px;width:440px;margin-bottom: 10px;">Card ending in '+ number1+
+		 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
 		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
@@ -3671,7 +3887,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
        data: JSON.stringify(jsonObj) ,
 	   dataType: 'json',
        success: function(data) {
-		 alert('success');
+		// alert('success');
 		 $('#myModal_payment').modal('hide');
 		 
 		 $("#profile_details").modal('show');
@@ -3777,8 +3993,11 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		$("#myModal_delete_cc").modal('show');
 		
 		$("#btn_delete_cc_yes").on('click', function(e) {
-					$('#'+ID).empty();
+			alert(ID);
+					$('#disply_new_card #'+ID).empty();
 					$("#myModal_delete_cc").modal('hide');	
+					$('#'+ID).empty();
+					
 						//var par = $('#remove_creditcard').parent().parent();
 			//var ID =$('#remove_creditcard').closest('tr').attr('id');
 			
@@ -3849,7 +4068,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		var zip = $(this).closest('input').attr("zip");
 		var lastdigits = $(this).closest('input').attr("lastdigits");
 	
-		the_creditcard=[];
+		
    
 		the_creditcard.push({Val:Val,
 						exp:exp,
@@ -3866,10 +4085,10 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		
 		
 	$("#review_coupon").on('click', function(e) {
-	
-	if ( $("#logged_in").css('display') == 'none'){
-    alert('Please Login to use coupon');
-	} 
+		if($("#hide_userid").text()=='0'){
+			$('#applyCoupon').modal('show');
+			//$('#myModal_login').modal('show');
+		}
 	else {
 	$("#review_coupon").css('display','none');
 	$("#coupon_code").val('');
@@ -3947,7 +4166,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	});
 	
 	$("#tip_btn1").on('click', function(e) {
-		$("#tip_value").css('display','block');  
+		$("#change_btn").css('display','block');  
 		$("#remove_tip").css('display','block');
 		$("#tip_buttons").css('display','none');
 		$("#tip_value").html('$1');
@@ -3955,7 +4174,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	});
 	
 	$("#tip_btn2").on('click', function(e) {
-		$("#tip_value").css('display','block');  
+		$("#change_btn").css('display','block');  
 		$("#remove_tip").css('display','block');
 		$("#tip_buttons").css('display','none');
 		$("#tip_value").html('$2');
@@ -3963,7 +4182,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	});
 	
 	$("#tip_btn3").on('click', function(e) {
-		$("#tip_value").css('display','block');  
+		$("#change_btn").css('display','block');  
 		$("#remove_tip").css('display','block');
 		$("#tip_buttons").css('display','none');
 		$("#tip_value").html('$3');
@@ -3971,7 +4190,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	});
 	
 	$("#tip_btn4").on('click', function(e) {
-		$("#tip_value").css('display','block');  
+		$("#change_btn").css('display','block');  
 		$("#remove_tip").css('display','block');
 		$("#tip_buttons").css('display','none');
 		$("#tip_value").html('$4');
@@ -3981,7 +4200,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	$("#tip_btn5").on('click', function(e) {
 		$("#hide_othertip").css('display','block'); 
 		//$("#othertip_value").css('display','block');
-		$("#tip_value").css('display','none');		
+		$("#change_btn").css('display','none');		
 		$("#remove_tip").css('display','none');
 		$("#tip_buttons").css('display','none');
 		$('#othertip_value').val('');
@@ -3997,7 +4216,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		} else {
 			$("#hide_othertip").css('display','none'); 
 			//$("#othertip_value").css('display','none');
-			$("#tip_value").css('display','block');			
+			$("#change_btn").css('display','block');			
 			$("#remove_tip").css('display','block');
 			$("#tip_buttons").css('display','none');
 			var othertip_value = $("#othertip_value").val();
@@ -4008,7 +4227,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	
 	$("#remove_tip").on('click', function(e) {
 		$("#tip_buttons").css('display','block');
-		$("#tip_value").css('display','none');  
+		$("#change_btn").css('display','none');  
 		$("#remove_tip").css('display','none');
 		$("#tip_value").html('$0');
 		$('#submit_othertip').prop('disabled', true);
@@ -4023,7 +4242,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		} else if ($('#corp_phone_delivery').val() == '') {
 			$('#corp_phone_delivery').css('border', '1px solid red');
 			alert("Phone cannot be blank");
-		} else if( $('#disply_new_card').is(':empty') ) {
+		} else if( $('#disply_new_card').text()=="" ) {
 			alert("Please select card to proceed");
 		} else {
 			
@@ -4034,7 +4253,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			
 			var textarea_delivery=$('#textarea_delivery').val();
 
-			var date_delivery=$("#dd_btn1").attr('value');
+			var date_delivery=$("#dd_btn11").attr('value');
 			
 			var corp_center=$("#dd_btn3").text();
 		
@@ -4075,7 +4294,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 				var hr = d.getHours(); // => 9
 				var min = d.getMinutes(); // =>  30
 				var sec = d.getSeconds(); // => 51
-				
+				var order_date=d.toLocaleDateString();
 				//alert("restaurantId"  + the_rest[j].restaurantId + "name"  + the_rest[j].name);
 				var menu_table = $("#cart_item_details .menu_"+the_rest[j].name).length;
 				var table=$("#cart_item_details .menu_"+the_rest[j].name);
@@ -4152,6 +4371,10 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			var corp_phone_delivery= $("#corp_phone_delivery").val();
 			var corp_email_delivery= $("#corp_email_delivery").val();
 			var zipbusid = $("#hide_zipid").text();
+			if(the_creditcard==""){
+			alert("Please select card to proceed");	
+				}else{
+			
 			var orderForm = 
 			{
 				"userId": hide_userid,
@@ -4190,7 +4413,9 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 				//"orderTime": time_delivery,
 				"orderTime":"11:30:00",
 				
-				"zipBusTypeMerchantId": "1",       
+				"zipBusTypeMerchantId": "1",    
+				"schedule": "false", 
+				"orderStatus": "1", 
 				
 				"cardType": "VISA",
 				"lastFourDigits": the_creditcard[0].lastdigits,
@@ -4262,7 +4487,8 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			//"totalBase-" +base_review_place_order_total,"totalRestaurant-"+sales_review_place_order_total,"tip-"+ driver_tip);
 			
 			console.log(JSON.stringify(orderForm));
-			
+			$("#loader").css("display", "block");
+				
 			$.ajax({
 				//url: "/delivery/rests/order",
 				url: pageURL+"order",
@@ -4274,8 +4500,9 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 				
 				console.log(data);
 					var obj = JSON.stringify(data.result);
-					
+					$("#loader").css("display", "none");
 					$('#remove_coupon').css("display", "none");
+					$('#orderNoModel').modal('show');
 					$('#corp_review_orderno').text('Your Order number is '+ obj);
 					
 					$('#review_order_submit').prop('disabled', true);
@@ -4285,6 +4512,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 					
 		        }
 			});	
+			}
 		}
 	});
 	

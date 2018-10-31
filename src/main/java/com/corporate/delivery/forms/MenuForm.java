@@ -17,8 +17,8 @@ public class MenuForm {
 	private String specialInstuctions;
 	private Integer quantity;
 	
-	private List<SectionForm> sections;
-
+	/*private List<SectionForm> sections;
+*/
 	public Integer getId() {
 		return id;
 	}
@@ -68,12 +68,12 @@ public class MenuForm {
 		this.specialInstuctions = specialInstuctions;
 	}
 
-	public List<SectionForm> getSections() {
+	/*public List<SectionForm> getSections() {
 		return sections;
 	}
 	public void setSections(List<SectionForm> sections) {
 		this.sections = sections;
-	}
+	}*/
 	
 	public Integer getQuantity() {
 		return quantity;
@@ -93,7 +93,7 @@ public class MenuForm {
 	public String toString() {
 		return "MenuForm [id=" + id + ", name=" + name + ", basePrice=" + basePrice + ", salesPrice=" + salesPrice
 				+ ", salesTax=" + salesTax + ", restaurantPrice=" + restaurantPrice + ", description=" + description
-				+ ", specialInstuctions=" + specialInstuctions + ", quantity=" + quantity + ", sections=" + sections
+				+ ", specialInstuctions=" + specialInstuctions + ", quantity=" + quantity
 				+ "]";
 	}
 }

@@ -11,7 +11,11 @@ div.top_menu {
         float: left;
         margin-top: 5px;
 
-}     
+}    
+
+
+
+ 
 #loader {
   position: absolute;
   left: 50%;
@@ -722,14 +726,29 @@ div.modal-footer
     from {right: 10%; opacity: 1;}
     to {right: 0; opacity: 0;}
 }
-.showinfo{
+/* .showinfo{
 color: cornflowerblue;
 background-color: white;
 border-color: skyblue;
-}
+} */
+
+.showinfo{
+color: cornflowerblue;
+background-color: white;
+
+} 
 .showinfo:hover{
 color: #fff;
 background-color: skyblue;
-border-color: skyblue;
+/* border-color: skyblue; */
 }
 /*46b8da*/
+
+
+ .Cell
+    {
+        display: table-cell;
+        border: solid;
+        border-width: thin;
+       
+    }

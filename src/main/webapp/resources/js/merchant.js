@@ -6,6 +6,35 @@
 		}
 		return true;
 	}
+	
+	function updateStatus(id){
+		alert(id);
+		var updateid=$('#'+id).attr("tdid");
+		alert(updateid);
+		var tdvalue=$('#'+updateid).attr("value");
+		alert(tdvalue);
+		if(tdvalue==1){
+			$('#'+updateid).attr('value','2');
+			$('#'+updateid).text('Paid');
+		}
+		
+		var id=$('#'+id).attr("orderid");
+		$.ajax({
+			url: "/delivery/rests/updateOrderStatus",
+			contentType: "application/json",
+			type: "GET",
+			data: {"id":id,
+					"orderStatus":"2"} ,
+			dataType: 'json',
+			success: function(data) {
+				 $("#"+id).attr("disabled", true);
+				//$('#'+id).prop('disabled', true);
+							}, 
+					error: function() {
+						//alert('Something went wrong');
+						}
+					});
+	}
 
 	function footer(){
 	   var cart = $('#welcome_portal').height();
@@ -216,10 +245,10 @@
 			 $('#groupMenuNumber').css('border', '');
 		}
 		
-		if ($('#price').val() == ''){
-			$('#price').css('border', '1px solid red');
+		if ($('#salesprice').val() == ''){
+			$('#salesprice').css('border', '1px solid red');
 		}else{
-			 $('#price').css('border', '');
+			 $('#salesprice').css('border', '');
 		}
 		
 		if ($('#description').val() == ''){
@@ -303,27 +332,77 @@ $('[data-toggle="tooltip"]').tooltip();
         }); 
 		
 		$('#date_start').on('apply.daterangepicker', function(ev, picker) {
-			$(this).val(picker.startDate.format('MM/DD/YYYY') + ' to ' + picker.endDate.format('MM/DD/YYYY'));
+			$(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
 		});
 
 		$('#date_start').on('cancel.daterangepicker', function(ev, picker) {
 			$(this).val('');
 		});
 		
-		$('#date_start1').daterangepicker({
+		
+		$('#date_start2').daterangepicker({
             autoUpdateInput: false,
 			locale: {
 				cancelLabel: 'Clear'
 			}
         }); 
 		
-		$('#date_start1').on('apply.daterangepicker', function(ev, picker) {
-			$(this).val(picker.startDate.format('MM/DD/YYYY') + ' to ' + picker.endDate.format('MM/DD/YYYY'));
+		$('#date_start2').on('apply.daterangepicker', function(ev, picker) {
+			$(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
 		});
 
-		$('#date_start1').on('cancel.daterangepicker', function(ev, picker) {
+		$('#date_start2').on('cancel.daterangepicker', function(ev, picker) {
 			$(this).val('');
 		});
+		
+		$("#btnExport").click(function () {
+			
+			if($('#table_summary').text()=='')
+				{
+				$('#noData').css("display","block");
+				$('#table_summary').empty();
+				}
+			else{
+				
+				$("#table_summary").table2excel({
+					exclude: "#btncolumn",
+					filename: "Summary-Report.xls",
+					
+				});
+			}
+			
+	    });
+		$("#btnExport2").click(function () {
+			if($("#table_report").text()=='')
+			{
+				$('#noData').css("display","block");
+				$('#table_report').empty();
+			}
+			else{
+				
+				$("#table_report").table2excel({
+					filename: "Order-Report.xls"
+				});
+				
+			}
+	    });
+	/*	
+		$("#btnExport").click(function () {
+
+
+			$("#table_summary").table2excel({
+			exclude: "#btncolumn",
+			filename: "Table.xls",
+
+		});
+	});
+		$("#btnExport2").click(function () {
+			$("#table_report").table2excel({
+			filename: "Table.xls",
+
+		});
+	});*/
+			
 		
 		/*	  
 		$('#date_start, #date_end').calendricalDateRange({
@@ -331,9 +410,357 @@ $('[data-toggle="tooltip"]').tooltip();
 		}); 
 		*/
 		
-		$('#myModal_login').on('hidden.bs.modal', function () {
+		/*$('#myModal_login').on('hidden.bs.modal', function () {
 			$('.modal-body').find('lable,input,textarea').val('');
-		});
+		});*/
+		
+	/*	$("#filter1").click(function(e){
+			var fromDate;
+			var toDate;
+			var userType;
+			var orderType;
+			
+			if($('#userType').val()==null || $('#userType').val()=="" ){
+				userType="null";
+			}else{
+				userType=$('#userType').val();
+			}
+			
+			if($('#orderType').val()==null || $('#orderType').val()==""){
+				orderType="null";
+			}else{
+				orderType=$('#orderType').val();
+			}
+			
+			if($("#date_start").val()==""){
+				fromDate="null";
+				toDate="null";
+			}else{
+				var date = $("#date_start").val();
+				var myarray = date.split('to');
+				for(var z = 0; z < myarray.length; z++){
+					fromDate = myarray[0];
+					toDate = myarray[1];
+				}
+			}
+			if(userType=="null" && orderType=="null" && fromDate=="null" && toDate=="null"){
+				alert("Please select atleast one filter option to search!");
+			}
+			else{
+			$.ajax({
+				url: pageURL+"getFilterOrder",
+				type: "GET",
+				data: {
+					"userType":userType,
+					"orderType":orderType,
+					"fromDate":fromDate,
+					"toDate":toDate
+				},
+				dataType: 'json',
+				success: function(data) { 
+					console.log("data"+data);
+					alert(data);
+					$('#table_summary').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order Number</label></td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order Date</label></td>'+
+							'<td style="width:150px;height:50px;padding-left: 10px;"><label>Name</label></td>'+
+							'<td style="width:150px;height:50px;padding-left: 10px;"><label>Address</label></td>'+
+							'<td style="width:150px;height:50px;padding-left: 10px;"><label>Delivery Charges</label></td>'+
+							'<td style="width:150px;height:50px;padding-left: 10px;"><label>Subtotal Sales</label></td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tax</label></td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><label>Total Sales</label></td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tip</label></td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><label>Schedule</label></td>'+
+							'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order Status</label></td></tr>');
+						   
+							$.each(data, function(key, value) {
+								
+								html='<tr id="'+value['id']+'" zipBustypeMerchantId="'+value['zipBustypeMerchantId']+
+								'" style="border:1px solid #dadada;margin-bottom: 1.1em;padding-left: 10px;">'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['id']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['orderDate']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['name']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['deliveryAddress']+','+value['deliveryCity']+','+value['deliveryState']+','+value['deliveryZip']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['deliveryCharge']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['subTotalSales']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['taxSales']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['totalSales']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['tip']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['schedule']+'</td>'+
+								'<td style="width:150px;height:50px;padding-left: 10px;">'+value['orderStatus']+'</td></tr>';
+								
+								$('#table_summary').append(html);
+							});
+	
+				}, 
+				error: function() {
+					//   alert('Something went wrong');
+				}   
+			});
+			}
+			
+		});*/
+		
+		
+		$("#filter").click(function(e){
+			var fromDate;
+			var toDate;
+			var userType;
+			var orderType;
+			var order_status;
+			var disable="";
+			var schedule_status="";
+			
+			if($('#userType').val()==null || $('#userType').val()=="" ){
+				userType="null";
+			}else{
+				userType=$('#userType').val();
+			}
+			
+			if($('#orderType').val()==null || $('#orderType').val()==""){
+				orderType="null";
+			}else{
+				orderType=$('#orderType').val();
+			}
+			
+			if($("#date_start").val()==""){
+				fromDate="null";
+				toDate="null";
+			}else{
+				var date = $("#date_start").val();
+				var myarray = date.split('to');
+				for(var z = 0; z < myarray.length; z++){
+					fromDate = myarray[0];
+					toDate = myarray[1];
+				}
+			}
+			if(userType=="null" && orderType=="null" && fromDate=="null" && toDate=="null"){
+				alert("Please select atleast one filter option to search!");
+			}
+			else{
+			$.ajax({
+				url: pageURL+"getFilterOrder",
+				type: "GET",
+				data: {
+					"userType":userType,
+					"orderType":orderType,
+					"fromDate":fromDate,
+					"toDate":toDate
+				},
+				dataType: 'json',
+			success: function(data) { 
+				if(data==""){
+					$('#noData').css("display","block");
+					$('#table_summary').empty();
+				
+				}else{
+					$('#noData').css("display","none");
+					//console.log("success"+data)
+			$('#table_summary').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Date</label></td>'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order Number</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>No of items in order</label></td>'+
+					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Subtotal Sales</label></td>'+
+					//'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base total Price</label></td>'+
+					//'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant total Price</label></td>'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tax</label></td>'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tip</label></td>'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Delivery Charge</label></td>'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Total sales</label></td>'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Schedule</label></td>'+
+					'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order Status</label></td>'+
+					'<td id="btncolumn" style="width:100px;height:50px;text-align: center;"><label>Update Status</label></td>'+
+					'</tr>');
+			
+			$.each(data, function(key, value) {
+				var schedule_status="";
+				var len=data.length;
+				console.log("OrderHeaderLength"+len);
+				
+				var len2=value["orderRestaurantMenus"].length;	
+				console.log("orderRestaurantMenusLength"+len2);
+				
+				var len3=["orderRestaurant"].length;	
+				console.log("orderRestaurant"+len3);
+
+				for(y=0;y<len2; y++){
+					if(value.orderHeader.schedule==true){
+						 schedule_status="Scheduled";
+					}
+					if(value.orderHeader.schedule==false){
+						 schedule_status="Non-scheduled";
+					}
+					if(value.orderHeader.orderStatus==1){
+						order_status="Open";
+						disable="";
+					}
+					if(value.orderHeader.orderStatus==2){
+						order_status="Paid";
+						disable="disabled";
+					}
+					
+					if(value.orderHeader.orderStatus==0){
+						order_status="Cancelled";
+						disable="disabled";
+					}
+				html='<tr class="orderhid'+value.orderHeader.id+'" zipBustypeMerchantId="'+value.orderHeader.zipBustypeMerchantId+
+				'" style="border:1px solid #dadada;margin-bottom: 1.1em;padding-left: 10px;">'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.orderDate+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.id+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurantMenus[y].quantity+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.subTotalSales+'</td>'+
+				//'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.totalBase+'</td>'+
+				//'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.totalRestaurant+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.taxSales+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.tip+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.deliveryCharge+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.totalSales+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;" value="'+value.orderHeader.schedule+'">'+schedule_status+'</td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;" id="status'+value.orderHeader.id+'" value="'+value.orderHeader.orderStatus+'">'+order_status+'</td>'+
+				'<td id="btncolumn" style="width:100px;height:50px;text-align: center;"><button type="button" '+disable+' class="btn btn-primary" orderid="'+value.orderHeader.id+'"onclick="updateStatus(this.id)" tdid="status'+value.orderHeader.id+'" id="updatestatus'+value.orderHeader.id+'" '+
+		    	'><span class="glyphicon glyphicon-edit"></span>Update Status</button></td></tr>';
+				}
+				
+				$('#table_summary').append(html);
+			});
+			}
+				$('#table_summary tr td').each(function (k, cellObj) {
+                    this.setAttribute('title', cellObj.innerText);
+                    this.setAttribute('data-toggle', "tooltip");
+					this.setAttribute('data-placement', "top");
+        });
+			}, 
+			error: function() {
+			alert('Something went wrong');
+			} 
+			});
+			}
+			});
+		
+		
+		$("#filter2").click(function(e){
+			var fromDate;
+			var toDate;
+			var userType;
+			var orderType;
+			
+			if($('#userType2').val()==null || $('#userType2').val()=="" ){
+				userType="null";
+			}else{
+				userType=$('#userType2').val();
+			}
+			
+			if($('#orderType2').val()==null || $('#orderType2').val()==""){
+				orderType="null";
+			}else{
+				orderType=$('#orderType2').val();
+			}
+			
+			if($("#date_start2").val()==""){
+				fromDate="null";
+				toDate="null";
+			}else{
+				var date = $("#date_start2").val();
+				var myarray = date.split('to');
+				for(var z = 0; z < myarray.length; z++){
+					fromDate = myarray[0];
+					toDate = myarray[1];
+				}
+			}
+			if(userType=="null" && orderType=="null" && fromDate=="null" && toDate=="null"){
+				alert("Please select atleast one filter option to search!");
+			}
+			else{
+			$.ajax({
+				url: pageURL+"getFilterOrder",
+				type: "GET",
+				data: {
+					"userType":userType,
+					"orderType":orderType,
+					"fromDate":fromDate,
+					"toDate":toDate
+				},
+				dataType: 'json',
+			success: function(data) { 
+					//console.log("success"+data)
+			var html = '';	
+			$('#table_report').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Date</label></td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Order ID</label></td>'+
+			//'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant ID</label></td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant name</label></td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Menu name</label></td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Custom Price</label></td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base Price</label></td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant Price</label></td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;"><label>Tax</label></td></tr>');
+
+			
+			$.each(data, function(index, value) {
+				var len=data.length;
+				console.log("OrderHeaderLength"+len);
+				
+				var len2=value["orderRestaurantMenus"].length;	
+				console.log("orderRestaurantMenusLength"+len2);
+				
+				var len3=["orderRestaurant"].length;	
+				console.log("orderRestaurant"+len3);
+
+				for(y=0;y<len2; y++){
+
+					var href = value.orderRestaurantMenus[y].menuName;
+					console.log('menuName '+href);
+
+					var salePriceMenu = value.orderRestaurantMenus[y].salePriceMenu;
+					console.log('salePriceMenu '+salePriceMenu);
+
+					var basePriceMenu = value.orderRestaurantMenus[y].basePriceMenu;
+					console.log('basePriceMenu '+basePriceMenu);
+
+					var restaurantPriceMenu = value.orderRestaurantMenus[y].restaurantPriceMenu;
+					console.log('restaurantPriceMenu '+restaurantPriceMenu);
+
+					var restaurantName = value.orderRestaurant.restaurantName;
+					console.log('restaurantName '+restaurantName);
+
+					var restaurantId = value.orderRestaurant.restaurantId;
+					console.log('restaurantId '+restaurantId);
+
+					var orderId = value.orderRestaurant.orderId;
+					//console.log('orderId '+orderId);
+
+					var deliveryCharge = value.orderHeader.deliveryCharge;
+					//console.log(deliveryCharge);
+
+					var orderDate = value.orderHeader.orderDate;
+					//console.log('orderDate '+orderDate);
+
+						html += '<tr id="'+value.orderRestaurant.orderId+'" '+
+			'" style="border:1px solid #dadada;margin-bottom: 1.1em;padding-left: 10px;">'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.orderDate+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurant.orderId+'</td>'+
+			//'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurant.restaurantId+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurant.restaurantName+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurantMenus[y].menuName+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurantMenus[y].salePriceMenu+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurantMenus[y].basePriceMenu+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurantMenus[y].restaurantPriceMenu+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurantMenus[y].salePriceTax+'</td></tr>';
+
+				}
+			});
+			$('#table_report tr td').each(function (k, cellObj) {
+                this.setAttribute('title', cellObj.innerText);
+                this.setAttribute('data-toggle', "tooltip");
+				this.setAttribute('data-placement', "top");
+    });
+			}, 
+			error: function() {
+			alert('Something went wrong');
+			} 
+			});
+			}
+			});
 		
 		$('#myModal_contactus').on('hidden.bs.modal', function () {
 			$('.modal-body').find('lable,input,textarea').val('');
@@ -844,7 +1271,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 			success:function(data){
 				alert("Deleted successfully");
 				console.log(data); 
-				$('#'+ID).empty();
+				$('#menuid'+ID).empty();
 			},
 			error:function(){
 				//alert('error');
@@ -893,6 +1320,32 @@ $('#table_rest').on('click', '#edit_details', function () {
 		});
 	});
 		
+	
+	$('#myModal_add_menu').on('change', 'input[type=checkbox]', function() {
+		if($(this).attr("value")=="true"){
+			$(this).attr("value","false");
+		}else 
+			if($(this).attr("value")=="false"){
+			$(this).attr("value","true");
+		}
+		
+		
+		//alert("checked");
+    });
+	
+	$('#myModal_edit_menu').on('change', 'input[type=checkbox]', function() {
+		if($(this).attr("value")=="true"){
+			$(this).attr("value","false");
+		}else 
+			if($(this).attr("value")=="false"){
+			$(this).attr("value","true");
+		}
+		
+		
+		//alert("checked");
+    });
+	
+	
 	$("#go_to_welcome_pg").click(function(e){
 		
 		$("#rest_page").css("display","none");
@@ -918,7 +1371,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 		$("#menu_page").css("display","block");
 		$('#table_menu').empty();
 		$('#rest_id').text(ID);
-		
+		var schedule_status,active_status,mon_s,tue_s,wed_s,thu_s,fri_s,sat_s,sun_s;
 		$.ajax({
 			url: "/delivery/merchants/menus",
 			type: "GET",
@@ -928,80 +1381,101 @@ $('#table_rest').on('click', '#edit_details', function () {
 				console.log('success:'+data);
 				
 				$('#table_menu').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Name</label></td>'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Description</label></td>'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Base Price</label></td>'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Sales Price</label></td>'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Restaurant Price</label></td>'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Status</label></td>'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Edit</label></td>'+
-						'<td style="width:150px;height:40px;padding-top: 5px;padding-left: 10px;"><label>Delete</label></td></tr>');
+						'<td style="width:200px;height:40px;padding-top: 5px;text-align: center;"><label>Name</label></td>'+
+						'<td style="width:290px;height:40px;padding-top: 5px;text-align: center;"><label>Description</label></td>'+
+						'<td style="width:200px;height:40px;padding-top: 5px;text-align: center;text-align: center;"><label>Sales Price</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Mon</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Tue</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Wed</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Thu</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Fri</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Sat</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Sun</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Active</label></td>'+
+						'<td style="width:50px;height:40px;padding-top: 5px;text-align: center;"><label>Schedule</label></td>'+
+						'<td style="width:150px;height:40px;text-align: center;"><label>Edit</label></td>'+
+						'<td style="width:150px;height:40px;text-align: center;"><label>Delete</label></td></tr>');
 		   
 				$.each(data, function(key, value) {
 					
 					console.log(key,value);
 					console.log("active:"+value.active);
 					
-					//var Ststval='InActive';
+					if(value['schedule']==true){
+						schedule_status='<span class="glyphicon glyphicon-ok"></span>';
+					}
+					else{
+						schedule_status='<span class="glyphicon glyphicon-remove"></span>';
+					}
 					if(value['active']==true){
-						var Ststval='Active';
-					}else if(value['active']==false){
-						var Ststval='InActive';
+						active_status='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						active_status='<span class="glyphicon glyphicon-remove"></span>';
+					}
+					if(value['mon']==true){
+						mon_s='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						mon_s='<span class="glyphicon glyphicon-remove"></span>';
+					}
+					if(value['tue']==true){
+						tue_s='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						tue_s='<span class="glyphicon glyphicon-remove"></span>';
+					}
+					if(value['wed']==true){
+						wed_s='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						wed_s='<span class="glyphicon glyphicon-remove"></span>';
+					}
+					if(value['thu']==true){
+						thu_s='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						thu_s='<span class="glyphicon glyphicon-remove"></span>';
+					}
+					if(value['fri']==true){
+						fri_s='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						fri_s='<span class="glyphicon glyphicon-remove"></span>';
+					}
+					if(value['sat']==true){
+						sat_s='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						sat_s='<span class="glyphicon glyphicon-remove"></span>';
+					}
+					if(value['sun']==true){
+						sun_s='<span class="glyphicon glyphicon-ok"></span>';
+					}else{
+						sun_s='<span class="glyphicon glyphicon-remove"></span>';
 					}
 					
+					
+					html='<tr id="menuid'+value['id']+'"restid="'+ID+'" menuid="'+value['id']+'" restaurantBustypeId="'+ value['restaurantBustypeId']+
+					'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
+				'<td style="width:100px;height:50px;display:none">'+value['groupMenuNumber']+'</td>'+
+				'<td style="width:100px;display:none">'+ value['groupNumber']+'</td>'+
+				'<td style="width:100px;display:none">'+ value['groupName']+'</td>'+
+				'<td style="width:100px;padding-left: 10px;">'+value['name']+'</td>'+
+				'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+value['description']+'</td>'+
+				'<td style="width:100px;padding-left: 10px;display:none">'+value['basePrice']+'</td>'+
+				'<td style="width:100px;text-align: center;">'+value['salesPrice']+'</td>'+
+				'<td style="width:100px;text-align: center;" mon="'+value['mon']+'">'+mon_s+'</td>'+
+				'<td style="width:100px;text-align: center;" tue="'+value['tue']+'">'+tue_s+'</td>'+
+				'<td style="width:100px;text-align: center;" wed="'+value['wed']+'">'+wed_s+'</td>'+
+				'<td style="width:100px;text-align: center;" thu="'+value['thu']+'">'+thu_s+'</td>'+
+				'<td style="width:100px;text-align: center;" fri="'+value['fri']+'">'+fri_s+'</td>'+
+				'<td style="width:100px;text-align: center;" sat="'+value['sat']+'">'+sat_s+'</td>'+
+				'<td style="width:100px;text-align: center;" sun="'+value['sun']+'">'+sun_s+'</td>'+
+				'<td style="width:100px;padding-left: 10px;display:none">'+value['restaurantPrice']+'</td>'+
+				'<td style="display:none">'+value['menuImage']+'</td>'+
+				'<td style="width:100px;text-align: center;" active="'+value['active']+'">'+active_status+'</td>'+
+				'<td style="width:100px;text-align: center;" schedule="'+value['schedule']+'">'+schedule_status+'</td>'+
 				
-					
-					
-					html='<tr restid="'+ID+'" menuid="'+value['id']+'" restaurantBustypeId="'+ value['restaurantBustypeId']+
-							'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
-						'<td style="width:100px;height:50px;display:none">'+value['groupMenuNumber']+'</td>'+
-						'<td style="width:100px;display:none">'+ value['groupNumber']+'</td>'+
-						'<td style="width:100px;display:none">'+ value['groupName']+'</td>'+
-						'<td style="width:100px;padding-left: 10px;">'+value['name']+'</td>'+
-						'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+value['description']+'</td>'+
-						'<td style="width:100px;padding-left: 10px;">'+value['basePrice']+'</td>'+
-						'<td style="width:100px;padding-left: 10px;">'+value['salesPrice']+'</td>'+
-						'<td style="width:100px;padding-left: 10px;">'+value['restaurantPrice']+'</td>'+
-						'<td style="display:none">'+value['menuImage']+'</td>'+
-						//'<td style="width:100px;height:50px;display:none"><a id="go_to_section_pg">'+'Sections</a></td>'+
-						//'<td style="display:none"><input type="checkbox" value="'+Ststval+'"/></td>'+
-						
-						'<td style="width:100px;padding-left: 10px;">'+Ststval+'</td>'+
-							
-						/*'<td style="width:100px;height:50px;padding-left: 10px;">'+
-							'<div class="dropdown">'+
-								'<button id="select_active_inactive_edit" class="btn dropdown-toggle" type="button" data-toggle="dropdown"'+
-									'style="border-color:blue;background-color:white;color:blue;width:150px;">Select<span class="caret"></span>'+
-								'</button>'+
-								'<ul id="dd_active_inactive_edit" class="dropdown-menu" style="width:150px">'+
-									'<li><a id="radio_btn">Active</a></li><li><a id="check_box">InActive</a>'+
-									'</li>'+
-								'</ul>'+
-							'</div>'+
-						'</td>'+*/
-						
-						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
-					    	'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
-						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
-							'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td></tr>';
+				'<td style="width:100px;height:50px;text-align: center;"><button type="button" class="btn btn-primary" id="edit_menu" '+
+			    	'><span class="glyphicon glyphicon-edit"></span> Edit</button></td>'+
+				'<td style="width:100px;height:50px;text-align: center;"><button type="button" class="btn btn-primary" id="delete_menu"'+
+					'><span class="glyphicon glyphicon-trash"></span> Delete</button></td></tr>';
 					
 						$('#table_menu').append(html);
-						//go_to_section_pg
-						
-						/*<div class="form-group col-md-12">
-	                    <div class="dropdown">
-					        <button id="select_active_inactive_edit" class="btn dropdown-toggle" type="button" style="width:150px;background-color:#eec591" data-toggle="dropdown">
-					            Select
-					            <span class="caret"></span>
-					        </button>
-					        <ul id="dd_active_inactive_edit" class="dropdown-menu" style="width:150px">
-							
-					            <li><a id="radio_btn">Active</a></li>
-					            <li><a id="check_box">InActive</a></li>
-					            
-					        </ul>
-	    				</div>
-	    				*/
 					
 					});
 					$('#table_menu tr td').each(function (k, cellObj) {
@@ -1026,29 +1500,32 @@ $('#table_rest').on('click', '#edit_details', function () {
 			($("#groupNumber").css("border-color") === "rgb(255, 0, 0)") || ($("#groupName").css("border-color") === "rgb(255, 0, 0)") ||
 			($("#groupMenuNumber").css("border-color") === "rgb(255, 0, 0)") || ($("#menu_name").css("border-color") === "rgb(255, 0, 0)") ||
 			($("#description").css("border-color") === "rgb(255, 0, 0)") || ($("#menuImage").css("border-color") === "rgb(255, 0, 0)") || 
-			($("#price").css("border-color") === "rgb(255, 0, 0)")
+			($("#salesprice").css("border-color") === "rgb(255, 0, 0)")
 		){
 			fill_menu();
 		} else {
+			var name = $("#menu_name").val();
+			var mon = $("#day1").val();
+			var tue = $("#day2").val();
+			var wed = $("#day3").val();
+			var thu = $("#day4").val();
+			var fri = $("#day5").val();
+			var sat = $("#day6").val();
+			var sun = $("#day7").val();
 			
-			var select_active_inactive=	$("#select_active_inactive").text();	
-			if(select_active_inactive=="Active"){
-				var active="true";
-			} else if(select_active_inactive=="InActive"){
-				var active="false";
-			}
+			var active=	$("#active").val();	
+			var schedule=$("#schedule").val();	
 			
-			alert("active:"+active);
+			var salesprice	= $("#salesprice").val();
+			alert(salesprice);
+			var description = $("#description").val();
+			var menuImage = $("#menuImage").val();
 			
 			var count = $('#table_menu tr').length;				
 			var groupNumber = $("#groupNumber").val();
 			var groupName = $("#groupName").val();
 			var groupMenuNumber = $("#groupMenuNumber").val();
-			var name = $("#menu_name").val();
-			var description = $("#description").val();
-			var menuImage = $("#menuImage").val();
 			var baseprice	= $("#baseprice").val();
-			var salesprice	= $("#salesprice").val();
 			var restaurantprice	= $("#restaurantprice").val();
 			var restaurantBustypeId;
 			//var active;
@@ -1065,9 +1542,18 @@ $('#table_rest').on('click', '#edit_details', function () {
 					"basePrice":baseprice,
 					"salesPrice":salesprice,
 					"restaurantPrice":restaurantprice,
-					"active":active
+					"active":active,
+					"mon":mon,
+					"tue":tue,
+					"wed":wed,
+					"thu":thu,
+					"fri":fri,
+					"sat":sat,
+					"sun":sun,
+					"schedule":schedule
 			}; 
-										
+			var schedule_status,active_status,mon_s,tue_s,wed_s,thu_s,fri_s,sat_s,sun_s;
+			console.log(JSON.stringify(jsonObj));						
 			//alert("menu add test");			
 			$.ajax({
 	                    url:  "/delivery/merchants/addMenu",
@@ -1076,43 +1562,86 @@ $('#table_rest').on('click', '#edit_details', function () {
 	                    data: JSON.stringify(jsonObj) ,
 						dataType: 'json',
 	                    success: function (data) {
-	                      //  alert('success'+data);
-							console.log("sucess:"+data);
+	                      alert('success'+data);
+							console.log("success:"+data);
 			
-					html='<tr restid="'+ID+'" menuid="'+data+'" restaurantBustypeId="'+ ID+'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
+
+							if(schedule=="true"){
+								schedule_status='<span class="glyphicon glyphicon-ok"></span>';
+							}
+							else{
+								schedule_status='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(active=="true"){
+								active_status='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								active_status='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(mon=="true"){
+								mon_s='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								mon_s='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(tue=="true"){
+								tue_s='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								tue_s='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(wed=="true"){
+								wed_s='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								wed_s='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(thu=="true"){
+								thu_s='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								thu_s='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(fri=="true"){
+								fri_s='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								fri_s='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(sat="true"){
+								sat_s='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								sat_s='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							if(sun=="true"){
+								sun_s='<span class="glyphicon glyphicon-ok"></span>';
+							}else{
+								sun_s='<span class="glyphicon glyphicon-remove"></span>';
+							}
+							
+							
+							html='<tr id="menuid'+data+'"restid="'+ID+'" menuid="'+data+'" restaurantBustypeId="'+ ID+
+							'" style="border:1px solid #dadada;margin-bottom:1.1em">'+
 						'<td style="width:100px;height:50px;display:none">'+groupMenuNumber+'</td>'+
-						'<td style="width:100px;display:none">'+ groupNumber+'</td><td style="width:100px;display:none">'+ groupName+'</td>'+
+						'<td style="width:100px;display:none">'+groupNumber+'</td>'+
+						'<td style="width:100px;display:none">'+groupName+'</td>'+
 						'<td style="width:100px;padding-left: 10px;">'+name+'</td>'+
 						'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+description+'</td>'+
-						'<td style="width:100px;padding-left: 10px;">'+baseprice+'</td>'+
-						'<td style="width:100px">'+salesprice+'</td>'+
-						'<td style="width:100px;padding-left: 10px;">'+restaurantprice+'</td>'+
+						'<td style="width:100px;padding-left: 10px;display:none">'+baseprice+'</td>'+
+						'<td style="width:100px;text-align: center;">'+salesprice+'</td>'+
+						'<td style="width:100px;text-align: center;" mon="'+mon+'">'+mon_s+'</td>'+
+						'<td style="width:100px;text-align: center;" tue="'+tue+'">'+tue_s+'</td>'+
+						'<td style="width:100px;text-align: center;" wed="'+wed+'">'+wed_s+'</td>'+
+						'<td style="width:100px;text-align: center;" thu="'+thu+'">'+thu_s+'</td>'+
+						'<td style="width:100px;text-align: center;" fri="'+fri+'">'+fri_s+'</td>'+
+						'<td style="width:100px;text-align: center;" sat="'+sat+'">'+sat_s+'</td>'+
+						'<td style="width:100px;text-align: center;" sun="'+sun+'">'+sun_s+'</td>'+
+						'<td style="width:100px;padding-left: 10px;display:none">'+restaurantprice+'</td>'+
 						'<td style="display:none">'+menuImage+'</td>'+
-						//'<td style="width:100px;height:50px;display:none"><a id="go_to_section_pg">'+'Sections</a></td>'+
-						//'<td style="display:none"><input type="checkbox" value="'+active+'"/></td>'+
-						/*'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="go_to_section_pg"'+
-									'style="border-color:blue;background-color:white;color:blue;width:80px;">Section</button></td>'+*/
-						/*'<td style="width:100px;height:50px;padding-left: 10px;">'+
-							'<div class="dropdown">'+
-								'<button id="select_active_inactive_edit" class="btn dropdown-toggle" type="button" data-toggle="dropdown"'+
-									'style="border-color:blue;background-color:white;color:blue;width:150px;">Select<span class="caret"></span>'+
-								'</button>'+
-								'<ul id="dd_active_inactive_edit" class="dropdown-menu" style="width:150px">'+
-									'<li><a id="radio_btn">Active</a></li><li><a id="check_box">InActive</a>'+
-									'</li>'+
-								'</ul>'+
-							'</div>'+*/
-						'<td style="width:100px;padding-left: 10px;">'+value['active']+'</td>'+
-						'</td>'+
-						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
-					    			'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
-						'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
-									'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td>'+
-						'</tr>';
-			
-							$('#table_menu').append(html);
-					
-							$("#myModal_add_menu").modal('hide');
+						'<td style="width:100px;text-align: center;" active="'+active+'">'+active_status+'</td>'+
+						'<td style="width:100px;text-align: center;" schedule="'+schedule+'">'+schedule_status+'</td>'+
+						
+						'<td style="width:100px;height:50px;text-align: center;"><button type="button" class="btn btn-primary" id="edit_menu" '+
+					    	'><span class="glyphicon glyphicon-edit"></span> Edit</button></td>'+
+						'<td style="width:100px;height:50px;text-align: center;"><button type="button" class="btn btn-primary" id="delete_menu"'+
+							'><span class="glyphicon glyphicon-trash"></span> Delete</button></td></tr>';
+							
+						$('#table_menu').append(html);
+						$("#myModal_add_menu").modal('hide');
 	                    },
 	                    error: function (err){
 	                        //alertify.error(err.statusText);
@@ -1121,6 +1650,22 @@ $('#table_rest').on('click', '#edit_details', function () {
 		}		
 	});
 	
+	$('#myModal_add_menu').on('hidden.bs.modal', function () {
+		$('#myModal_add_menu .modal-body').find('input[type=checkbox]').attr('checked', false);
+		$('#myModal_add_menu .modal-body').find('input[type=checkbox]').attr('value', false);
+		/*$('#myModal_add_menu').on('hidden.bs.modal', function () {
+			$('.modal-body').find('lable,input,textarea').val('');
+		});*/
+		//alert("fduydsf");
+	});
+	$('#myModal_edit_menu').on('hidden.bs.modal', function () {
+		$('#myModal_edit_menu .modal-body').find('input[type=checkbox]').attr('checked', false);
+		$('#myModal_edit_menu .modal-body').find('input[type=checkbox]').attr('value', false);
+		/*$('#myModal_add_menu').on('hidden.bs.modal', function () {
+			$('.modal-body').find('lable,input,textarea').val('');
+		});*/
+		//alert("fduydsf");
+	});
 	
 	$("#dd_active_inactive").on('click', 'li', function () {
 		var selText = $(this).text();
@@ -1145,11 +1690,18 @@ $('#table_rest').on('click', '#edit_details', function () {
 		var text5 = row.find("td:nth-child(5)").text();
 		var text6 = row.find("td:nth-child(6)").text(); 
 		var text7 = row.find("td:nth-child(7)").text();
-		var text8 = row.find("td:nth-child(8)").text(); 
-		var text9 = row.find("td:nth-child(9)").text();
-		var text10 = row.find("td:nth-child(10)").text(); 
-		var text11 = row.find("td:nth-child(11)").text();				 
-		var text12 = row.find("td:nth-child(12)").text();
+		
+		var text8 = row.find("td:nth-child(8)").attr("mon"); 
+		var text9 = row.find("td:nth-child(9)").attr("tue"); 
+		var text10 = row.find("td:nth-child(10)").attr("wed"); 
+		var text11 = row.find("td:nth-child(11)").attr("thu"); 				 
+		var text12 = row.find("td:nth-child(12)").attr("fri"); 
+		var text13 = row.find("td:nth-child(13)").attr("sat"); 
+		var text14 = row.find("td:nth-child(14)").attr("sun"); 
+		var text15 = row.find("td:nth-child(15)").text();
+		var text16 = row.find("td:nth-child(16)").text();
+		var text17 = row.find("td:nth-child(17)").attr("active");
+		var text18 = row.find("td:nth-child(18)").attr("schedule");
 		
 		console.log("text1 "+text1);
 		console.log("text2 "+text2);
@@ -1163,18 +1715,57 @@ $('#table_rest').on('click', '#edit_details', function () {
 		console.log("text10 "+text10);
 		console.log("text11 "+text11);
 		console.log("text12 "+text12);
+		console.log("text13 "+text13);
+		console.log("text14 "+text14);
+		console.log("text15 "+text15);
+		console.log("text16 "+text16);
+		console.log("text17 "+text17);
+		console.log("text18 "+text18);
 		
 		$("#myModal_edit_menu").modal();	
 		$("#hidemenuid").text(ID);
-		$("#edit_groupMenuNumber").val(text1);
-		$("#edit_groupNumber").val(text2);
-		$("#edit_groupName").val(text3);
 		$("#edit_menu_name").val(text4);
+		if(text8=="true"){
+			$("#edit_day1").prop("checked", true );
+		}
+		if(text9=="true"){
+			$("#edit_day2").prop("checked", true );
+		}
+		if(text10=="true"){
+			$("#edit_day3").prop("checked", true );
+		}
+		if(text11=="true"){
+			$("#edit_day4").prop("checked", true );
+		}
+		if(text12=="true"){
+			$("#edit_day5").prop("checked", true );
+		}
+		if(text13=="true"){
+			$("#edit_day6").prop("checked", true );
+		}
+		if(text14=="true"){
+			$("#edit_day7").prop("checked", true );
+		}
+		if(text17=="true"){
+			$("#edit_active").prop("checked", true );
+		}
+		if(text18=="true"){
+			$("#edit_schedule").prop("checked", true );
+		}
+		
+		$("#edit_day1").val(text8);
+		$("#edit_day2").val(text9);
+		$("#edit_day3").val(text10);
+		$("#edit_day4").val(text11);
+		$("#edit_day5").val(text12);
+		$("#edit_day6").val(text13);
+		$("#edit_day7").val(text14);
+		$("#edit_active").val(text17);
+		$("#edit_schedule").val(text18);
 		$("#edit_description").val(text5);
-		$("#edit_menuImage").val(text9);
+		$("#edit_menuImage").val(text16);
 		$("#edit_baseprice").val(text6);
 		$("#edit_salesprice").val(text7);
-		$("#edit_restaurantprice").val(text8);
 		console.log("SSS="+text10);
 
 		var select=	$("#select_active_inactive_edit").text();
@@ -1191,7 +1782,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 	  
 	$("#submit_edit_menu").click(function(e){
 		var id=$('#rest_id').text();
-		edit_fill_menu();
+		//edit_fill_menu();
 	
 		if(
 			($("#edit_groupNumber").css("border-color") === "rgb(255, 0, 0)") || ($("#edit_groupName").css("border-color") === "rgb(255, 0, 0)") ||
@@ -1202,43 +1793,87 @@ $('#table_rest').on('click', '#edit_details', function () {
 			edit_fill_menu();
 		} else {
 			var	ID =$("#hidemenuid").text();
-			
-			
-			
 			var count = $('#table_menu tr').length;				
-			var groupNumber = $("#edit_groupNumber").val();
-			var groupName = $("#edit_groupName").val();
-			var groupMenuNumber = $("#edit_groupMenuNumber").val();
 			var name = $("#edit_menu_name").val();
 			var description = $("#edit_description").val();
 			var menuImage = $("#edit_menuImage").val();
-			var baseprice	= $("#edit_baseprice").val();
 			var salesprice	= $("#edit_salesprice").val();
-			var restaurantprice	= $("#edit_restaurantprice").val();
 			var restaurantBustypeId;
-			var active = $("#active").val();
-			
-			var select_active_inactive=	$("#select_active_inactive_edit").text();	
-			if(select_active_inactive=='Active'){
-				var active="true";
-			} else if(select_active_inactive=='InActive'){
-				var active="false";
+			var active = $("#edit_active").val();
+			var schedule = $("#edit_schedule").val();
+			var mon=$("#edit_day1").val();
+			var tue=$("#edit_day2").val();
+			var wed=$("#edit_day3").val();
+			var thu=$("#edit_day4").val();
+			var fri=$("#edit_day5").val();
+			var sat=$("#edit_day6").val();
+			var sun=$("#edit_day7").val();
+			var schedule_status,active_status,mon_s,tue_s,wed_s,thu_s,fri_s,sat_s,sun_s;
+			if(schedule=="true"){
+				schedule_status='<span class="glyphicon glyphicon-ok"></span>';
 			}
-			
-			
+			else{
+				schedule_status='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(active=="true"){
+				active_status='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				active_status='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(mon=="true"){
+				mon_s='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				mon_s='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(tue=="true"){
+				tue_s='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				tue_s='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(wed=="true"){
+				wed_s='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				wed_s='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(thu=="true"){
+				thu_s='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				thu_s='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(fri=="true"){
+				fri_s='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				fri_s='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(sat="true"){
+				sat_s='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				sat_s='<span class="glyphicon glyphicon-remove"></span>';
+			}
+			if(sun=="true"){
+				sun_s='<span class="glyphicon glyphicon-ok"></span>';
+			}else{
+				sun_s='<span class="glyphicon glyphicon-remove"></span>';
+			}
 			var jsonObj = { 
 				"id":ID,
 				"restaurantBustypeId":id,
-				"groupNumber": groupNumber,
-				"groupName":groupName,
-				"groupMenuNumber":groupMenuNumber,
+				//"groupNumber": groupNumber,
+				//"groupName":groupName,
+				//"groupMenuNumber":groupMenuNumber,
 				"name":name,
 				"description":description,
 				"menuImage":menuImage,
-				"basePrice":baseprice,
 				"salesPrice":salesprice,
-				"restaurantPrice":restaurantprice,
-				"active":active
+				"active":active,
+				"schedule":schedule,
+				"mon":mon,
+				"tue":tue,
+				"wed":wed,
+				"thu":thu,
+				"fri":fri,
+				"sat":sat,
+				"sun":sun
 			};
 			//alert(price);
 			console.log(jsonObj);
@@ -1251,36 +1886,34 @@ $('#table_rest').on('click', '#edit_details', function () {
                 success: function (data) {
                 //	alert('success'+data);
 					console.log(data);
+	
 					
+					$('#menuid'+ID).html(
+					//		'<td style="width:100px;height:50px;display:none">'+groupMenuNumber+'</td>'+
+					//'<td style="width:100px;display:none">'+groupNumber+'</td>'+
+					//'<td style="width:100px;display:none">'+groupName+'</td>'+
+					'<td style="width:100px;padding-left: 10px;">'+name+'</td>'+
+					'<td style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;">'+description+'</td>'+
+					//'<td style="width:100px;padding-left: 10px;display:none">'+baseprice+'</td>'+
+					'<td style="width:100px;text-align: center;">'+salesprice+'</td>'+
+					'<td style="width:100px;text-align: center;" mon="'+mon+'">'+mon_s+'</td>'+
+					'<td style="width:100px;text-align: center;" tue="'+tue+'">'+tue_s+'</td>'+
+					'<td style="width:100px;text-align: center;" wed="'+wed+'">'+wed_s+'</td>'+
+					'<td style="width:100px;text-align: center;" thu="'+thu+'">'+thu_s+'</td>'+
+					'<td style="width:100px;text-align: center;" fri="'+fri+'">'+fri_s+'</td>'+
+					'<td style="width:100px;text-align: center;" sat="'+sat+'">'+sat_s+'</td>'+
+					'<td style="width:100px;text-align: center;" sun="'+sun+'">'+sun_s+'</td>'+
+					//'<td style="width:100px;padding-left: 10px;display:none">'+restaurantprice+'</td>'+
+					'<td style="display:none">'+menuImage+'</td>'+
+					'<td style="width:100px;text-align: center;" active="'+active+'">'+active_status+'</td>'+
+					'<td style="width:100px;text-align: center;" schedule="'+schedule+'">'+schedule_status+'</td>'+
+					
+					'<td style="width:100px;height:50px;text-align: center;"><button type="button" class="btn btn-primary" id="edit_menu" '+
+				    	'><span class="glyphicon glyphicon-edit"></span> Edit</button></td>'+
+					'<td style="width:100px;height:50px;text-align: center;"><button type="button" class="btn btn-primary" id="delete_menu"'+
+						'><span class="glyphicon glyphicon-trash"></span> Delete</button></td>');
 				
-					
-					/*$('#'+ID).html('<td style="width:100px;height:50px;padding-left:20px"><button type="button" class="btn" id="edit_menu">'+
-					'Edit</button></td><td style="width:100px;height:50px;">'+groupMenuNumber+'</td><td style="width:100px">'+ groupNumber+
-					'</td><td style="width:100px">'+ groupName+'</td>'+
-					'<td style="width:100px">'+name+'</td><td style="width:100px">'+description+'</td><td style="width:100px">'+baseprice+
-					'</td><td style="width:100px">'+salesprice+'</td><td style="width:100px">'+restaurantprice+
-					'</td><td>'+menuImage+'</td><td style="width:100px;height:50px;"><a id="go_to_section_pg">Sections</a></td><td><input type="checkbox" value="'+active+'"/></td>');
-	
-					 	*/
-	
 					$("#myModal_edit_menu").modal('hide');	
-	
-					$('#'+ID).html('<td style="width:100px;height:50px;display:none">'+groupMenuNumber+'</td>'+
-							'<td style="width:100px;display:none">'+groupNumber+'</td>'+
-							'<td style="width:100px;display:none">'+ groupName+'</td>'+
-							'<td style="width:100px;padding-left: 10px;">'+name+'</td>'+
-							'<td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left: 10px;">'+description+'</td>'+
-							'<td style="width:100px;padding-left: 10px;">'+baseprice+'</td>'+
-							'<td style="width:100px;padding-left: 10px;">'+salesprice+'</td>'+
-							'<td style="width:100px;padding-left: 10px;">'+restaurantprice+'</td>'+
-							'<td style="display:none">'+menuImage+'</td>'+
-							'<td style="width:100px;padding-left: 10px;">'+value['active']+'</td>'+
-							'</td>'+
-							'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="edit_menu" '+
-								'style="border-color:blue;background-color:white;color:blue;width:80px;">Edit</button></td>'+
-							'<td style="width:100px;height:50px;padding-left: 10px;"><button type="button" class="btn btn_hover" id="delete_menu"'+
-								'style="border-color:red;background-color:white;color:red;width:80px;">Delete</button></td>');
-				
 				},
                 error: function () {
                         //alertify.error(err.statusText);
@@ -1647,7 +2280,7 @@ $('#table_rest').on('click', '#edit_details', function () {
 		});		
 	});
 	
-	$("#go_dates").click(function(e){
+	$("#go_dates99").click(function(e){
 		
 		//$("#date_start1").on('change', function(e) {
 		var date = $("#date_start").val();
@@ -1707,78 +2340,113 @@ $('#table_rest').on('click', '#edit_details', function () {
 	});
 	
 	$("#btn_summary_report").click(function(e){
-		
-		$("#welcome_portal").css("display","none");
-		$("#summary_page").css("display","block");
-	});
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+		    dd = '0'+dd
+		} 
+		if(mm<10) {
+		    mm = '0'+mm
+		} 
+		today = yyyy + '-' + mm + '-' + dd;
+		//alert(today);
 	
-	$("#go_dates1").click(function(e){
-		
-		//$("#date_start1").on('change', function(e) {
-		var date = $("#date_start1").val();
-		var myarray = date.split('to');
-		var store_myrray1;
-		var store_myrray2;
-		for(var z = 0; z < myarray.length; z++){
-			store_myrray1 = myarray[0];
-			store_myrray2 = myarray[1];
-		}
-		console.log('dates: '+store_myrray1+' '+store_myrray2);
 		$.ajax({
-			url: pageURL+"orderHeaderReportBetweenDates",
+			url: pageURL+"getFilterOrder",
 			type: "GET",
 			data: {
-					"id":4,
-					"fromDate":"2015-05-15",
-					"toDate":"2015-08-28"
+				"userType":"null",
+				"orderType":"null",
+				"fromDate":today,
+				"toDate":today
 			},
-		/*	data: {
-					"id":id,
-					"fromDate":store_myrray1,
-					"toDate":store_myrray2
-			},  */
-			success: function(data) {   
-			     	 var html = '';	
-					$('#table_report').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Date</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Order ID</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant ID</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant name</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Menu name</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Custom Price</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base Price</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant Price</label></td>'+
-					'<td style="width:150px;height:50px;padding-left: 10px;"><label>Tax</label></td></tr>');
-			   
-			  
-				$.each(data, function(key, value) {
-					console.log(data);
-					console.log(key, value);
-					var len=value.length;		
-					console.log(len);					
-					console.log(value['id']);
-					
-					for(i=0; i < len; i++){
+			dataType: 'json',
+		success: function(data) { 
+			$("#welcome_portal").css("display","none");
+			$("#summary_page").css("display","block");
+			if(data==""){
+				$('#noData').css("display","block");
+				$('#table_summary').empty();
+			
+			}else{
+				$('#noData').css("display","none");
+				//console.log("success"+data)
+		$('#table_summary').empty().append('<tr style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada">'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Date</label></td>'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order Number</label></td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;"><label>No of items in order</label></td>'+
+				'<td style="width:150px;height:50px;padding-left: 10px;"><label>Subtotal Sales</label></td>'+
+				//'<td style="width:150px;height:50px;padding-left: 10px;"><label>Base total Price</label></td>'+
+				//'<td style="width:150px;height:50px;padding-left: 10px;"><label>Restaurant total Price</label></td>'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tax</label></td>'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Tip</label></td>'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Delivery Charge</label></td>'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Total sales</label></td>'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Schedule</label></td>'+
+				'<td style="width:100px;height:50px;padding-left: 10px;"><label>Order Status</label></td>'+
+				'<td style="width:100px;height:50px;text-align: center;"><label>Update Status</label></td>'+
+				'</tr>');
+		
+		
+		
+		$.each(data, function(key, value) {
+			var schedule_status="";
+			var len=data.length;
+			console.log("OrderHeaderLength"+len);
+			
+			var len2=value["orderRestaurantMenus"].length;	
+			console.log("orderRestaurantMenusLength"+len2);
+			
+			var len3=["orderRestaurant"].length;	
+			console.log("orderRestaurant"+len3);
+
+			for(y=0;y<len2; y++){
+				if(value.orderHeader.schedule==true){
+					 schedule_status="Scheduled";
+				}
+				if(value.orderHeader.schedule==false){
+					 schedule_status="Non-scheduled";
+				}
+				if(value.orderHeader.orderStatus==1){
+					order_status="Open";
+					disable="";
+				}
+				if(value.orderHeader.orderStatus==2){
+					order_status="Paid";
+					disable="disabled";
+				}
 				
-						html += '<tr id="'+value[i]['id']+'" '+
-						'" style="border:1px solid #dadada;margin-bottom: 1.1em;background-color:#dadada;padding-left: 10px;">'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['orderDate']+'</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['orderId']+'</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantId']+'</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantName']+'</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>Menuname</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['saleRestaurantPrice']+'</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['baseRestaurantPrice']+'</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['restaurantPrice']+'</label></td>'+
-						'<td style="width:150px;height:50px;padding-left: 10px;"><label>'+value[i]['deliveryCharge']+'</labeel></td></tr>';
-					}
-					
-				});
-				$('#table_report').last().append(html);
-			}, 
-			error: function() {
-				alert('Something went wrong');
-			}   
+				if(value.orderHeader.orderStatus==0){
+					order_status="Cancelled";
+					disable="disabled";
+				}
+			html='<tr class="orderhid'+value.orderHeader.id+'" zipBustypeMerchantId="'+value.orderHeader.zipBustypeMerchantId+
+			'" style="border:1px solid #dadada;margin-bottom: 1.1em;padding-left: 10px;">'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.orderDate+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.id+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderRestaurantMenus[y].quantity+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.subTotalSales+'</td>'+
+			//'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.totalBase+'</td>'+
+			//'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.totalRestaurant+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.taxSales+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.tip+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.deliveryCharge+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;">'+value.orderHeader.totalSales+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;" value="'+value.orderHeader.schedule+'">'+schedule_status+'</td>'+
+			'<td style="width:150px;height:50px;padding-left: 10px;" id="status'+value.orderHeader.id+'" value="'+value.orderHeader.orderStatus+'">'+order_status+'</td>'+
+			'<td style="width:100px;height:50px;text-align: center;"><button type="button" '+disable+' class="btn btn-primary" orderid="'+value.orderHeader.id+'"onclick="updateStatus(this.id)" tdid="status'+value.orderHeader.id+'" id="updatestatus'+value.orderHeader.id+'" '+
+	    	'><span class="glyphicon glyphicon-edit"></span>Paid</button></td></tr>';
+			}
+			
+			$('#table_summary').append(html);
+		});
+		}
+		}, 
+		error: function() {
+		alert('Something went wrong');
+		} 
 		});
 	});
 	

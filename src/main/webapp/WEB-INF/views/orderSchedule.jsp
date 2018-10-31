@@ -7,16 +7,16 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css" />
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/tp/classic.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/tp/classic.time.css" />
-	
- <script
+
+<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/tp/picker.js"></script>
 <script
@@ -29,13 +29,12 @@
 	src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 
 
-
+<script src="${pageContext.request.contextPath}/resources/js/orderSchedule.js"></script>
 <!-- end -->
-<link href="${pageContext.request.contextPath}/resources/css/index.css"
+<link href="${pageContext.request.contextPath}/resources/css/orderSchedule.css"
 	rel="stylesheet">
 
 <!-- <script
@@ -70,14 +69,14 @@
 <script
 	src="${pageContext.request.contextPath}/resources/Scripts/dpNumberPicker-2.x-min.js"></script>
 
-<script
+<%-- <script
 	src="${pageContext.request.contextPath}/resources/fonts/glyphicons-halflings-regular.eot"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/fonts/glyphicons-halflings-regular.svg"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/fonts/glyphicons-halflings-regular.ttf"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/fonts/glyphicons-halflings-regular.woff"></script>
+	src="${pageContext.request.contextPath}/resources/fonts/glyphicons-halflings-regular.woff"></script> --%>
 
 <link type="text/css" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
@@ -91,7 +90,8 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 </head>
-<body onload="setDay()">
+
+ <body onload="setDay()"> 
 	<input type="hidden" id="list" value='${list}' />
 	<div class="top_menu" id="top_menu">
 		<table cellpadding=0 id="menu"
@@ -104,15 +104,26 @@
 
 				</a></td>
 				<td width=350px></td>
+
 				<td width=150px
 					style="text-decoration: none; margin-top: 50px; cursor: pointer; margin-left: 70px">
-					<a id="login"
+
+					<!-- <a id="login"
 					style="color: red; display: block; margin-left: 50px; margin-top: 10px"
 					data-toggle="modal" data-target="#myModal_login"> <b>Sign
-							In</b>
-				</a> <a id="logged_in"
+							In</b> 
+				</a>-->
+					<button type="button" id="login" value="Sign In"
+						class="btn btn-danger btn-group-justified" data-toggle="modal"
+						data-target="#myModal_login"
+						style="width: 80px; height: auto; border-radius: 30px; margin-left: 50px; display: block;">Sign
+						In</button> <a id="logged_in"
 					style="display: none; color: black; margin-top: 10px"></a>
+
+
 				</td>
+
+
 				<td>
 					<button type="button" id="register" value="Sign Up"
 						class="btn btn-danger btn-group-justified" data-toggle="modal"
@@ -142,32 +153,21 @@
 	<div id="div_address" class="div_address"
 		style="display:block;margin-top:55px;background-image: url(${pageContext.request.contextPath}/resources/images/pic6.jpg);">
 		<div id="locationField">
-			<table><tr>
-				<td>
-				<input type="text"
-						class="form-control" id="datepicker" placeholder="Select dates" style="width: 200px;">
-				
-				</td>
-				
+			<table>
+				<tr>
+					<!-- <td><input type="text" class="form-control" id="datepicker"
+						placeholder="Select dates" style="width: 200px;"></td> -->
+
 					<td width=75%><input id="autocomplete"
 						placeholder=" Street address, city, state" onFocus="geolocate()"
-						type="text"
-						style="position: relative; width: 500px; margin-left: 50px; height: 35px; font-size: 14pt;" />
+						type="text" value="" 
+						style="position: relative; width: 500px; margin-left:295px; height: 35px; font-size: 14pt;" />
 					</td>
 
 				</tr>
 			</table>
 		</div>
- <!--  <div>
-			 <table>
-				<tr>
-					<td style="margin-top: -20px"><input type="text"
-						class="form-control" id="datepicker" placeholder="Select dates"></td>
-						 
-				</tr>
-			</table> 
 
-		</div>   -->
 
 		<table id="address" style="display: none">
 			<tr>
@@ -201,13 +201,13 @@
 		<div id="hideerror_details" style="display: none"></div>
 		<div id="hideerror_details1" style="display: none"></div>
 
-		<div id="date_time_corp"
+		<!--  <div id="date_time_corp"
 			style="display: none; margin-left: 450px; margin-top: 30px; width: 130px">
-			<!-- <div id="dd_btn1" value="" class="well-sm"
+			<div id="dd_btn1" value="" class="well-sm"
 				style="text-align: center; width: 130px; background-color: #eec591">
-			</div> -->
+			</div>
 
-		</div>
+		</div>  -->
 		<table>
 			<tr id="date_time_rest" style="display: none">
 				<td>
@@ -275,7 +275,15 @@
 					</div>
 				</td>
 			</tr>
+			<tr>
+			
+			<td><input type="text" class="form-control" id="datepicker"
+						placeholder="Select dates" style="width: 200px; margin-left: 220%;margin-top:18%; "></td>
+			</tr>
 		</table>
+		<!-- <td><input type="text" class="form-control" id="datepicker"
+						placeholder="Select dates" style="width: 200px;"></td> -->
+						
 		<!-- <div>
 			<table>
 				<tr>
@@ -298,16 +306,17 @@
 					<div class="modal-header">
 
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3 style="margin-left: 410px; font-weight: bold">Your
+						<h3 style="margin-left: 410px;font-family: Palatino Linotype;font-weight: bold">
 							Account Details</h3>
 					</div>
 					<div class="modal-body col-md-12" style="width: 1100px;">
 						<div class="col-md-6">
 							<div id="account_edit"
-								style="border: 1px solid #dadada; padding-left: 10px; width: 500px;">
+								style="border: 1px solid #dadada; padding-left: 10px; width: 500px; border-radius:7px ">
 								<h4 class="glyphicon glyphicon-user"
 									style="font-size: 24px; font-weight: 500">
-									<span id="nameofuser"></span>
+									 <span style="font-weight: 700;font-size: large;font-family: Palatino Linotype;" id="nameofuser"></span> 
+									
 								</h4>
 								<br /> <br /> <a id="edit_user_details">Edit</a> <a
 									id="reset_password" style="float: right; padding-right: 5px;"
@@ -316,13 +325,13 @@
 							</div>
 							<br />
 							<div id="payment_details"
-								style="border: 1px solid #dadada; margin-bottom: 20px; width: 500px;">
-								<div style="padding-bottom: 10px; margin-left: 20px;">
+								style="border: 1px solid #dadada; margin-bottom: 20px; width: 500px; border-radius:7px">
+								 <div style="padding-bottom: 10px; margin-left: 20px;">
 									<h4>
-										<label style="width: 250px;">Your Cards</label><label
-											style="width: 100px;; margin-left: 30px">Expires</label>
+										<label style="width: 250px;font-family: Palatino Linotype;">Your Cards</label><label
+											style="width: 100px;font-weight: 700;font-family: Palatino Linotype; margin-left: 4%">Expires</label>
 									</h4>
-								</div>
+								</div> 
 								<div id="card_details"></div>
 								<div
 									style="margin-bottom: 10px; margin-top: 10px; padding-top: 10px; margin-left: 20px; margin-right: 20px;">
@@ -335,19 +344,71 @@
 
 						</div>
 
+						
+
 						<div class="col-md-6">
-							<div
-								style="border: 1px solid #dadada; padding-left: 10px; width: 500px;">
-								<h4 style="font-size: 24px; font-weight: 500">My Orders</h4>
+			
+						
+						
+						
+						
+						<!-- <div
+								style="border-radius: 7px; border: 1px solid #dadada; padding-left: 10px; width: 500px">
+								<h4
+									style="font-size: 24px; padding-bottom: 10px; font-weight: 500">My
+									Order</h4>
 								<div style="padding-bottom: 10px; margin-left: 20px;">
 									<h6>
-										<label style="width: 240px;">Order ID</label><label
-											style="width: 210px;">Order Date</label>
+										<label style="width: 50px;">Order Id</label> <label
+											style="width: 130px; text-align: center;">Order Date</label>
+										<label style="width: 150px;">Schedule Status</label> <label
+											style="width: 100px;">Order Status</label>
 									</h6>
 								</div>
-								<div id="account_orders"></div>
-							</div>
+								<div id="account_orders"  style="margin-left: 20px;"></div>
+							</div> -->
+						
+						
+				 <div  style="border-radius: 7px; padding-left: 10px; width: 500px;border: 1px solid #dadada">
+								<h6
+									style="font-size: large;font-family: Palatino Linotype; padding-bottom: 20px; margin-left: -50px;font-weight: 500;text-align: center"><b>
+									Order Details</b></h6> 
+									
+								<div style="padding-bottom: 10px; margin-left: 20px;margin-bottom: -25px; ">
+									<h6>
+										<label style="width: 50px;margin-left: -15px;">Order Id</label> <label
+											style="width: 150px; text-align: center;">Order Date</label>
+										<label style="width: 100px;">Schedule Status</label> <label
+											style="width: 90px;text-align: right;">Order Status</label>
+									</h6>
+									<hr style="width: 500px; margin-left: -30px">
+								</div>
+								<div id="account_orders" style="margin-left: 20px;"></div>
+							</div>  
+					
+						
+						
+						
+						
+						
+						
+						
+							 <!-- <div  style="border-radius: 7px; padding-left: 10px; width: 500px;border: 1px solid #dadada">
+								<h4
+									style="font-size: 24px; padding-bottom: 10px; font-weight: 500">My
+									Order</h4>
+								<div style="padding-bottom: 10px; margin-left: 20px; ">
+									<h6>
+										<label style="width: 50px;">Order Id</label> <label
+											style="width: 130px; text-align: center;">Order Date</label>
+										<label style="width: 150px;">Schedule Status</label> <label
+											style="width: 100px;">Order Status</label>
+									</h6>
+								</div>
+								<div id="account_orders" style="margin-left: 20px;"></div>
+							</div>  -->
 						</div>
+
 					</div>
 					<div class="modal-footer"></div>
 				</div>
@@ -358,185 +419,30 @@
 
 
 
-	<div class="when well well-lg col-md-12" id="when"
-		style="display: none">
-		<div class="col-md-2 col-md-offset-0.5">
-			<div class="dropdown">
-				<button id="dd_btn3" class="btn dropdown-toggle"
-					style="background-color: orange;" type="button"
-					data-toggle="dropdown">
-					Select Apartment Complex <span class="caret"></span>
-				</button>
-				<ul id="dd3" class="dropdown-menu">
-				</ul>
-			</div>
+<div class="when well well-lg col-md-12" id="when" style="display:block">  
+  		<div class="col-md-2 col-md-offset-0.5">
+		<div class="dropdown">
+			<button id="dd_btn3" class="btn dropdown-toggle" style="background-color:orange;" type="button" data-toggle="dropdown">Select Apartment Complex
+				<span class="caret"></span></button>
+					<ul id="dd3" class="dropdown-menu">
+					</ul>
 		</div>
-	</div>
-
+   </div>
+   <div class="col-md-3" style="font-size:1.2vw;margin-left: 21%;padding-top: 0.3%;">
+   <label><font color="#727675">Delivery Time: ${message1} to ${message2} </font></label>
+   </div>
+	</div> 
 	<div id="restAndCartContainer" class="col-md-12">
 
 		<div id="table_menus" class="col-md-8" style="margin-bottom: 10px;">
 
-			<c:forEach items="${list}" var="list">
 
-				<c:set var="j" value="${j + 1}" scope="page" />
-
-				<div id="data${j}" value="${list.id}" ordertype="CORP"
-					select_rest="Roti" restid="${list.restaurantBustypeId}"
-					name="${list.name}" sales_price="${list.salesPrice}"
-					base_price="${list.basePrice}"
-					restaurant_price="${list.restaurantPrice}" active="${list.active}"
-					description="${list.description}" quantity="1"
-					total="${list.salesPrice}"
-					src="/delivery/resources/images/${list.menuImage}"
-					style="border: 1px solid #c4c4c4; border-radius: 10px; height: 125px; padding-left: 5px; margin-bottom: 3px;">
-
-					<div id="image${j}" data-toggle="modal"
-						onclick="openModal(this.id)" class="col-md-2 nopadding"
-						name="${list.name}" description="${list.description}">
-						<label for="imagesrc"> <img
-							style="width: 100px; height: 90px; margin-left: 5px; margin-top: 5px; margin-top: 15px;"
-							src="/delivery/resources/images/${list.menuImage}" />
-						</label>
-					</div>
-
-					<div id="menuDetails${j}" class="col-md-3 col-md-offset-0.5"
-						id="tryme" align="left"
-						style="padding-left: 30px; white-space: normal; padding-top: 20px;">
-						<h4>
-							<label>${list.name}</label>
-						</h4>
-						<h4 style="color: blue">
-							<label>$${list.salesPrice}</label>
-						</h4>
-					</div>
-					<div id="addQty${j}" inputf="quantity${j}"
-						class="col-md-3 col-md-offset-2" style="padding-top: 30px;">
-						<div class="row">
-							<div class="input-group">
-								<span class="input-group-btn">
-									<button type="button" field="quantity${j}" dataid="data${j}"
-										buttonid="addQty${j}" onclick="qtyMinus(this.id)"
-										id="qtyMinus_${j}" dataid="data${j}" imageid="image${j}"
-										style="height: 45px; width: 40px"
-										class="quantity-left-minus btn btn-danger btn-number">
-										<span class="glyphicon glyphicon-minus"></span>
-									</button>
-								</span> <input class="form-control input-number" type="text"
-									name="quantity${j}" value="0" id="qty_${j}"
-									style="text-align: center; height: 45px; width: 40px" /> <span
-									class="input-group-btn">
-									<button type="button" field="quantity${j}" dataid="data${j}"
-										buttonid="addQty${j}" onclick="qtyPlus(this.id)"
-										id="qtyPlus_${j}" imageid="image${j}"
-										style="height: 45px; width: 40px"
-										class="quantity-right-plus btn btn-success btn-number">
-										<span class="glyphicon glyphicon-plus"></span>
-									</button>
-								</span>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
 		</div>
 
 
 
 
-		<%-- <div id="table_menus" class = "col-md-8" style="margin-bottom:10px;">
-	
-	<c:forEach items="${list}" var="list">
 		
-		<c:set var="j" value="${j + 1}" scope="page"/>	
-		
-		<div id="data${j}" 
-			value="${list.id}" 
-			ordertype="CORP" 
-			select_rest="Roti" 
-			restid="${list.restaurantBustypeId}" 
-			name="${list.name}" 
-			sales_price="${list.salesPrice}" 
-			base_price="${list.basePrice}" 
-			restaurant_price="${list.restaurantPrice}" 
-			active="${list.active}" 
-			description="${list.description}" 
-			quantity="1" 
-			total="${list.salesPrice}" 
-			src="/delivery/resources/images/${list.menuImage}" 
-			
-			style="border:1px solid #c4c4c4;border-radius: 10px;height:125px;padding-left:5px;">
-			
-			<div id="image${j}" data-toggle="modal" onclick="openModal(this.id)" class="col-md-2 nopadding" 
-					name="${list.name}" 
-					description="${list.description}">
-				<label for="imagesrc">
-					<img style="width:100px;height:90px;padding-left:5px;padding-top:5px;margin-top: 15px;" src="/delivery/resources/images/${list.menuImage}"/>
-				</label>
-			</div>
-			
-			<div id="menuDetails${j}" class="col-md-3" id="tryme" align="left" style="padding-left:30px;white-space: normal;padding-top:20px;">
-				<h4>
-					<label>${list.name}</label>
-				</h4>
-				<h4 style="color:blue">
-					<label>$${list.salesPrice}</label>
-				</h4>
-			</div>
-			<div id="addQty${j}" 
-				inputf="quantity${j}" class="col-md-4" style="padding-top:30px;">
-					<div class="row">
-						<div class="input-group">
-							<span class="input-group-btn">
-								<button type="button" 
-										field="quantity${j}" 
-										dataid="data${j}" 
-										buttonid="addCart${j}" 
-										addId="addToCart${j}" 
-										updateId="updateToCart${j}" 
-										onclick="qtyMinus(this.id)" 
-										id="qtyMinus_${j}" 
-										style="height:45px;width:40px" class="quantity-left-minus btn btn-danger btn-number"><span class="glyphicon glyphicon-minus"></span></button>
-			 				</span>
-				<input class="form-control input-number" type="text" name="quantity${j}" value="1" id="qty_${j}" style="text-align:center;height:45px;width:40px" />
-							<span class="input-group-btn">
-								<button type="button" 
-										field="quantity${j}" 
-										dataid="data${j}" 
-										buttonid="addCart${j}" 
-										addId="addToCart${j}" 
-										updateId="updateToCart${j}" 
-										onclick="qtyPlus(this.id)" 
-										id="qtyPlus_${j}" 
-										style="height:45px;width:40px" class="quantity-right-plus btn btn-success btn-number"><span class="glyphicon glyphicon-plus"></span></button>
-							 </span>
-							 
-						</div>
-					</div>
-			</div>
-			<div id="addCart${j}" style="display:block;padding-top:35px;">
-				
-				<button onclick="addToCart(this.id)" 
-						dataid="data${j}" 
-						buttonid="addQty${j}" 
-						imageid="image${j}" 
-						updateid="updateToCart${j}" 
-						type="button" 
-						name="addCart" 
-						id="addToCart${j}"  class="btn btn-danger" style="display:block;padding-left:15px;width:150px">Add To Cart - ${list.salesPrice}</button>
-				
-				<button onclick="updateToCart(this.id)" 
-						dataid="data${j}" 
-						imageid="image${j}" 
-						type="button" 
-						name="updateCart" 
-						addid="addToCart${j}" 
-						id="updateToCart${j}"  class="btn btn-danger" style="display:none;padding-left:15px;width:150px">Update To Cart - ${list.salesPrice}</button>
-			</div>
-		</div>
-		</c:forEach>
-	</div> --%>
 
 		<!--Show Cart-->
 		<div class="col-md-4">
@@ -1000,7 +906,7 @@
 						<input type="text" id="cc-zip" class="form-control"
 							placeholder="Zipcode"
 							style="width: 215px; float: right; margin-bottom: 15px"
-							onkeypress="return isNumber(event)" />
+							maxlength="5" onkeypress="return isNumber(event)" />
 					</div>
 
 					<!--</div>
@@ -1139,10 +1045,34 @@
 	</div>
 
 
-	<div class="col-md-12"
+<!-- here -->
+
+ <div id="loader" style="display:none;"></div>
+  
+  <div class="col-md-12" style="float:left;padding-left:13px;display:none;" id="review_details"> 
+ <div class="col-md-12" style="margin-left:1%;padding-left:13px;background-color:lightgray;height:40px;margin-bottom:5px;width:1300px;padding-top:10px;">
+  <div class="col-md-8" style="display:none;" id="back_corp_checkout_panel">
+ 
+ <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;" id="corp_review_menu_back"> Menu </a><p style="font-size:18px" class="fa">&#xf054;</p>
+ <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;">  Checkout </a>
+<a style="text-decoration:none;color:black;font-size:16px;margin-left:50%"></a></div>
+ 
+ <div class="col-md-8" style="display:none;" id="back_rest_checkout_panel">
+ 
+ <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;" id="rest_review_menu_back"> Menu </a><p style="font-size:18px" class="fa">&#xf054;</p>
+ <a style="text-decoration:none;color:black;font-size:16px;cursor: pointer;">  Checkout </a></div>
+ 
+  <div class="col-md-4">
+  <a style="float:right;padding-right:15px;font-size:16px;display:none" id="print_pdf">Print as PDF</a>
+ </div> </div>
+
+	<!-- <div class="col-md-12"
 		style="float: left; padding-left: 13px; display: none;"
 		id="review_details">
+		
+		
 		<div class="greybar col-md-12" id="greybar">
+		
 			<div class="col-md-8" style="display: none;"
 				id="back_corp_checkout_panel">
 				<a
@@ -1158,46 +1088,58 @@
 
 
 			<div class="col-md-4">
+			
 				<a
 					style="float: right; padding-right: 15px; font-size: 16px; display: none"
 					id="print_pdf">Print as PDF</a>
 			</div>
-		</div>
+			
+		</div> -->
+		
+		
 		<embed id="frPDF" height="10" type="application/pdf" width="800"
 			src="http://eurecaproject.eu/files/5013/9885/7113/example4.pdf"></embed>
 		<div class="col-md-6">
 			<div id="review_corp_delivery_details"
-				style="border: 1px solid #dadada; padding-left: 10px; margin-bottom: 5px; display: none">
-				<h4 style="font-size: 24px; font-family: Times New Roman">
+				style="border: 1px solid #dadada; width: 100%; height:auto; padding-left: 10px; margin-bottom: 5px; display: none">
+				<h4 style="font-size: 24px; font-family: Palatino Linotype">
 					Delivery Details</h4>
-				<br /> <label
+				<br />
+				<!-- <label
 					style="width: 70px; margin-bottom: 5px; font-weight: lighter">When:</label><label
-					style="width: 200px; font-weight: lighter" align="left"
-					for="date_delivery" id="date_delivery"></label> <br />
-				<div id="where_corp">
-					<label
-						style="width: 70px; margin-bottom: 5px; font-weight: lighter;">Where:</label><label
-						id="corp_address_delivery" style="font-weight: lighter"></label><br />
-					<label
-						style="width: 70px; margin-bottom: 5px; font-weight: lighter"></label>
-					<label id="address_delivery" style="font-weight: lighter"></label>
-				</div>
+					style="width: 80%;word-wrap: break-word;display: inline-block;margin-left: 13%;margin-bottom: 3%;font-weight: lighter; float: down"
+					for="date_delivery" id="date_delivery" ></label> <br />
+					<label id="where_corp" style="font-weight: lighter"></label>
+				<div id="where_corp"></div> -->
+
+				<label style="width: 70px;margin-top: 4%;  margin-bottom: 5px; font-weight: lighter">When:</label>
+				<textarea class=" form-control"
+					style="width: 520px;background-color: white;word-wrap: break-word; margin-top: -34px; margin-left: 12%; margin-bottom: 3%; resize: none;"
+					id="date_delivery" disabled></textarea>
+				<br /> <label
+					style="width: 70px;  margin-bottom: 5px; font-weight: lighter;">Where:</label>
+				<label id="corp_address_delivery" style="font-weight: lighter"></label><br />
+
+				<label style="width: 70px; margin-bottom: 5px; font-weight: lighter"></label>
+				<label id="address_delivery" style="font-weight: lighter"></label>
+
+				<!-- </div> -->
 				<br /> <br /> <label
 					style="width: 70px; margin-bottom: 5px; font-weight: lighter"><span
 					style="color: red">*</span>Name:</label> <input type="text"
 					class=" form-control"
-					style="width: 300px; display: inline-block; margin-bottom: 5px;"
+					style="width: 220px; display: inline-block; margin-bottom: 5px;"
 					id="corp_name_delivery" value="" required /> <label
 					style="width: 20px"></label> <label
 					style="width: 50px; margin-bottom: 5px; font-weight: lighter"><span
 					style="color: red">*</span>Phone:</label> <input type="text"
 					class=" form-control"
-					style="width: 150px; display: inline-block; margin-bottom: 5px;"
+					style="width: 220px; display: inline-block; margin-bottom: 5px;"
 					id="corp_phone_delivery" value=""
 					onkeypress="return isNumber(event)" required /><br /> <br /> <label
 					style="width: 70px; margin-bottom: 5px; font-weight: lighter">Email:</label>
 				<input type="text" class=" form-control"
-					style="width: 300px; display: inline-block; margin-bottom: 5px;"
+					style="width: 220px; display: inline-block; margin-bottom: 5px;"
 					id="corp_email_delivery" value="" required /><br /> <br />
 
 				<!--<span><label style="width:70px"></label>
@@ -1205,8 +1147,7 @@
   id="textarea_delivery"></textarea></span>-->
 				<textarea placeholder="Delivery instructions" class="form-control"
 					rows="1"
-					style="width: 605px; resize: none; display: inline-block; margin-bottom: 5px;"
-					id="textarea_delivery"></textarea>
+					style="width: 528px; resize: none; display: inline-block; margin-top: 1%; margin-bottom: 50px; margin-left: 70px;"textarea_delivery"></textarea>
 			</div>
 
 			<div id="review_rest_delivery_details"
@@ -1283,216 +1224,130 @@
 					style="font-weight: lighter"></label><br />
 
 			</div>
+			<!-- height :50%; -->
 
+		 
+ <div id="review_paymentcard_details" style="border:1px solid #dadada;margin-bottom:20px;padding-left:10px;display:block">
+ <h4 style="font-size:24px; font-family: Palatino Linotype">
+  Payment Card Details</h4>
 
-			<div id="review_paymentcard_details"
-				style="border: 1px solid #dadada; margin-top:2% ;margin-bottom: 20px; height :50%; padding-left: 10px; display: block">
-				<h4 style="font-size: 24px; font-family: Times New Roman">
-					Payment Card Details</h4>
-
-				<div style="padding-bottom: 20px;">
-					<div>
-						<h5>
-							<label width=15%></label><label
-								style="width: 300px; font-weight: lighter; padding-left: 20px">
-								Your Credit & Debit Cards</label> <label
-								style="width: 100px; font-weight: lighter; padding-left: 10px">Expires</label>
-						</h5>
-					</div>
-
-					<div id="disply_new_card"></div>
-
-					<button type="button" class="btn btn-info"
-						style="width: 150px; border-radius: 10px; padding-bottom: 10px; margin-left: 5px;"
-						data-toggle="modal" " data-dismiss="modal" id="modal_add_card">
-
-						Add new card</button>
-
-				</div>
-				<br />
-
-
-			</div>
-		</div>
-
-		<div class="col-md-6">
-			<!-- <div id="review_order_details"
-				style="border: 1px solid #dadada;height: 56%; padding-left: 10px; display: block">
-				<h4 style="font-size: 24px; font-family: Times New Roman">Order
-					Details</h4>
-				<br />
-				<div id="cart_item_details" style="padding-left: 30px;"></div> 
-				<div> <label style="width: 70px; margin-bottom: 5px; font-weight: lighter">Selected dates:</label><label
-					style="width: auto; font-weight: lighter" align="left"
-					for="date_delivery" id="date_delivery"></label>
-					<div id="schedule_date_details" style="padding-left: 30px;"></div>
-					</div>
-				
-			</div> -->
-			
-			 <div id="review_order_details"
-				style="border: 1px solid #dadada;height: 56%; padding-left: 10px; display: block">
-				<h4 style="font-size: 24px; font-family: Times New Roman">Order
-					Details</h4>
-				<br />
-				
-				<label
-					style="width: 90px; margin-bottom: 5px; font-weight: lighter"><b>Selected dates:</b></label><label
-					style="width: 200px; font-weight: lighter" align="left"
-					for="schedule_date_details" id="schedule_date_details"></label> <br />
-				
-				<div id="cart_item_details" style="padding-left: 30px;"></div> 
-				 <!-- <label
-					style=" margin-bottom: 5px; font-weight: lighter">Selected dates:</label> <input type="text"
-					class=" form-control"
-					style="width: 300px; display: inline-block; margin-bottom: 5px;"
-					id="schedule_date_details" value="" required /> 
-					 <div id="schedule_date_details" style="padding-left: 30px;width: 300px;"></div>  -->
-					 <!-- <label
-					style="width: 90px; margin-bottom: 5px; font-weight: lighter">Selected dates:</label><label
-					style="width: 200px; font-weight: lighter" align="left"
-					for="schedule_date_details" id="schedule_date_details"></label> <br /> -->
-					
-				
-			</div> 
+<div style=" padding-bottom: 20px;">
+         <div><h5 style="margin-top: 7%;"><label width=15%></label><label style="width:300px;margin-top: 7%;font-weight:lighter;display: none;padding-left:20px"> Your Credit & Debit Cards</label>
+		 <label style="width:100px;font-weight:lighter;margin-left: 55%;padding-left:10px">Expires</label></h5></div>
 		
-			<br />
-			<!-- <div id="print_review_order_details" style="border:1px solid #dadada;padding-left:10px;display:none">
+		<div id="disply_new_card" style="margin-top:-1%;margin-left: 2%;"></div>
+		
+			<button type="button" class="btn btn-info"  style="width:150px;border-radius: 10px;margin-top: 2%; padding-bottom: 10px;margin-left:10%;" 
+			data-toggle="modal"" data-dismiss="modal" id="modal_add_card">
+			
+			Add new card</button>
+			
+       </div> 
+	   <br/>
+  
+ 
+ </div>
+  </div>
+  
+	<div class="col-md-6">
+		<div id="review_order_details" style="border:1px solid #dadada;padding-left:10px;display:block">
+			<h4 style="font-size:24px;font-family:Palatino Linotype">Order Details</h4><br/>
+			<div id="cart_item_details" style="padding-left: 30px;"></div>
+		</div><br/>
+		 <!-- <div id="print_review_order_details" style="border:1px solid #dadada;padding-left:10px;display:none">
 		 
 		  <h4 style="font-size:24px;font-family:Times New Roman">
 		  Order Details</h4><br/>
 		  <div id="print_cart_item_details">
 		  </div>
 		  </div>-->
-			<br />
+		  <br/>
+  
+		<div id="review_order_summary" style="border:1px solid #dadada;height:auto;margin-bottom:20px;margin-top:-15px;padding-left:10px;width:auto">
+		
+			<h4 style="font-size:24px; font-family: Palatino Linotype">
+				Order Summary
+			</h4><br/>
+		  
 
-			<div id="review_order_summary"
-				style="border: 1px solid #dadada; margin-bottom: 40px; padding-left: 10px;height: 50%">
-
-				<h4 style="font-size: 24px; font-family: Times New Roman">
-					Order Summary</h4>
-				<br />
-
-
-				<div style="width: 320px; padding-left: 30px" class="col-md-12">
-					Subtotal<span style="float: right; padding-right: 60px"
-						id="sales_review_subtotal"></span> <span style="display: none"
-						id="base_review_subtotal"></span> <span style="display: none"
-						id="rest_review_subtotal"></span>
+			<div style="width:320px;padding-left:30px" class="col-md-12">Subtotal<span style="float:right;padding-right:60px" id="sales_review_subtotal"></span>
+				<span style="display:none" id="base_review_subtotal"></span>
+				<span style="display:none" id="rest_review_subtotal"></span>
+			</div><br />
+			<div style="width:600px;margin-top: 4%;" class="col-md-12">
+				<div class="col-md-3" style="float:left;padding-right:30px">Coupon</div>
+				<div class="col-md-7" style="padding-bottom:20px;margin-left: 44px;display:block" id="review_coupon"><a style="cursor:pointer;text-decoration:none">Apply Coupon</a></div>
+				
+				<div class="col-md-7" id="hide_applycoupon" style="display:none">
+					<input type="text" class="form-control col-md-3" id="coupon_code" placeholder="Coupon Code" style="width:120px"><span>
+					<button type="submit" id="submit_coupon" class="btn btn-info col-md-push-5" style="margin-left: 5px;" disabled>Apply</button></span>
 				</div>
-				<br />
-				<div style="width: 600px;" class="col-md-12">
-					<div class="col-md-3" style="float: left; padding-right: 30px">Coupon</div>
-					<div class="col-md-7"
-						style="padding-bottom: 20px; margin-left: 40px; display: block"
-						id="review_coupon">
-						<a style="cursor: pointer; text-decoration: none">Apply Coupon</a>
-					</div>
-
-					<div class="col-md-7" id="hide_applycoupon" style="display: none">
-						<input type="text" class="form-control col-md-3" id="coupon_code"
-							placeholder="Coupon Code" style="width: 120px"><span>
-							<button type="submit" id="submit_coupon"
-								class="btn btn-info col-md-push-5" style="margin-left: 5px;"
-								disabled>Apply</button>
-						</span>
-					</div>
-
-					<div id="hide_coupon" style="display: none">0</div>
-
-					<div class="col-md-7" id="hide_removecoupon"
-						style="display: none; padding-bottom: 10px;">
-						<label id="display_code"></label> <a id="remove_coupon"
-							class="col-md-push-5"
-							style="padding-bottom: 20px; margin-left: 5px; cursor: pointer; text-decoration: none">Remove</a></span>
-					</div>
-
-					<!--<div class="col-md-push-6"><a id="remove_coupon" style="display:none">Remove</a></span></div>-->
+				
+				<div id="hide_coupon" style="display:none">0</div>
+				
+				<div class="col-md-7" id="hide_removecoupon" style="display:none;padding-bottom:10px;">
+					<label id="display_code"></label>
+					<a id="remove_coupon" class="col-md-push-5" style="padding-bottom:20px;margin-left:5px;cursor:pointer;text-decoration:none">Remove</a></span>
 				</div>
-				<br />
-				<div style="width: 320px; padding-left: 30px" class="col-md-12">
-					Taxes<span style="float: right; padding-right: 60px"
-						id="review_tax"></span>
+				
+				<!--<div class="col-md-push-6"><a id="remove_coupon" style="display:none">Remove</a></span></div>-->
+			</div><br />
+			<div style="width:320px;padding-left:30px" class="col-md-12">Taxes<span style="float:right;padding-right:50px" id="review_tax"></span></div><br />
+			<!-- <div style="width:320px;padding-left:30px" class="col-md-12">Delivery Charges<span style="float:right;padding-right:60px" id="review_delivery_charges"></span></div><br />-->
+
+			<div style="width:600px;margin-top: 4%;display:block;" class="col-md-12" id="driver_tip">
+				<div class="col-md-3" style="float:left;padding-right:30px">Driver's Tip</div>
+			
+				<div class="col-md-7" id="tip_buttons" style="display:block;margin-left: 5.3%;">
+					<button type="button" class="btn showinfo" style="height: 25px;" id="tip_btn1">$1</button>
+					<button type="button" class="btn showinfo" style="height: 25px;" id="tip_btn2">$2</button>
+					<button type="button" class="btn showinfo" style="height: 25px;" id="tip_btn3">$3</button>
+					<button type="button" class="btn showinfo" style="height: 25px;" id="tip_btn4">$4</button>
+					<button type="button" class="btn showinfo" style="height: 25px;" id="tip_btn5">Other</button>
 				</div>
-				<br />
-				<!-- <div style="width:320px;padding-left:30px" class="col-md-12">Delivery Charges<span style="float:right;padding-right:60px" id="review_delivery_charges"></span></div><br />-->
-
-				<div style="width: 600px; display: block;" class="col-md-12"
-					id="driver_tip">
-					<div class="col-md-3" style="float: left; padding-right: 30px">Driver's
-						Tip</div>
-
-					<div class="col-md-7" id="tip_buttons" style="display: block">
-						<button type="button" class="btn showinfo" style="height: 25px;"
-							id="tip_btn1">$1</button>
-						<button type="button" class="btn showinfo" style="height: 25px;"
-							id="tip_btn2">$2</button>
-						<button type="button" class="btn showinfo" style="height: 25px;"
-							id="tip_btn3">$3</button>
-						<button type="button" class="btn showinfo" style="height: 25px;"
-							id="tip_btn4">$4</button>
-						<button type="button" class="btn showinfo" style="height: 25px;"
-							id="tip_btn5">Other</button>
-					</div>
-
-					<div class="col-md-3" style="display: none; margin-left: 50px;"
-						id="tip_value">0</div>
-					<a id="remove_tip" class="col-md-push-5"
-						style="display: none; margin-left: 5px; cursor: pointer; text-decoration: none">Change</a>
-
-					<div class="col-md-7" id="hide_othertip" style="display: none">
-						<input type="text" class="form-control col-md-3"
-							id="othertip_value" placeholder="Tip" style="width: 120px"
-							onkeypress="return isNumber(event)"><span>
-							<button type="submit" id="submit_othertip"
-								class="btn btn-info col-md-push-5" style="margin-left: 5px;"
-								disabled>Apply</button>
-						</span>
-					</div>
-
-					<!--<div class="col-md-4" style="padding-bottom:20px;" id="np"></div>
+			
+				<div class="col-md-3" style="display:none;margin-left: 50px;" id="tip_value">0</div>
+				<a id="remove_tip" class="col-md-push-5" style="display:none;margin-left:5px;cursor:pointer;text-decoration:none">Change</a>
+			
+				<div class="col-md-7" id="hide_othertip" style="display:none">
+					<input type="text" class="form-control col-md-3" id="othertip_value" placeholder="Tip" style="width:120px" onkeypress="return isNumber(event)"><span>
+					<button type="submit" id="submit_othertip" class="btn btn-info col-md-push-5" style="margin-left: 5px;" disabled>Apply</button></span>
+				</div>
+			
+				<!--<div class="col-md-4" style="padding-bottom:20px;" id="np"></div>
 				<div class="col-md-push-5" style="float:left">
 				<input type="radio" style="margin-left:15px;" name="rad" id="rad_10"/><b>10%</b>
 				<input type="radio" style="margin-left:15px;" name="rad" id="rad_15"/><b>15%</b>
 				<input type="radio" style="margin-left:15px;" name="rad" id="rad_20"/><b>20%</b><br/>-->
-
-					<!--<button type="button" style="width:40px;border-radius: 150px;margin-left:10px;margin-top:10px" class="btn btn-info" >10%</button>
+				
+				<!--<button type="button" style="width:40px;border-radius: 150px;margin-left:10px;margin-top:10px" class="btn btn-info" >10%</button>
 				<button type="button" style="width:40px;border-radius: 15px;margin-left:10px;margin-top:10px" class="btn btn-info" >15%</button>
 				<button type="button" style="width:40px;border-radius: 150px;margin-left:10px;margin-top:10px" class="btn btn-info" >20%</button><br/>-->
-					<!--<div><span id="review_10" style="margin-left:10px;"></span>
+				<!--<div><span id="review_10" style="margin-left:10px;"></span>
 				<span id="review_15" style="margin-left:5px;"></span>
 				<span id="review_20" style="margin-left:5px;"></span></div>
 				</div>-->
-					<br /> <br />
-
-					<div style="width: 320px; padding-left: 30px;" class="col-md-12">
-						Total<span style="float: right; padding-right: 60px"
-							id="review_place_order_total"></span> <span style="display: none"
-							id="base_review_place_order_total"></span> <span
-							style="display: none" id="sales_review_place_order_total"></span>
-					</div>
-					<br /> <br />
-					<button type="button" id="review_order_submit"
-						style="width: 410px; margin-bottom: 90px; margin-left: 10px; display: block"
-						class="btn btn-lg btn-success">Order Now</button>
-				</div>
-
-				<div style="width: 600px; display: none;" class="col-md-12"
-					id="print_driver_tip">
-					<div style="width: 320px" class="col-md-12">
-						Driver's Tip<span style="float: right; padding-right: 70px"
-							id="print_np"></span>
-					</div>
-					<br />
-					<div style="width: 320px" class="col-md-12">
-						Total<span style="float: right; padding-right: 70px"
-							id="print_review_place_order_total"></span>
-					</div>
-					<br />
-				</div>
+				<br />
+			<hr>
+				<div style="width:320px;margin-bottom: 6%;" class="col-md-12">Total<span style="float:right;padding-right:60px" id="review_place_order_total"></span>
+					<span style="display:none" id="base_review_place_order_total"></span>
+					<span style="display:none" id="sales_review_place_order_total"></span>
+				</div><br /><br />
+				<!-- <button type="button" id="review_order_submit" style="width:410px;margin-bottom:90px;margin-left:10px;display:block" class="btn btn-lg btn-success" >
+					Order Now
+				</button> -->
 			</div>
-			<!-- calculation of baseprice -->
-			<!--<div id="base_review_order_summary" style="display:none">
+	  
+			<div style="width:600px;display:none;" class="col-md-12" id="print_driver_tip">
+				<div style="width:320px" class="col-md-12">Driver's Tip<span style="float:right;padding-right:70px" id="print_np"></span></div><br />
+				<div style="width:320px" class="col-md-12">Total<span style="float:right;padding-right:70px" id="print_review_place_order_total"></span></div><br />
+			</div>
+			<button type="button" id="review_order_submit" style="width:410px;margin-bottom:90px;margin-left:10px;display:block" class="btn btn-lg btn-success" >
+					Order Now
+				</button>
+		</div>
+		  <!-- calculation of baseprice -->
+		   <!--<div id="base_review_order_summary" style="display:none">
 		  <h4 style="font-size:24px; font-family: Times New Roman">
 		  Base price Order Summary</h4><br/>
 	  
@@ -1512,7 +1367,7 @@
 		<!--<button type="button" style="width:40px;border-radius: 150px;margin-left:10px;margin-top:10px" class="btn btn-info" >10%</button>
 		<button type="button" style="width:40px;border-radius: 15px;margin-left:10px;margin-top:10px" class="btn btn-info" >15%</button>
 		<button type="button" style="width:40px;border-radius: 150px;margin-left:10px;margin-top:10px" class="btn btn-info" >20%</button><br/>-->
-			<!--<div><span id="base_review_10" style="margin-left:10px;"></span>
+		<!--<div><span id="base_review_10" style="margin-left:10px;"></span>
 		<span id="base_review_15" style="margin-left:5px;"></span>
 		<span id="base_review_20" style="margin-left:5px;"></span></div>
 		</div>
@@ -1532,10 +1387,10 @@
 	   </div>
 	   
 	  </div>-->
-		</div>
-
 	</div>
-	<!--<div class="container">
+	  
+  </div>
+   <!--<div class="container">
 
   <div class="modal fade" id="myModal_coupon" role="dialog">
     <div class="modal-dialog">
@@ -1560,6 +1415,25 @@
   </div>
   
 </div>-->
+
+ <div class="modal fade" id="orderNoModel" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="width:200%;height:40%; margin-left: -50%;">
+        <div class="modal-header" style="background-colour:grey;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <img style="width:50px;height:50px;float:left;" src="${pageContext.request.contextPath}/resources/images/delivery22.jpg"/>
+         <h5 class="modal-title"><b style="margin-left: 5%;padding-top: 3%;font-size: 2vw;color:MediumVioletRed;">Ace Roti</b></h5>
+       <hr> </div>
+        <div class="modal-body col-md-offset-3" style="padding: 4px;">
+        <h4 style="color:FF5733;font-size:1.5vw;"><b>Thank you for ordering!</b></h4>
+          <h4 style="color: black;padding-bottom: 50px;"><b style:"margin-left:10%;><p" id="corp_review_orderno"></p></b></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
 
 	<div class="container">
@@ -1657,6 +1531,38 @@
 
 	</div>
 
+
+	<div class="container">
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal_delete_order" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+					</div>
+					<div class="modal-body">
+						<p>The order will be deleted. Are you sure you would like to
+							remove this order?</p>
+					</div>
+
+					<div class="modal-footer">
+
+						<button type="button" class="btn btn-success"
+							id="btn_delete_order_yes" data-dismiss="modal">Ok</button>
+						<button type="button" class="btn btn-danger"
+							id="btn_delete_order_no" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
 	<div class="container">
 
 		<!-- Modal -->
@@ -1670,17 +1576,13 @@
 
 					</div>
 					<div class="modal-body">
-						<h4 style="margin-left: 120px; margin-top: 30px;">Please
-							select an option to continue.</h4>
+						<h4 style="margin-left: 170px; margin-top: 30px;">Please SignIn to continue.</h4>
 						<br />
 						<button type="button" class="btn btn-info" data-dismiss="modal"
 							data-toggle="modal" data-target="#myModal_login"
-							style="width: 200px; height: 40px; margin-left: 60px; margin-top: 30px;">Sign
+							style="width: 200px; height: 40px; margin-left: 32%; margin-top: 30px;">Sign
 							In</button>
-						<button type="button" class="btn btn-info" data-dismiss="modal"
-							id="btn_guestlogin"
-							style="width: 200px; height: 40px; margin-left: 15px; margin-top: 30px;">Continue
-							as Guest</button>
+					
 					</div>
 
 					<div class="modal-footer"></div>
@@ -1765,8 +1667,7 @@
 		</table>
 	</div>
 	<br />
-	<script
-		src="${pageContext.request.contextPath}/resources/js/orderSchedule.js"></script>
+	
 
 </body>
 </html>

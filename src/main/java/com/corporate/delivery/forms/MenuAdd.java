@@ -11,22 +11,17 @@ public class MenuAdd {
 	private String description;	
 	private String menuImage;	 
 	private Integer price;
-	
 	private String basePrice;
 	private String salesPrice;
 	private String restaurantPrice;
-
 	private Boolean active;
-	
 	private Boolean mon;	
-	
 	private Boolean tue;	
 	private Boolean wed;	
 	private Boolean thu;	
 	private Boolean fri;	
 	private Boolean sat;	
 	private Boolean sun;
-	
 	private Boolean schedule;	
 	
 	

@@ -66,7 +66,7 @@ public class OrderController {
 	@Autowired
 	OrderRestaurantMenuService orderRestaurantMenuService;
 	
-	//private static final Logger logger = Logger.getLogger(OrderController.class);
+	private static final Logger logger = Logger.getLogger(OrderController.class);
 	 
 	
 	@RequestMapping(value = "/userOrders", method = RequestMethod.GET)
@@ -74,12 +74,23 @@ public class OrderController {
 		   return orderHeaderService.getOrderHeader(Integer.parseInt(userId));
 	} 
 	 
+	@RequestMapping(value = "/updateOrderStatus", method = RequestMethod.GET)
+    public @ResponseBody JsonResponse  updateOrderStatus( @RequestParam("id") String id,@RequestParam("orderStatus") String orderStatus) {
+		   orderHeaderService.updateOrderStatus(id,orderStatus);
+		   JsonResponse jsonResponse = new JsonResponse();
+			return jsonResponse;
+	} 
+	
+	
+	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
     public  @ResponseBody JsonResponse  processOrder (@RequestBody OrderForm orderForm)  {
 
 		System.out.println("....name se" + "nd is :" + orderForm.getOrderType());
 
 		OrderHeader orderHeader = getOrderHeader(orderForm);
+	
+		
 		OrderAddresses orderAddress = getOrderAddresses(orderForm);
 		List<RestaurantMenuDto> orderRestaurantDtos = getOrderRestaurants(orderForm);
 		//List<OrderRestaurantMenu> orderRestaurantMenuList =  getOrdetRestaurantMenus(orderForm);//This needs to be implemented
@@ -173,6 +184,7 @@ public class OrderController {
 		orderHeader.setTotalBase(orderForm.getTotalBase());
 		orderHeader.setTotalRestaurant(orderForm.getTotalRestaurant());
 		orderHeader.setTip(orderForm.getTip());	
+	
 		//Integer.toString(orderForm.getUserId());
 		
 		orderHeader.setUserId(orderForm.getUserId());
@@ -181,6 +193,9 @@ public class OrderController {
 		orderHeader.setCouponCode(orderForm.getCouponCode());
 		orderHeader.setCouponType(orderForm.getCouponCode());
 		orderHeader.setCouponAmount(orderForm.getCouponAmount());
+		
+		orderHeader.setSchedule(orderForm.getSchedule());
+		orderHeader.setOrderStatus(orderForm.getOrderStatus());
 		
     	return orderHeader;
 	}

@@ -1,6 +1,8 @@
  
 
 	 var placeSearch, autocomplete;
+		the_creditcard=[];
+
      var componentForm = {
         street_number: 'short_name',
         route: 'long_name',
@@ -74,31 +76,7 @@ function s_acc_created() {
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 
-/*function snack_error() {
-		var addressbar = $("#autocomplete").val();
-		if(addressbar==0)
-		{
-			var msg1="Address,";
-		}
-		else{
-			var msg1="";
-		}
-		
-		if ($('#dd_btn3').text().trim() == "Select Apartment Complex") 
-			 {
-				 var msg2="Apartment Complex";
-          	 }
-		 else
-			 {
-			   var msg2="";
-			}
-		
-		
 
-			 var show_errormsg = "Please select "+msg1+ " "+msg2+ " "+ " to proceed";
-			 console.log("show_errormsg "+show_errormsg);
-			 $("#hideerror_details").text(show_errormsg);
-}*/
 
 
 function snack_error() {
@@ -141,55 +119,6 @@ else{
 		 $("#hideerror_details").text(show_errormsg);
 }
 
-/*function sheduleOrder_error() {
-	alert("se");
-	var n = $("#datepicker").val();
-	var myarray = n.split(',');
-	var arr=[];
-	for (var z = 0; z < myarray.length; z++) {
-	arr[z] = myarray[z];
-	}
-	if(arr=="")
-		{
-		
-		var msg="dates"
-		}
-	else{
-		var msg="";
-		
-	}
-	
-	for(var i=0; i<arr.length;i++)
-		{
-		if(arr=="")
-			{
-			
-			console.log("arraynull"+arr);
-			}
-		else{
-			console.log("array dates"+arr[i]);
-			
-		}
-		
-		}
-	
-console.log("schedule error"+arr.val());
-	if(arr.length==1)
-	{
-		var msg="dates"
-
-	}
-	else{
-		var msg="";
-
-	}
-	 var show_errormsg = "Please select "+msg+" "+ " to proceed";
-	 $("#hideerror_details").text(show_errormsg);
-	 
-	 var show_errormsg = "Please select "+msg1+ " "+msg2+ " "+ " to proceed";
-		 console.log("show_errormsg "+show_errormsg);
-		 $("#hideerror_details").text(show_errormsg);
-}*/
 
 
 function openModal(id){
@@ -199,9 +128,9 @@ function openModal(id){
 		// alert(name);
 		 //alert(description);
 		 var image=$('#'+id).find('label:eq(0)').html();
-		 alert(image);
+		// alert(image);
 		 var img=$(image).attr('src');
-		 alert(img);
+		// alert(img);
 		$("#display1").text(name);
 		$("#display3").text(description);
 		$("#display4").empty().append('<img style="height:200px;width:300px" src='+img+'/>');
@@ -241,7 +170,7 @@ function qtyPlus(id){
 	var cost = $('#' + data).attr('total');
 	var description = $('#' + data).attr('description');
 	//var image = $('#' + data).attr('src');
-	//alert(image);
+	//alert(description);
 	
 	//alert(imageid);
 	var imagehtml=$('#' + imageid).find('label:eq(0)').html();
@@ -328,39 +257,7 @@ function qtyPlus(id){
 	    		count++;
 	        	//alert("add");
 	        }
-	       /* $("#showcart").css("display", "block");
-            $("#show_empty_cart").css("display", "none");
-            var	tabledata=$("<tr class='tr' style='border-bottom: 1px solid #dadada;padding-right:10px;' menuid="+save_menuid+" id=changerow"+save_menuid+">" + 
-    				"<td><label class='btn'>" + quantity + "</label></td>" +
-                    "<td><label class='btn',style='background-color:#ffffff' id='change'>" + name + "</label></td>" +
-                    "<td><label class='btn'>$" + cost + "</label></td>" + 
-    				"<td><label class='btn delete-item($index)', id='cancel'>"+
-    				"<div class='icon-trash'>"+
-    				"<div class='trash-lid' style='background-color: #C5BFB6'></div>"+
-    				"<div class='trash-container' style='background-color: #C5BFB6'></div>"+
-    				"<div class='trash-line-1'></div>"+
-    				"<div class='trash-line-2'></div>"+
-    				"<div class='trash-line-3'></div></div></label></td>"+
-    				"<td style='display: none' id='change'>" + price + "</td>" +
-    				"<td style='display: none' id='change'>" + description + "</td>" +
-    				"<td style='display: none' id='change'>" + imagehtml + "</td>" +
-    				"<td style='display: none' id='change'>" + select_rest + "</td>" +
-    				"<td style='display: none' id='change'>" + restid + "</td>" +
-    				"<td style='display: none' id='change'>" + ordertype + "</td>" +
-    				"<td style='display: none' id='change'>" + base_price + "</td>" +
-    				"<td style='display: none' id='change'>" + rest_price + "</td>"+
-    				"<td style='display: none' id='change'>" + save_menuid + "</td></tr>");
-    			 
-          
-    	    $('#cartTable tbody').append(tabledata);
-    		calculate();
-    		if(theTotal==0)
-    		{   
-    			$("#showcart").css("display", "none");
-    			$("#show_empty_cart").css("display", "block");
-    			}
-    		count++;*/
-	        
+	       
 		}
 function qtyMinus(id){
 	//alert(id);
@@ -483,277 +380,111 @@ function qtyMinus(id){
 
 
 
-/*function qtyMinus(id){
-		//alert(id);
-		fieldName = $('#' + id).attr('field');
-		var currentVal = parseInt($('input[name=' + fieldName + ']').val());
-		//alert(fieldName);
-		//alert(currentVal);
-		if (!isNaN(currentVal)) {
-			if(currentVal > 1){
-                $('input[name=' + fieldName + ']').val(currentVal - 1);
-			}
-            } else {
-                $('input[name=' + fieldName + ']').val(1);
-            }
-		 fieldName = $('#' + id).attr('field');	
-		
-		var quantity = parseInt($('input[name=' + fieldName + ']').val());	
-		var cost;
-		//alert(quantity);
-		data = $('#' + id).attr('dataid');
-		//alert(data);
-		sales_price = $('#' + data).attr('sales_price');
-		//alert(sales_price);
-		cost=quantity * sales_price;
-		//alert(cost);
-		$('#' + data).attr('total',cost);
-		$('#' + data).attr('quantity',quantity);
-		var addButton=$('#'+id).attr('addId');
-		var updateButton=$('#'+id).attr('updateId');
-		//alert(addButton);
-		//alert(updateButton);
-		
-		btnid = $('#' + id).attr('buttonid');
-		if($('#'+updateButton).css('display') == 'none'){
-			$($('#' + btnid).find(":button[name='addCart']")).text("Add to cart - $" + cost);
-		}else{
-			$($('#' + btnid).find(":button[name='updateCart']")).text("Update to cart - $" + cost);
-		}
-	
-	}
-	
-function qtyPlus(id){
-		//alert(id);
-		fieldName = $('#' + id).attr('field');
-		var currentVal = parseInt($('input[name=' + fieldName + ']').val());
-		//alert(fieldName);
-		//alert(currentVal);
-		if (!isNaN(currentVal)) {
-                $('input[name=' + fieldName + ']').attr("value",currentVal + 1);
-            } else {
-                $('input[name=' + fieldName + ']').val(1);
-            }
-		var quantity = parseInt($('input[name=' + fieldName + ']').val());	
-		var cost;
-		//alert(quantity);
-		data = $('#' + id).attr('dataid');
-		//alert(data);
-		sales_price = $('#' + data).attr('sales_price');
-		//alert(sales_price);
-		cost=quantity * sales_price;
-		//alert(cost);
-		$('#' + data).attr('quantity',quantity);
-		$('#' + data).attr('total',cost);
-		
-		var addButton=$('#'+id).attr('addId');
-		var updateButton=$('#'+id).attr('updateId');
-		//alert(addButton);
-		//alert(updateButton);
-	
-		btnid = $('#' + id).attr('buttonid');
-		if($('#'+updateButton).css('display') == 'none'){
-			$($('#' + btnid).find(":button[name='addCart']")).text("Add to cart - $" + cost);
-		}else{
-			$($('#' + btnid).find(":button[name='updateCart']")).text("Update to cart - $" + cost);
-		}
 
-		//if ($(this).next().val() > 0) $(this).next().val(+$(this).next().val() - 1);	
-	}
-	
-	var count = 1; 
-	
-function addToCart(addId) {
-		 //alert(addId);
-		data = $('#' + addId).attr('dataid');
-		imageid=$('#'+addId).attr('imageid');
-		updateid=$('#'+addId).attr('updateid');
-		var name = $('#' + data).attr('name');
-		var quantity = $('#' + data).attr('quantity');
-		var price = $('#' + data).attr('sales_price');
-		var cost = $('#' + data).attr('total');
-		var description = $('#' + data).attr('description');
-		//var image = $('#' + data).attr('src');
-		//alert(image);
-		
-		//alert(imageid);
-		var imagehtml=$('#' + imageid).find('label:eq(0)').html();
-		//alert(imagehtml);
-		var select_rest = $('#' + data).attr('select_rest');
-		var restid = $('#' + data).attr('restid');
-		var ordertype = $('#' + data).attr('ordertype');
-		var base_price = $('#' + data).attr('base_price');
-		var rest_price = $('#' + data).attr('restaurant_price');
-		var zipid = $('#' + data).attr('restaurantbustypeId');
-		var save_menuid = $('#' + data).attr('value');
-		
-			$("#showcart").css("display", "block");
-            $("#show_empty_cart").css("display", "none");
-            var	tabledata=$("<tr style='border-bottom: 1px solid #dadada;padding-right:10px;'id=changerow"+count+">" + 
-    				"<td><label class='btn'>" + quantity + "</label></td>" +
-                    "<td><label class='btn',style='background-color:#ffffff' id='change'>" + name + "</label></td>" +
-                    "<td><label class='btn'>$" + cost + "</label></td>" +
-                    "<td><label class='change btn' id='change'><i class='glyphicon glyphicon-pencil'></i></label></td>" +  
-    				"<td><label class='btn delete-item($index)', id='cancel'>"+
-    				"<div class='icon-trash'>"+
-    				"<div class='trash-lid' style='background-color: #C5BFB6'></div>"+
-    				"<div class='trash-container' style='background-color: #C5BFB6'></div>"+
-    				"<div class='trash-line-1'></div>"+
-    				"<div class='trash-line-2'></div>"+
-    				"<div class='trash-line-3'></div></div></label></td>"+
-    				"<td style='display: none' id='change'>" + price + "</td>" +
-    				"<td style='display: none' id='change'>" + description + "</td>" +
-    				"<td style='display: none' id='change'>" + imagehtml + "</td>" +
-    				"<td style='display: none' id='change'>" + select_rest + "</td>" +
-    				"<td style='display: none' id='change'>" + restid + "</td>" +
-    				"<td style='display: none' id='change'>" + ordertype + "</td>" +
-    				"<td style='display: none' id='change'>" + base_price + "</td>" +
-    				"<td style='display: none' id='change'>" + rest_price + "</td>"+
-    				"<td style='display: none' id='change'>" + save_menuid + "</td>"+
-    				"<td style='display: none' id='change'>" + addId + "</td>"+
-    				"<td style='display: none' id='change'>" + updateid + "</td></tr>");
-				 
-			    var	tabledata=$("<tr style='border-bottom: 1px solid #dadada;padding-right:10px;'id=changerow"+count+">" + 
-				"<td><label class='change btn', id='change'>" + quantity + "</label></td>" +
-                "<td><label class='change btn',style='background-color:#ffffff' id='change'>" + name + "</label></td>" +
-                "<td><label class='change btn', id='change'>$" + cost + "</label></td>" +
-                "<td><label class='change btn', id='change'><i class='glyphicon glyphicon-pencil'></i></label></td>" +   
-				"<td><label class='btn delete-item($index)', id='cancel'>"+
-				"<div class='icon-trash'>"+
-				"<div class='trash-lid' style='background-color: #C5BFB6'></div>"+
-				"<div class='trash-container' style='background-color: #C5BFB6'></div>"+
-				"<div class='trash-line-1'></div>"+
-				"<div class='trash-line-2'></div>"+
-				"<div class='trash-line-3'></div></div></label></td>"+
-				"<td style='display: none' id='change'>" + price + "</td>" +
-				"<td style='display: none' id='change'>" + description + "</td>" +
-				"<td style='display: none' id='change'>" + imagehtml + "</td>" +
-				"<td style='display: none' id='change'>" + select_rest + "</td>" +
-				"<td style='display: none' id='change'>" + restid + "</td>" +
-				"<td style='display: none' id='change'>" + ordertype + "</td>" +
-				"<td style='display: none' id='change'>" + base_price + "</td>" +
-				"<td style='display: none' id='change'>" + rest_price + "</td>"+
-				"<td style='display: none' id='change'>" + save_menuid + "</td>"+
-				"<td style='display: none' id='change'>" + addId + "</td>"+
-				"<td style='display: none' id='change'>" + updateid + "</td></tr>");
-          
-		    $('#cartTable tbody').append(tabledata);
-			calculate();
-			if(theTotal==0)
-			{   
-				$("#showcart").css("display", "none");
-				$("#show_empty_cart").css("display", "block");
-				}
-			$('#'+addId).text("Add to cart - $" + price);
-			var btnid=$('#'+addId).attr('buttonid');
-			var inputid=$('#'+btnid).attr('inputf');
-			//alert(inputid);
-			$('#'+btnid).find('input[name=' + inputid + ']').attr("value","1");
-			$('#'+data).attr("total",price);
-			$('#'+data).attr("quantity","1");
-			count++;
-        }
+function cancelOrder(id){
+	alert("3");
 	
 	
-function updateToCart(updateId) {
-		 //alert(updateId);
-		data = $('#' + updateId).attr('dataid');
-		var ID=$('#'+data).attr('updaterowid');
-		imageid=$('#'+updateId).attr('imageid');
-		addId=$('#'+updateId).attr('addid');
-		var name = $('#' + data).attr('name');
-		var quantity = $('#' + data).attr('quantity');
-		var price = $('#' + data).attr('sales_price');
-		var cost = $('#' + data).attr('total');
-		var description = $('#' + data).attr('description');
-		//var image = $('#' + data).attr('src');
-		//alert(image);
-		//alert(imageid);
-		var imagehtml=$('#' + imageid).find('label:eq(0)').html();
-		//alert(imagehtml);
-		var select_rest = $('#' + data).attr('select_rest');
-		var restid = $('#' + data).attr('restid');
-		var ordertype = $('#' + data).attr('ordertype');
-		var base_price = $('#' + data).attr('base_price');
-		var rest_price = $('#' + data).attr('restaurant_price');
-		var zipid = $('#' + data).attr('restaurantbustypeId');
-		var save_menuid = $('#' + data).attr('value');
-		
-			//$("#showcart").css("display", "block");
-           // $("#show_empty_cart").css("display", "none");
-			 
-				 
-			    $("#"+ID).html("<td><label class='btn'>" + quantity + "</label></td>" +
-                "<td><label class='btn',style='background-color:#ffffff' id='change'>" + name + "</label></td>" +
-                "<td><label class='btn'>$" + cost + "</label></td>" +
-                "<td><label class='change btn' id='change'><i class='glyphicon glyphicon-pencil'></i></label></td>" +  
-				"<td><label class='btn delete-item($index)', id='cancel'>"+
-				"<div class='icon-trash' style='float:right'>"+
-				"<div class='trash-lid' style='background-color: #C5BFB6'></div>"+
-				"<div class='trash-container' style='background-color: #C5BFB6'></div>"+
-				"<div class='trash-line-1'></div>"+
-				"<div class='trash-line-2'></div>"+
-				"<div class='trash-line-3'></div></div></label></td>"+
-				"<td style='display: none' id='change'>" + price + "</td>" +
-				"<td style='display: none' id='change'>" + description + "</td>" +
-				"<td style='display: none' id='change'>" + imagehtml + "</td>" +
-				"<td style='display: none' id='change'>" + select_rest + "</td>" +
-				"<td style='display: none' id='change'>" + restid + "</td>" +
-				"<td style='display: none' id='change'>" + ordertype + "</td>" +
-				"<td style='display: none' id='change'>" + base_price + "</td>" +
-				"<td style='display: none' id='change'>" + rest_price + "</td>"+
-				"<td style='display: none' id='change'>" + save_menuid + "</td>"+
-				"<td style='display: none' id='change'>" + addId + "</td>"+
-				"<td style='display: none' id='change'>" + updateId + "</td></tr>");
-          
-		  //  $('#cartTable tbody').append(tabledata);
-			calculate();
-			if(theTotal==0)
-			{   
-				$("#showcart").css("display", "none");
-				$("#show_empty_cart").css("display", "block");
-				}
-			$('#'+addId).css("display","block");
-			$('#'+updateId).css("display","none");
-			$('#'+addId).text("Add to cart - $" + price);
-			var btnid=$('#'+addId).attr('buttonid');
-			var inputid=$('#'+btnid).attr('inputf');
-			$('#'+btnid).find('input[name=' + inputid + ']').attr("value","1");
-			$('#'+data).attr("total",price);
-			$('#'+data).attr("quantity","1");
-        }*/
-		
-/*function calculate(){
-		theTotal = 0;
-	  
-		$("#cartTable #tid td:nth-child(3)").each(function () {
-			var val1 = $(this).text().replace("$", "");
-			var val2 = JSON.parse(val1);
-			theTotal += (val2);
-		});
-		$("#sales_subtotal").html("$"+ theTotal);
-		
-		base_theTotal = 0;
-	  
-		$("#cartTable #tid td:nth-child(13)").each(function () {
-			var base_val1 = $(this).text();
-			//console.log(base_val1);
-			var base_val2 = JSON.parse(base_val1);
-			base_theTotal += (base_val2);
-		});
-		$("#base_subtotal").text(base_theTotal);
-		
-		rest_theTotal = 0;
-	  
-		$("#cartTable #tid td:nth-child(14)").each(function () {
-			var rest_val1 = $(this).text();
-			//console.log(rest_val1);
-			var rest_val2 = JSON.parse(rest_val1);
-			rest_theTotal += (rest_val2);
-		});
-		$("#rest_subtotal").text(rest_theTotal);
-	}*/
 
+	// $('#status'+id).text("Cancel");
+	var order_status="0";
+	var uid=$('#hide_userid').text();
+	$.ajax({
+		url: "/delivery/rests/updateOrderStatus",
+		contentType: "application/json",
+		type: "GET",
+		data: {"id":id,
+				"orderStatus":order_status} ,
+		dataType: 'json',
+		success: function(data) {
+			$.ajax({
+				url: "/delivery/rests/userOrders",
+				type: "GET",
+				data: {"userid":uid},
+				success: function(data) {
+					$('#account_orders').empty();
+						$.each(data, function(key, value) {
+							if(value['schedule']==false){
+								schedule_status="Non-scheduled";
+							}
+							if(value['schedule']==true){
+								schedule_status="Scheduled";
+							}
+							if(value['orderStatus']=='0'){
+								order_status="Cancel";
+								var disable="disabled";
+							
+							}
+							if(value['orderStatus']=='1'){
+								order_status="Open";
+								var disable="";
+							}
+							if(value['orderStatus']=='2'){
+								order_status="Paid";
+								var disable="";
+							}
+							
+							
+							$("#account_orders").append('<tr>'+
+									'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+									+'<td style="width:120px;text-align: center;">'+value['orderDate']
+									+'</td>'
+									+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+									+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+							        +'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" style="margin-left: 20px"  onclick="cancelOrder(this.id)" id="'+value['id']+'"'+disable+'></span></td></tr>');
+							
+						
+						});
+						
+						//$(this).attr('id');
+						
+				//	$(this).prop('disabled', true)
+						/*onclick="cancelOrder(this.id)"*/
+							
+							/*$("#account_orders").append('<tr>'+
+									'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+									+'<td style="width:120px;text-align: center;">'+value['orderDate']
+									+'</td>'
+									+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+									+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+							        +'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" style="margin-left: 20px"  onclick="cancelOrder(this.id)" id="'+value['id']+'"></span></td></tr>');
+							
+						
+						});*/
+						
+						/*disabled="false"*/
+						 var eleman = document.getElementById(id);
+						 $("#id").attr('disabled', 'disabled');
+					/*	var eleman = document.getElementById(id);
+						alert(id);
+						eleman.addAttribute("disabled");*/
+						// disable_btn();
+						
+						
+								/*$("#account_orders").append('<tr>'+
+								'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+								+'<td style="width:120px;text-align: center;">'+value['orderDate']
+								+'</td>'
+								+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+								+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+								+'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" style="margin-left: 20px" onclick="cancelOrder(this.id)" id="'+value['id']+'"></span></td></tr>');
+						});*/
+						}, 
+						
+				error: function() {
+					//alert('Something went wrong');
+					}
+				});
+		}, 
+		error: function(err) {
+			// alert('Something went wrong');
+		}
+		
+		
+	});
+	
+	
+}
 function calculate(){
 	theTotal = 0;
   
@@ -840,7 +571,7 @@ function final_calculate(){
 			
 		var str=$("#hide_coupon").text();
 		var count_len = str.length;
-		console.log("count_len "+count_len);
+		//console.log("count_len "+count_len);
 		if(count_len<5){
 			var review_coupon=parseFloat($("#hide_coupon").text().replace("$", ""));
 		} else {
@@ -859,13 +590,13 @@ function final_calculate(){
 		if(r3 == NaN){
 			r3=0;
 		}
-		console.log("r3 "+r3);
+		//console.log("r3 "+r3);
 		var r4= parseFloat(deilvery_charge);
 		var r5=parseFloat(review_coupon);
 		if(r5 == NaN){
 			r5=0;
 		}
-		console.log("r5 "+r5);
+		//console.log("r5 "+r5);
 			
 		final_total=(r1+r2+r3+r4-r5).toFixed(2);
 			
@@ -875,6 +606,96 @@ function final_calculate(){
 			
 		$("#sales_review_place_order_total").text(rest_subtotal);
 	}	
+
+function setmenu() {
+	//var ordertype = document.getElementById("tryme_rest").getAttribute("ordertype");
+	//var select_rest = $(this).text();
+	//var ID =$(this).closest('tr').attr('valueid');
+	//var select_rest =$(this).closest('tr').attr('valuename');
+	//var zipBustypeMerchantId = $(this).closest('tr').attr('zipBustypeMerchantId');
+	$('#select_rest').css("display", "none");
+	$("#table_menus").css("display", "block");
+	$("#table_menus").empty();
+	//alert(pageURL);
+	var rest_id="1";
+	var ordertype ="CORP";
+	var select_rest="Roti";
+	$.ajax({
+	
+  		url: pageURL+"menus",
+  		type: "GET",
+  	    data: {"id" : "1"},
+  		success: function(data){
+			j=0;
+			$("#choose_rest").css("display", "none");
+			$("#backto_rest").css("display", "block"); 
+			//$("#back_restname").html('<b style="padding-bottom:10px">'+select_rest+'</b>');
+				var html = '';
+				var day='';
+				$.each(data, function(key, value) { 
+				j++;
+				//console.log(data.mon);
+				var p='qtyplus_'+j;
+				var m='qtyminus_'+j;
+				var q='qty_'+j;
+				html += '<div  id="data'+j+
+				'"value="'+value['id']+
+				'" ordertype="' + ordertype +
+				'" select_rest="' + select_rest +
+				'" restid="' + value['restaurantBustypeId'] +
+				'" name="'+value['name']+
+				'" days="'+day+
+				'" sales_price="'+value['salesPrice']+
+				'" base_price="'+value['basePrice']+
+				'" restaurant_price="'+value['restaurantPrice']+
+				'" active="'+value['active']+
+				'" description="'+value['description']+
+				'" quantity="1'+
+				'" total="'+value['salesPrice']+
+				'" src="/delivery/resources/images/'+value['menuImage']+
+				'" style="border:1px solid #c4c4c4;border-radius: 10px;height:125px;padding-left:5px;margin-bottom:3px;">'+
+
+				'<div id="image'+j+'" data-toggle="modal" onclick="openModal(this.id)" class="col-md-2 nopadding" name="'+value['name']+'" description="'+value['description']+'">'+
+					'<label for="imagesrc">'+
+						'<img style="width:100px;height:90px;padding-left:5px;padding-top:5px;margin-top: 15px;"'+
+							'src= "/delivery/resources/images/'+value['menuImage']+'"/>'+
+					'</label>'+
+				'</div>'+
+				'<div id="menuDetails'+j+'" class="col-md-3" id="tryme" align="left" style="padding-left:30px;white-space: normal;padding-top:20px;" >'+ 
+						'<h4><label>' + value['name'] + '</label></h4><h4 style="color:blue">'+
+							'<label>$' + value['salesPrice']+ '</label></h4>'+
+				'</div>'+
+				'<div id="addQty'+j+'" inputf="quantity'+j+'" class="col-md-3 col-md-offset-2" style="padding-top:30px;">'+
+						'<div class="row">'+
+							'<div class="input-group">'+
+								'<span class="input-group-btn">'+
+									'<button type="button" field="quantity'+j+'" dataid="data'+j+'" buttonid="addQty'+j+'" onclick="qtyMinus(this.id)" id="qtyMinus_'+j+'" dataid="data'+j+'" imageid="image'+j+'" style="height:45px;width:40px" class="quantity-left-minus btn btn-danger btn-number">'+
+										'<span class="glyphicon glyphicon-minus">'+
+								'</span></button>'+
+								'</span>'+
+								'<input class="form-control input-number" type="text" name="quantity'+j+'" value="0" id="qty_'+j+'" style="text-align:center;height:45px;width:40px" />'+
+								'<span class="input-group-btn">'+
+									'<button type="button" field="quantity'+j+'" dataid="data'+j+'" buttonid="addQty'+j+'" onclick="qtyPlus(this.id)" id="qtyPlus_'+j+'" imageid="image'+j+'" style="height:45px;width:40px" class="quantity-right-plus btn btn-success btn-number"><span class="glyphicon glyphicon-plus"></span></button>'+
+								'</span>'+
+							'</div>'+
+						'</div>'+
+				'</div></div>';	
+					});
+				$('#table_menus').last().append(html);				
+			$('#restaurants').hide();
+  		},
+  		error: function(passParams){
+       			alert("inside error " + passParams);
+  		}
+	});
+	theTotal= $("#sales_subtotal").text().replace("$", "");
+	if(theTotal==0)
+	{
+		$("#show_empty_cart").css("display", "block");
+		$("#showcart").css("display", "none");
+	}
+	
+}
 
 /*function setmenu() {
 		
@@ -1777,15 +1598,40 @@ function goto_corp_review_order()
 		
 		
 		//$("#date_delivery").text(date_delivery+' at '+time_delivery);
-		$("#date_delivery").text(day+" "+date_delivery);
+		
+		/*var n = $("#datepicker").val();
+		var myarray = n.split(',');
+		var arr=[];
+		for (var z = 0; z < myarray.length; z++) {
+		arr[z] = myarray[z];
+		}
+		*/
+		
+		
+		
+		var n = $("#datepicker").val();
+		var myarray = n.split(',');
+		console.log(myarray);
+		var arr=[];
+		var str='';
+		for (var z = 0; z < myarray.length; z++) {
+			arr[z]  = myarray[z];
+			str+=arr[z]+", "+" "
+			
+		}
+		$("#date_delivery").text(str);
+		
+		/*$("#date_delivery").text(arr);*/
+		//$("#date_delivery").text(day+" "+date_delivery);
 		//alert(day);
 		
 		var user_address=$("#autocomplete").val();
+		$("#address_delivery").text(user_address);
 			
 		var dd_btn3=$("#dd_btn3").text();
 			
 	        
-		$("#address_delivery").text(user_address);
+		
 		$("#corp_address_delivery").text(dd_btn3);
 		$("#cart_item_details").empty();
 		$("#cart_item_details").val('');
@@ -1830,15 +1676,15 @@ function goto_corp_review_order()
 		});
 	
 		for(var i=0; i < things.rest_thing.length; i++){
-		$("#cart_item_details").append('<tr class="count_restaurant" restid='+ things.rest_thing[i].id+' name='+things.rest_thing[i].name+' style="display: block;margin-bottom:10px;"><td number="'+i+'" id='+things.rest_thing[i].name+' style="width:700px"><b>'+things.rest_thing[i].name+'</b></td></tr>');
-		var n = $("#datepicker").val();
+		$("#cart_item_details").append('<tr class="count_restaurant" restid='+ things.rest_thing[i].id+' name='+things.rest_thing[i].name+' style="display: block;margin-bottom:10px;"><td number="'+i+'" id='+things.rest_thing[i].name+' style="width:700px"><b style="display: none;">'+things.rest_thing[i].name+'</b></td></tr>');
+		/*var n = $("#datepicker").val();
 		var myarray = n.split(',');
 		var arr=[];
 		for (var z = 0; z < myarray.length; z++) {
 		arr[z] = myarray[z];
 		}
 		//var schedule_date_details=$("#address_delivery").text();
-		$("#schedule_date_details").text(arr);
+		$("#schedule_date_details").text(arr);*/
 		
 		}
 	 
@@ -1851,8 +1697,8 @@ function goto_corp_review_order()
              i_quantity = $tds.eq(0).text(),
              i_product = $tds.eq(1).text(),
 			 i_cost = $tds.eq(2).text(),
-             i_price = $tds.eq(5).text();
-             i_description = $tds.eq(6).text();
+             i_price = $tds.eq(4).text();
+             i_description = $tds.eq(5).text();
              i_restname = $tds.eq(7).text();
 		     i_restid = $tds.eq(8).text();
 			 i_ordertype = $tds.eq(9).text();
@@ -1888,8 +1734,7 @@ function goto_corp_review_order()
 			'</td></tr>');
 			 });
 			  
-			
-			final_calculate();
+		final_calculate();
 	 }
 	 
 	function goto_rest_review_order(){
@@ -2047,12 +1892,94 @@ function ValidateCreditCardNumber(){
 
 
 $(document).ready(function() {
+	pageURL = $(location).attr("href");
 		footer();
 		calculate();
+		setmenu();
 		
-    $('#logged_in').click(function(e){
-		$("#profile_details").modal();
-	  });
+		$('#logged_in').click(function(e){
+			alert("1");
+			
+		
+	    	var uid=$('#hide_userid').text();
+	    	$.ajax({
+	    		url: "/delivery/rests/userOrders",
+	    		type: "GET",
+	    		data: {"userid":uid},
+	    		success: function(data) {
+	    				$.each(data, function(key, value) {
+	    					if(value['schedule']==false){
+								schedule_status="Non-scheduled";
+							}
+							if(value['schedule']==true){
+								schedule_status="Scheduled";
+							}
+							if(value['orderStatus']=='0'){
+								order_status="Cancel";
+								var disable="disabled";
+							
+							}
+							if(value['orderStatus']=='1'){
+								order_status="Open";
+								var disable="";
+							}
+							if(value['orderStatus']=='2'){
+								order_status="Paid";
+								var disable="";
+							}
+	    						$("#account_orders").append('<tr>'+
+	    						'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+	    						+'<td style="width:120px;text-align: center;">'+value['orderDate']
+	    						+'</td>'
+	    						+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+	    						+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+	    						+'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" style="margin-left: 20px"  onclick="cancelOrder(this.id)" id="'+value['id']+'"'+disable+'></span></td></tr>');
+	    				});
+	    				
+	    				
+	    				
+	    				$("#profile_details").modal();
+
+	    				/*if(value['orderStatus']=='0'){
+    						
+    						aler("Disabel");
+    						$("#id").prop('disabled', false);
+    					
+    					}*/
+	    				}, 
+	    		error: function() {
+	    			//alert('Something went wrong');
+	    			}
+	    		});
+	    	
+		  });
+		
+		
+		$("#print_Excel").click(function(e){
+			alert("ecel");
+			var uid=$('#hide_userid').text();
+			$.ajax({
+				url: "/delivery/rests/PrintOrders",
+				type: "GET",
+				data: {"userid":uid},
+				succcess:function(data)
+				{
+					alert("Success");
+					
+				},
+				error:function()
+				{
+					alert("error");
+				}
+				
+				
+			});
+			
+		});
+		
+		
+		
+	
 		
 		
 	$('#edit_user_details').click(function(e){
@@ -2147,7 +2074,7 @@ $(document).ready(function() {
             
     });
 	
-	  pageURL = $(location).attr("href");
+	
 	// alert(pageURL);
 	
 	$("input[name$='creditcard']").click(function() {
@@ -2626,7 +2553,8 @@ $(document).ready(function() {
 	
 	$("#review_order").click(function (e){
        var n = $("#datepicker").val();
-		
+     
+       
 		var myarray = n.split(',');
 		var arr=[];
 		for (var z = 0; z < myarray.length; z++) {
@@ -2643,6 +2571,7 @@ $(document).ready(function() {
 			  $('#myModal_review_login').modal('show');
 			}
 			else {
+				//alert("s");
 			goto_corp_review_order();
 			//goto_rest_review_order();
 		 }
@@ -2653,49 +2582,43 @@ $(document).ready(function() {
 	
 	});
 	
-	
-	/*$("#review_order").click(function (e){
-		var n = $("#datepicker").val();
-		
-		var myarray = n.split(',');
-		var arr=[];
-		for (var z = 0; z < myarray.length; z++) {
-		arr[z] = myarray[z];
-		}
-		
-		if(arr=="")
-		{
-			sheduleOrder_error();
-			s_time();
-			alert("h");
-
-		}
-		else{
-			console.log("contain  date");
-		}
-		
-		
-        if( (addressbar==0) || ($('#dd_btn3').text().trim() == "Select Apartment Complex")){
-			snack_error();
-			s_time();
-		}
-		else{
-			if ( $("#login").css('display') == 'block')
-			{
-			  $('#myModal_review_login').modal('show');
+/*	$("#review_order").click(function (e){
+	       var n = $("#datepicker").val();
+			
+			var myarray = n.split(',');
+			var arr=[];
+			for (var z = 0; z < myarray.length; z++) {
+			arr[z] = myarray[z];
 			}
-			else {
-			goto_corp_review_order();
-			//goto_rest_review_order();
-		 }
+			var addressbar = $("#autocomplete").val();
+			if( (addressbar==0) || ($('#dd_btn3').text().trim() == "Select Apartment Complex")||arr=="" ){
+				snack_error();
+				s_time();
+			}
+			else{
+				if ( $("#login").css('display') == 'block')
+				{
+				  $('#myModal_review_login').modal('show');
+				}
+				else {
+					
+					if(addressbar==0)
+						{
+						goto_corp_review_order();
+						}
+					else{
+						
+						$("#autocomplete").text(addressbar);
+					}
 			
-		}
+			 }
+				
+			}
+			
+				 
 		
-			 
-	
-	});
-	*/
-	
+		});
+		*/
 	
 	
 	var month = new Array();
@@ -2862,11 +2785,11 @@ $("#dd_date_corp a").on('click', function(e) {
 	});
 	
 	
-	 $("#scehdule_order").click(function(e){ 
+	/* $("#scehdule_order").click(function(e){ 
 	    	window.open('http://localhost:8080/delivery/orderSchedule/');
 	    	//window.location.replace("http://localhost:8080/delivery/orderRestaurant/");
 
-	    	});
+	    	});*/
 	 
 /*	$("#scehdule_order").click(function(e){
 		if($('#logged_in').css('display') == 'block'){
@@ -2966,7 +2889,7 @@ $("#dd_date_corp a").on('click', function(e) {
 								 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in ************'+ value['lastFourDigits']+
 								 '</label></td><td><span style="width:100px;font-weight:lighter">'+ value['expDate']+'</span></td><td><a id="update_creditcard"'+ 
 								 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
-								 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
+								 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
 								 '<td style="display:none">************'+value['lastFourDigits']+'</td>'+'<td style="display:none">'+value['expDate']+'</td>'+'<td style="display:none">344</td>'+
 								 '<td style="display:none">Max</td>'+'<td style="display:none">'+value['billingAddress']+'</td>'+'<td style="display:none">'+value['city']+'</td>'+
 								 '<td style="display:none">'+value['state']+'</td>'+'<td style="display:none">'+value['zip']+'</td></tr>');
@@ -2977,7 +2900,7 @@ $("#dd_date_corp a").on('click', function(e) {
 								 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in ************'+ value['lastFourDigits']+
 								 '</label></td><td><span style="width:100px;font-weight:lighter">'+ value['expDate']+'</span></td><td><a id="update_creditcard"'+ 
 								 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
-								 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
+								 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
 								 '<td style="display:none">************'+value['lastFourDigits']+'</td>'+'<td style="display:none">'+value['expDate']+'</td>'+'<td style="display:none">344</td>'+
 								 '<td style="display:none">Max</td>'+'<td style="display:none">'+value['billingAddress']+'</td>'+'<td style="display:none">'+value['city']+'</td>'+
 								 '<td style="display:none">'+value['state']+'</td>'+'<td style="display:none">'+value['zip']+'</td></tr>');
@@ -2988,21 +2911,50 @@ $("#dd_date_corp a").on('click', function(e) {
 						}
 	   
 					});
-   
-				$.ajax({
+   /*here*/
+				/*$.ajax({
 					url: "/delivery/rests/userOrders",
 					type: "GET",
 					data: {"userid":u_id},
 					success: function(data) {
-							$.each(data, function(key, value) { 
-									$("#account_orders").append('<tr><td style="width:50px; id="'+value['id']+'"></td>'+
-									'<td style="width:200px;">'+value['id']+'</td>'+'<td style="width:210px;">'+value['orderDate']+'</td></tr>');
-								});
+						
+						alert("2");
+							$.each(data, function(key, value) {
+								if(value['schedule']==false){
+									schedule_status="Non-scheduled";
+								}
+								if(value['schedule']==true){
+									schedule_status="Scheduled";
+								}
+								if(value['orderStatus']=='0'){
+									order_status="Cancel";
+								}
+								if(value['orderStatus']=='1'){
+									order_status="Open";
+								}
+								if(value['orderStatus']=='2'){
+									order_status="Paid";
+								}
+									$("#account_orders").append('<tr>'+
+									'<td style="width:50px;text-align: center;">'+value['id']+'</td>'
+									+'<td style="width:120px;text-align: center;">'+value['orderDate']+'</td>'
+									+'<td style="width:120px;text-align: center;">'+schedule_status+'</td>'
+									+'<td style="width:100px;text-align: center;" id="status'+value['id']+'">'+order_status+'</td>'
+									+'<td style="width:50px;text-align: center;"><span class="btn glyphicon glyphicon-remove" style="margin-left: 20px" onclick="cancelOrder(this.id)" id="'+value['id']+'"></span></td></tr>');
+							});
 							}, 
 					error: function() {
 						//alert('Something went wrong');
 						}
 					});
+				*/
+				
+				
+				
+				
+				
+				
+				
 				}, 
 				error: function() {
 					//alert('Something went wrong');
@@ -3013,6 +2965,7 @@ $("#dd_date_corp a").on('click', function(e) {
 		}
 	});		
 	
+
 		
 	$('#card_details').on('click', '#delete_cc_card', function (i,d) {
 
@@ -3181,6 +3134,7 @@ $("#dd_date_corp a").on('click', function(e) {
 		$("#restAndCartContainer").css("display", "block");
 		$('#review_details').css("display", "none");	
 		$("#table_menus").css("display", "block");
+		$("#datepicker").css("display", "block");
 	});
 	
 	
@@ -3540,7 +3494,7 @@ var lastdigits=number.slice( -Count);
 		 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
-		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
+		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td></tr>');
@@ -3550,7 +3504,7 @@ var lastdigits=number.slice( -Count);
 		 '<td><label style="font-weight:lighter;margin-left:5px;width:440px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
-		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
+		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td></tr>');
@@ -3630,12 +3584,22 @@ var lastdigits=number.slice( -Count);
 		$('#myModal_payment').modal('hide');
 			
 
+		/*$("#disply_new_card").append('<tr id="'+userid+'"><td><input type="radio" id="radcc" class="radioBtnClass" name="rad_cc" exp="'+exp+'" value="'+number+'"'+
+		 'cvc="'+cvc+'" cardholdername="'+name+'" address="'+address+'" city="'+city+'" state="'+state+'" zip="'+zip+'" lastdigits="'+lastdigits+'" /></td>'+
+		 '<td><label style="font-weight:lighter;margin-left:5px;width:440px;margin-bottom: 10px;">Card ending in '+ number1+
+		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
+		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
+		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
+		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
+		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
+		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td></tr>');*/
+		
 		$("#disply_new_card").append('<tr id="'+userid+'"><td><input type="radio" id="radcc" class="radioBtnClass" name="rad_cc" exp="'+exp+'" value="'+number+'"'+
 		 'cvc="'+cvc+'" cardholdername="'+name+'" address="'+address+'" city="'+city+'" state="'+state+'" zip="'+zip+'" lastdigits="'+lastdigits+'" /></td>'+
 		 '<td><label style="font-weight:lighter;margin-left:5px;width:440px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
-		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
+		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td></tr>');
@@ -3733,7 +3697,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;">'+
 		 '<span class="glyphicon glyphicon-pencil"></span></a></td>'+
-		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
+		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td>');
@@ -3855,9 +3819,10 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		});				
     });
 			
-			 $('#card_details').on('click', '#remove_creditcard', function (i,d) {
+		 $('#card_details').on('click', '#remove_creditcard', function (i,d) {
 				 var par = $(this).parent().parent();
 				var ID =$(this).closest('tr').attr('id');
+				alert(ID);
 		$("#myModal_delete_cc").modal('show');
 		
 		$("#btn_delete_cc_yes").on('click', function(e) {
@@ -3883,11 +3848,124 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
     	         });
 		});
             
-		$("#btn_delete_cc_no").on('click', function(e) {
+		$("#btn_delete_cc_no").on('click', function() {
 		$("#myModal_delete_cc").modal('hide');
 		});			
 		
             });
+			 
+			 
+
+		/* $('#account_orders').on('click', '#remove_order', function (i,d) {
+			 var par = $(this).parent().parent();
+				var ID =$(this).closest('tr').attr('id');
+				alert(ID);
+				alert("nn");
+		
+	   $("#myModal_delete_order").modal('show');
+	   $("#btn_delete_order_yes").on('click', function(e) {
+	
+			 $.ajax({
+	            url: "/delivery/login/deleteOrderDetails",
+	            data: {"id":ID},
+	            type:'GET',
+	             success:function(data){
+	              alert("success");
+	              $('#'+ID).empty();
+				//  $("#" + ID).remove();
+				  $("#myModal_delete_order").modal('hide');	
+	            },
+	            error:function(){
+	              alert('error');
+	            }
+	         });
+	
+	});
+        
+	$("#btn_delete_order_no").on('click', function(e) {
+	$("#myModal_delete_order").modal('hide');
+	});			
+	
+        });	 
+		 */
+
+		 
+		 
+		
+			/* $('#account_orders').on('click', '#remove_order', function (e) {
+				 var ID1 = $(this).attr('status');
+					alert("sta"+ID1);
+					 var ID2 = $(this).attr('np');
+						alert("np"+ID2);
+					
+		   $("#myModal_delete_order").modal('show');
+		
+		$("#btn_delete_order_yes").on('click', function(e) {
+		 // var par = $('#remove_creditcard').parent().parent();
+				//var ID =$('#remove_order').closest('tr').attr('id');
+			var ID =$(this).closest('tr').attr('id');
+		alert(ID);
+				//$('#'+ID).empty();
+				//$("#myModal_delete_cc").modal('hide');
+			alert(ID);
+			//var Id=4;
+				 $.ajax({
+    	            url: "/delivery/login/deleteOrderDetails",
+    	            data: {"id":ID},
+    	            type:'GET',
+    	             success:function(data){
+    	              alert("success");
+					  $('#'+ID).empty();
+				
+					  $("#myModal_delete_order").modal('hide');	
+    	            },
+    	            error:function(){
+    	              alert('error');
+    	            }
+    	         });
+			
+		});
+            
+		$("#btn_delete_order_no").on('click', function(e) {
+		$("#myModal_delete_order").modal('hide');
+		});			
+		
+            });	 
+			 */
+			 
+			 
+			 
+			/* 
+			 $("#btn_delete_order_yes").on('click', function(e) {
+				 // var par = $('#remove_creditcard').parent().parent();
+						//var ID =$('#remove_creditcard').closest('tr').attr('id');
+						
+				
+						//$('#'+ID).empty();
+						//$("#myModal_delete_cc").modal('hide');
+						 $.ajax({
+		    	            url: "/delivery/login/deleteCreditCard",
+		    	            data: {"id":ID},
+		    	            type:'GET',
+		    	            cache:false,
+		    	            success:function(data){
+		    	              console.log(data); 
+							  $('#'+ID).empty();
+							  $("#myModal_delete_cc").modal('hide');	
+		    	            },
+		    	            error:function(){
+		    	              //alert('error');
+		    	            }
+		    	         });
+				});
+		            
+				$("#btn_delete_cc_no").on('click', function(e) {
+				$("#myModal_delete_cc").modal('hide');
+				});			
+				
+		            });	*/
+			 
+			 
 	$("#disply_new_card").on('mousedown', '.radioBtnClass', function () {
 		
 		var Val = $(this).val();
@@ -3900,7 +3978,6 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		var zip = $(this).closest('input').attr("zip");
 		var lastdigits = $(this).closest('input').attr("lastdigits");
 	
-		the_creditcard=[];
    
 		the_creditcard.push({Val:Val,
 						exp:exp,
@@ -4071,7 +4148,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	
 	
    $("#review_order_submit").click(function(e){
-	
+	   
 		if ($('#corp_name_delivery').val() == '') {
 			$('#corp_name_delivery').css('border', '1px solid red');
 			alert("Name cannot be blank");
@@ -4156,7 +4233,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 					i_menuid= $tds.eq(11).text();
 				 
 					i_salestax = (i_price*(6/100));
-				 
+				// alert(i_description);
 					//var val2 = (i_price);
 					salesRestaurantPrice2 = salesRestaurantPrice2 + Number(i_price);
 					salesRestaurantTax = (salesRestaurantPrice2*(6/100));
@@ -4166,7 +4243,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 					//console.log(restaurantPrice);
 					//console.log(baseRestaurantPrice);
 					
-					the_menu.push({
+						the_menu.push({
 									id:i_menuid,
 									name:i_product,
 									basePrice:i_baseprice , 
@@ -4180,7 +4257,23 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 					
 					//console.log("menu list"+JSON.stringify(the_menu));
 				});
-				
+				  var dates = $("#datepicker").val();
+				  
+				  console.log("list of dates:"+dates);
+				  
+				/*  var myarray = n.split(',');
+				   var dates=[];
+					for (var z = 0; z < myarray.length; z++) {
+						dates[z] = myarray[z];
+						
+					}*/
+				  /*console.log(n);
+					
+					dates.push({
+						
+						"dates":myarray[j],
+					})*/
+						
 				
 				listOfObjects.push({
 										"name": the_rest[j].name,
@@ -4205,23 +4298,30 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			//console.log(the_creditcard);
 		
 			var dates=$("#datepicker").val();
-		alert(dates);
+		   
 			var hide_userid= $("#hide_userid").text();
 			var corp_name_delivery= $("#corp_name_delivery").val();
 			var corp_phone_delivery= $("#corp_phone_delivery").val();
 			var corp_email_delivery= $("#corp_email_delivery").val();
 			var zipbusid = $("#hide_zipid").text();
 			var cc=$("#cc-number").val();
-			alert("ccno"+cc);
+			
+			if(the_creditcard==""){
+				alert("Please select the card to proceed");
+			}else{
+			//alert("ccno"+cc);
 			var orderForm = 
 			{
 				"userId": hide_userid,
 				"name": corp_name_delivery,
 				"age":"29",							//remove
 			    "phone":corp_phone_delivery,
+			    
 				//"currentDate": "08/08/2018",
 				//"time":"10.00", 
-				
+			    
+				//"dates":n,
+			    
 				"currentDate": date_delivery,
 				//"time":order_h+":"+order_m+":"+order_s,
 				
@@ -4239,16 +4339,21 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 				
 				"restaurantForms": listOfObjects,
 				
-				//"description": "NA",                //No need of this
-				//"instructions": textarea_delivery,
+				
+				"description": "NA",                //No need of this
+				"instructions": textarea_delivery,
 				
 				"orderType": 'CORP',
-				"orderDate": date_delivery,
+				"orderDate": dates,
 				//"orderTime": time_delivery,
-				//"orderDate": "2018-07-28",
+				
+				//"orderDate":"10/4/2018",
+				
 				"orderTime": "11.00",
-				//"orderId": "273",					  //No need of this
-				"zipBusTypeMerchantId": "1",       
+				"zipBusTypeMerchantId": "1",    
+				
+				"schedule":"true",
+				"orderStatus": "1", 
 				
 				
 				"cardType": "VISA",
@@ -4313,104 +4418,50 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 				"amountOffPerUsage":"234",
 				"maxPercentageOffPerUsage":"22",
 				"minOrderAmount":"3",
-				"maxAmountOffPerUsage":"234" 
+				"maxAmountOffPerUsage":"234"
+				
+			
 			};
 			//console.log("subTotalSales-"+sales_review_subtotal,"taxSales-" +review_tax,"totalSales-"+ review_place_order_total,
 			//"totalBase-" +base_review_place_order_total,"totalRestaurant-"+sales_review_place_order_total,"tip-"+ driver_tip);
 			
-			alert("orderform1");
-			console.log(JSON.stringify(orderForm));
 			
+			
+			console.log(JSON.stringify(orderForm));
+			$("#loader").css("display", "block");
 			$.ajax({
 				//url: "/delivery/rests/order",
-				url: pageURL+"order",
+				url: pageURL+"scheduleOrder",
 		        contentType: "application/json",
 				type: "POST",
 		        data: JSON.stringify(orderForm),
 		        dataType: 'json',
 		        success: function (data) {
-				
-				console.log(data);
-					var obj = JSON.stringify(data.result);
 					
-					$('#remove_coupon').css("display", "none");
-					$('#corp_review_orderno').text('Your Order number is '+ obj);
-					
-					$('#review_order_submit').prop('disabled', true);
-					$('#print_pdf').css("display", "block");
-				},
+					console.log(data);
+						/*var obj = JSON.stringify(data.result);*/
+					var res = data.result;
+				var obj=res.toString();
+						console.log(n);
+						
+						$("#loader").css("display", "none");
+						$('#remove_coupon').css("display", "none");
+						$('#orderNoModel').modal('show');
+						$('#corp_review_orderno').text('Your Order number is '+ obj);
+						
+						$('#review_order_submit').prop('disabled', true);
+						$('#print_pdf').css("display", "block");
+						
+					},
 		        error: function () {
 					
 		        }
 			});	
-		}
+		}}
 	});
 	
 	
- /* $('#review_order_submit').click(function(e){
-	  
-	if($("#corp_name_delivery").val()=='')
-		{
-		$('#corp_name_delivery').css('border','1px solid red');
-		alert("NEHAPATEL754");
-		alert("Name Field is empty");
-		}
-	else if($("#corp_phone_delivery").val()=='')
-		{
-		$("#corp_phone_delivery").css('border','1px solid red');
-		alert("Phone no is empty");
-		}
-	else if($("#corp_email_delivery").val()=='')
-		{
-		$("#corp_email_delivery").css('border','1px solid red');
-		}
-	else if($("#disply_new_card").is(':empty'))
-		{
-		alert("Please select cart to proceed");
-		}
-	else{
-		alert("NEHAPATEL75411111");
-		var name=$("#corp_name_delivery").val();
-		var phone=$("#corp_phone_delivery").val();
-		var email=$("#corp_email_delivery").val();
-		var textarea_delivery =$("#textarea_delivery").val();
-		var street_number=$("#street_number").val();
-		var sales_review_subtotal=$("#sales_review_subtotal").text().replace("$","");
-		
-		var the_rest=[];
-		
-		$('#cart_item_details .count_restaurant').each(function(){
-			
-			var restid=$(this).attr('restid');
-			var restname=$(this).attr('name');
-			 
-			
-			
-			the_rest.push({
-				restaurantId:restid,
-				name:restname
-			});
-	
-			
-		});
-		
-		
-		for(i=0;i<the_rest.length;i++)
-		{
-			
-			//alert("restaurantId "+the_rest[i].restaurantId+" "+"name "+the_rest[i].name);
-			alert("restaurantId"  + the_rest[i].restaurantId + "name"  + the_rest[i].name);
-		}
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-});*/
+
 	
 	$('#print_pdf').click(function(){
 		//alert("pdfprint");
@@ -4438,12 +4489,25 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			$("#review_corp_delivery_details").css("display", "none");
 			$("#back_corp_checkout" +
 					"\_panel").css("display", "none");
-		   
-		    var print_date_delivery=$("#date_delivery").text();
-			$("#print_date_delivery").text(print_date_delivery);
+			
+			var order_dates = $("#datepicker").val();
+		     $("#print_date_delivery").text(order_dates);
+		     
+		     var corp_name_delivery= $("#corp_name_delivery").val();
+		     $("#print_name_delivery").text(corp_name_delivery);
+		     
+		     var corp_phone_delivery= $("#corp_phone_delivery").val();
+		     $("#print_phone_delivery").text(corp_phone_delivery);
+		     
+		     var corp_email_delivery= $("#corp_email_delivery").val();
+		     $("#print_email_delivery").text(corp_email_delivery);
 	   
+		     var deliveryAddress= $("#street_number").val();
+			 var deliveryAddress1= $("#route").val();
+			
 			var print_address_delivery=$("#address_delivery").text();
-			$("#print_address_delivery").text(print_address_delivery);
+			var address_delivery= deliveryAddress+ " "+deliveryAddress1+" "+print_address_delivery;
+			$("#print_address_delivery").text(address_delivery);
 	   
 			var print_corp_address_delivery=$("#corp_address_delivery").text();
 			$("#print_corp_address_delivery").text(print_corp_address_delivery);
@@ -4539,6 +4603,8 @@ else {
 }
   
 	});
+	
+
 	
 $('#email').keyup(function(){
 	var input=$('#email').val();
@@ -4932,11 +4998,11 @@ $(document).ready(
 		function() {
 			pageURL = $(location).attr("href");
 
-			$('.timepicker').pickatime({
-				/*
+			/*$('.timepicker').pickatime({
+				
 				 * $("#datepicker").click(function(){
 				 * $('#datefilter').prop('disabled', true); });
-				 */
+				 
 				onSet : function() {
 					// $('#datefilter').prop('disabled', true);
 					var $input = $('.timepicker').pickatime();
@@ -4955,7 +5021,7 @@ $(document).ready(
 					$("#result").append(result);
 				}
 
-			});
+			});*/
 
 			$('input[name="datefilter"]').daterangepicker({
 				minDate : new Date(),
@@ -4982,7 +5048,8 @@ $(document).ready(
 			$('#datepicker').datepicker({
 				startDate : new Date(),
 				multidate : true,
-				format : "dd/mm/yyyy",
+				/*format : "dd/mm/yyyy",*/
+				format : "mm/dd/yyyy",
 				datesDisabled : [ 'su' ],
 				language : 'en'
 			}).on(

@@ -1,5 +1,6 @@
 package com.corporate.delivery.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,9 @@ import com.corporate.delivery.model.JsonResponse;
 import com.corporate.delivery.model.LoginType;
 import com.corporate.delivery.model.Menu;
 import com.corporate.delivery.model.MenuSection;
+import com.corporate.delivery.model.OrderRestaurantMenu;
 import com.corporate.delivery.model.Restaurant;
+import com.corporate.delivery.model.RestaurantMenuDto;
 import com.corporate.delivery.model.User;
 import com.corporate.delivery.model.order.OrderHeader;
 import com.corporate.delivery.model.order.OrderRestaurant;
@@ -93,6 +96,101 @@ public class MerchantController {
 		} else {
 			return "User Name invalid";
 		}
+	}
+
+	
+	/*@RequestMapping(value = "/getFilterOrder", method = RequestMethod.GET)
+	public @ResponseBody  List<OrderHeader> getFilterOrder(@RequestParam("userType") String userType,
+			@RequestParam("orderType") String orderType,
+			@RequestParam("fromDate") String fromdate,
+			@RequestParam("toDate") String todate) {
+		List<OrderHeader> orderHeader= orderHeaderService.getOrderByFilter(userType,orderType,fromdate,todate);
+		return orderHeader;
+		
+	}*/
+	
+	@RequestMapping(value = "/getFilterOrder", method = RequestMethod.GET)
+	public @ResponseBody  List<RestaurantMenuDto> getFilterOrder(	@RequestParam("userType") String userType,
+															@RequestParam("orderType") String orderType,
+															@RequestParam("fromDate") String fromdate,
+															@RequestParam("toDate") String todate)  {
+		
+		List<OrderHeader> orderHeaderlist= orderHeaderService.getOrderByFilter(userType,orderType,fromdate,todate);
+		List<RestaurantMenuDto>  restaurantMenuDtoList = new ArrayList<RestaurantMenuDto>();
+		if(orderHeaderlist != null && !orderHeaderlist.isEmpty()) { 
+			
+			for(OrderHeader orderHeader : orderHeaderlist){
+				OrderHeader orderHeaderNew =new OrderHeader();
+				
+				orderHeaderNew.setId(orderHeader.getId());
+				orderHeaderNew.setOrderDate(orderHeader.getOrderDate());
+				orderHeaderNew.setOrderTime(orderHeader.getOrderTime());
+				orderHeaderNew.setUserId(orderHeader.getUserId());
+				orderHeaderNew.setName(orderHeader.getToken());
+				orderHeaderNew.setZipBustypeMerchantId(orderHeader.getZipBustypeMerchantId());
+				orderHeaderNew.setInstructions(orderHeader.getInstructions());
+				orderHeaderNew.setBusinessType(orderHeader.getBusinessType());
+				orderHeaderNew.setDeliveryAddress(orderHeader.getDeliveryAddress());
+				orderHeaderNew.setDeliveryCity(orderHeader.getDeliveryCity());
+				orderHeaderNew.setDeliveryState(orderHeader.getDeliveryState());
+				orderHeaderNew.setDeliveryZip(orderHeader.getDeliveryZip());
+				orderHeaderNew.setCardType(orderHeader.getCardType());
+				orderHeaderNew.setLastFourDigits(orderHeader.getLastFourDigits());
+				orderHeaderNew.setExpDate(orderHeader.getExpDate());
+				orderHeaderNew.setToken(orderHeader.getToken());
+				orderHeaderNew.setDeliveryCharge(orderHeader.getDeliveryCharge());
+				orderHeaderNew.setSubTotalSales(orderHeader.getSubTotalSales());
+				orderHeaderNew.setTaxSales(orderHeader.getTaxSales());
+				orderHeaderNew.setTotalSales(orderHeader.getTotalSales());
+				orderHeaderNew.setTotalBase(orderHeader.getTotalBase());
+				orderHeaderNew.setTotalRestaurant(orderHeader.getTotalRestaurant());
+				orderHeaderNew.setTip(orderHeader.getTip());
+				orderHeaderNew.setCouponType(orderHeader.getCouponType());
+				orderHeaderNew.setCouponCode(orderHeader.getCouponCode());
+				orderHeaderNew.setCouponAmount(orderHeader.getCouponAmount());
+				orderHeaderNew.setPayMethod(orderHeader.getPayMethod());
+				orderHeaderNew.setSchedule(orderHeader.getSchedule());
+				orderHeaderNew.setOrderStatus(orderHeader.getOrderStatus());
+
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+				String date = sdf.format(orderHeader.getOrderDate()); 
+				System.out.println(date);
+				
+				List<OrderRestaurant> orderRestaurantsList = orderRestaurantService.getOrderRestaurantDetail(orderHeaderNew.getId());
+				for(OrderRestaurant orderRestaurant :orderRestaurantsList){
+					OrderRestaurant orderRestaurantNew =new OrderRestaurant();
+					orderRestaurantNew.setId(orderRestaurant.getId());
+					orderRestaurantNew.setOrderId(orderRestaurant.getOrderId());
+					orderRestaurantNew.setRestaurantId(orderRestaurant.getRestaurantId());
+					orderRestaurantNew.setRestaurantName(orderRestaurant.getRestaurantName());
+					orderRestaurantNew.setBaseRestaurantPrice(orderRestaurant.getBaseRestaurantPrice());
+					orderRestaurantNew.setRestaurantPrice(orderRestaurant.getRestaurantPrice());
+					orderRestaurantNew.setSaleRestaurantPrice(orderRestaurant.getSaleRestaurantPrice());
+					orderRestaurantNew.setSaleTax(orderRestaurant.getSaleTax());
+					
+					List<OrderRestaurantMenu> orderRestaurantMenuList = orderRestaurantMenuService.getOrderRestaurantMenuDetail(orderRestaurantNew.getId());
+					List<OrderRestaurantMenu> orderRestaurantMenus = new ArrayList<OrderRestaurantMenu>();
+					
+					for(OrderRestaurantMenu orderRestaurantMenu : orderRestaurantMenuList){
+						OrderRestaurantMenu orm = new OrderRestaurantMenu();
+						orm.setId(orderRestaurantMenu.getId());
+						orm.setOrderRestaurantId(orderRestaurantMenu.getOrderRestaurantId());
+						orm.setMenuName(orderRestaurantMenu.getMenuName());
+						orm.setQuantity(orderRestaurantMenu.getQuantity());
+						orm.setBasePriceMenu(orderRestaurantMenu.getBasePriceMenu());
+						orm.setRestaurantPriceMenu(orderRestaurantMenu.getRestaurantPriceMenu());
+						orm.setSalePriceMenu(orderRestaurantMenu.getSalePriceMenu());
+						orm.setSalePriceTax(orderRestaurantMenu.getSalePriceTax());
+						
+						orderRestaurantMenus.add(orm);
+					}
+					
+					RestaurantMenuDto restaurantMenuDto = new RestaurantMenuDto(orderHeaderNew,orderRestaurantNew, orderRestaurantMenus);
+					restaurantMenuDtoList.add(restaurantMenuDto);
+				}
+			}
+    	}
+		return restaurantMenuDtoList;
 	}
 
 	@RequestMapping(value = "/getRestaurant", method = RequestMethod.GET)
@@ -181,11 +279,11 @@ public class MerchantController {
 	}
 	 */
 
-	/*@RequestMapping(value = "/menus", method = RequestMethod.GET)
+	@RequestMapping(value = "/menus", method = RequestMethod.GET)
 	public @ResponseBody List<Menu> getMenus(@RequestParam("id") String restId) {
 		List<Menu> list = restaurantMenuService.getRestaurantMenus(Integer.parseInt(restId));
 		return list;
-	}*/
+	}
 
 	@RequestMapping(value = "/sections", method = RequestMethod.GET)
 	public @ResponseBody List<MenuSectionForm> getMenuSections(@RequestParam("id") String menuId) {
@@ -395,19 +493,24 @@ public class MerchantController {
 		Menu menu = new Menu();
 		menu.setId(menuAdd.getId());
 		menu.setRestaurantBustypeId(menuAdd.getRestaurantBustypeId());
-		menu.setGroupNumber(menuAdd.getGroupNumber());
-		menu.setGroupMenuNumber(menuAdd.getGroupMenuNumber());
 		menu.setName(menuAdd.getName());
 		menu.setDescription(menuAdd.getDescription());
 		menu.setMenuImage(menuAdd.getMenuImage());
-		
-		menu.setBasePrice(Double.parseDouble(menuAdd.getBasePrice()));
 		menu.setSalesPrice(Double.parseDouble(menuAdd.getSalesPrice()));
-		menu.setRestaurantPrice(Double.parseDouble(menuAdd.getRestaurantPrice()));
-		
+		//menu.setRestaurantPrice(menuAdd.getRestaurantPrice());
+		menu.setGroupNumber(menuAdd.getGroupNumber());
+		menu.setGroupMenuNumber(menuAdd.getGroupMenuNumber());
+		//menu.setBasePrice(Double.parseDouble(menuAdd.getBasePrice()));
 		//menu.setPrice(menuAdd.getPrice());
 		menu.setActive(menuAdd.getActive());
-		
+		menu.setSchedule(menuAdd.getSchedule());
+		menu.setMon(menuAdd.getMon());
+		menu.setTue(menuAdd.getTue());
+		menu.setWed(menuAdd.getWed());
+		menu.setThu(menuAdd.getThu());
+		menu.setFri(menuAdd.getFri());
+		menu.setSat(menuAdd.getSat());
+		menu.setSun(menuAdd.getSun());
 		return menu;
 	}
 	
