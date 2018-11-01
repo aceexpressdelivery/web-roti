@@ -419,19 +419,21 @@
 
 
 
-<div class="when well well-lg col-md-12" id="when" style="display:block">  
-  		<div class="col-md-2 col-md-offset-0.5">
-		<div class="dropdown">
-			<button id="dd_btn3" class="btn dropdown-toggle" style="background-color:orange;" type="button" data-toggle="dropdown">Select Apartment Complex
-				<span class="caret"></span></button>
-					<ul id="dd3" class="dropdown-menu">
-					</ul>
+	<div class="when well well-lg col-md-12" id="when"
+		style="display: none">
+		<div class="col-md-2 col-md-offset-0.5">
+			<div class="dropdown">
+				<button id="dd_btn3" class="btn dropdown-toggle"
+					style="background-color: orange;" type="button"
+					data-toggle="dropdown">
+					Select Apartment Complex <span class="caret"></span>
+				</button>
+				<ul id="dd3" class="dropdown-menu">
+				</ul>
+			</div>
 		</div>
-   </div>
-   <div class="col-md-3" style="font-size:1.2vw;margin-left: 21%;padding-top: 0.3%;">
-   <label><font color="#727675">Delivery Time: ${message1} to ${message2} </font></label>
-   </div>
-	</div> 
+	</div>
+
 	<div id="restAndCartContainer" class="col-md-12">
 
 		<div id="table_menus" class="col-md-8" style="margin-bottom: 10px;">
@@ -442,7 +444,98 @@
 
 
 
+		<%-- <div id="table_menus" class = "col-md-8" style="margin-bottom:10px;">
+	
+	<c:forEach items="${list}" var="list">
 		
+		<c:set var="j" value="${j + 1}" scope="page"/>	
+		
+		<div id="data${j}" 
+			value="${list.id}" 
+			ordertype="CORP" 
+			select_rest="Roti" 
+			restid="${list.restaurantBustypeId}" 
+			name="${list.name}" 
+			sales_price="${list.salesPrice}" 
+			base_price="${list.basePrice}" 
+			restaurant_price="${list.restaurantPrice}" 
+			active="${list.active}" 
+			description="${list.description}" 
+			quantity="1" 
+			total="${list.salesPrice}" 
+			src="/delivery/resources/images/${list.menuImage}" 
+			
+			style="border:1px solid #c4c4c4;border-radius: 10px;height:125px;padding-left:5px;">
+			
+			<div id="image${j}" data-toggle="modal" onclick="openModal(this.id)" class="col-md-2 nopadding" 
+					name="${list.name}" 
+					description="${list.description}">
+				<label for="imagesrc">
+					<img style="width:100px;height:90px;padding-left:5px;padding-top:5px;margin-top: 15px;" src="/delivery/resources/images/${list.menuImage}"/>
+				</label>
+			</div>
+			
+			<div id="menuDetails${j}" class="col-md-3" id="tryme" align="left" style="padding-left:30px;white-space: normal;padding-top:20px;">
+				<h4>
+					<label>${list.name}</label>
+				</h4>
+				<h4 style="color:blue">
+					<label>$${list.salesPrice}</label>
+				</h4>
+			</div>
+			<div id="addQty${j}" 
+				inputf="quantity${j}" class="col-md-4" style="padding-top:30px;">
+					<div class="row">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button type="button" 
+										field="quantity${j}" 
+										dataid="data${j}" 
+										buttonid="addCart${j}" 
+										addId="addToCart${j}" 
+										updateId="updateToCart${j}" 
+										onclick="qtyMinus(this.id)" 
+										id="qtyMinus_${j}" 
+										style="height:45px;width:40px" class="quantity-left-minus btn btn-danger btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+			 				</span>
+				<input class="form-control input-number" type="text" name="quantity${j}" value="1" id="qty_${j}" style="text-align:center;height:45px;width:40px" />
+							<span class="input-group-btn">
+								<button type="button" 
+										field="quantity${j}" 
+										dataid="data${j}" 
+										buttonid="addCart${j}" 
+										addId="addToCart${j}" 
+										updateId="updateToCart${j}" 
+										onclick="qtyPlus(this.id)" 
+										id="qtyPlus_${j}" 
+										style="height:45px;width:40px" class="quantity-right-plus btn btn-success btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+							 </span>
+							 
+						</div>
+					</div>
+			</div>
+			<div id="addCart${j}" style="display:block;padding-top:35px;">
+				
+				<button onclick="addToCart(this.id)" 
+						dataid="data${j}" 
+						buttonid="addQty${j}" 
+						imageid="image${j}" 
+						updateid="updateToCart${j}" 
+						type="button" 
+						name="addCart" 
+						id="addToCart${j}"  class="btn btn-danger" style="display:block;padding-left:15px;width:150px">Add To Cart - ${list.salesPrice}</button>
+				
+				<button onclick="updateToCart(this.id)" 
+						dataid="data${j}" 
+						imageid="image${j}" 
+						type="button" 
+						name="updateCart" 
+						addid="addToCart${j}" 
+						id="updateToCart${j}"  class="btn btn-danger" style="display:none;padding-left:15px;width:150px">Update To Cart - ${list.salesPrice}</button>
+			</div>
+		</div>
+		</c:forEach>
+	</div> --%>
 
 		<!--Show Cart-->
 		<div class="col-md-4">
@@ -904,9 +997,9 @@
 					</div>
 					<div class="form-group">
 						<input type="text" id="cc-zip" class="form-control"
-							placeholder="Zipcode"
+							placeholder="Zipcode" maxlength="5"
 							style="width: 215px; float: right; margin-bottom: 15px"
-							maxlength="5" onkeypress="return isNumber(event)" />
+							onkeypress="return isNumber(event)" />
 					</div>
 
 					<!--</div>
@@ -1105,17 +1198,17 @@
 				<h4 style="font-size: 24px; font-family: Palatino Linotype">
 					Delivery Details</h4>
 				<br />
-				<!-- <label
+				 <!-- <label
 					style="width: 70px; margin-bottom: 5px; font-weight: lighter">When:</label><label
 					style="width: 80%;word-wrap: break-word;display: inline-block;margin-left: 13%;margin-bottom: 3%;font-weight: lighter; float: down"
 					for="date_delivery" id="date_delivery" ></label> <br />
 					<label id="where_corp" style="font-weight: lighter"></label>
-				<div id="where_corp"></div> -->
+				<div id="where_corp"></div>  -->
 
-				<label style="width: 70px;margin-top: 4%;  margin-bottom: 5px; font-weight: lighter">When:</label>
+				 <label style="width: 70px;margin-top: 4%;  margin-bottom: 5px; font-weight: lighter">When:</label>
 				<textarea class=" form-control"
 					style="width: 520px;background-color: white;word-wrap: break-word; margin-top: -34px; margin-left: 12%; margin-bottom: 3%; resize: none;"
-					id="date_delivery" disabled></textarea>
+					id="date_delivery" disabled></textarea> 
 				<br /> <label
 					style="width: 70px;  margin-bottom: 5px; font-weight: lighter;">Where:</label>
 				<label id="corp_address_delivery" style="font-weight: lighter"></label><br />
@@ -1192,10 +1285,23 @@
 				style="width: 850px; border: 1px solid #dadada;; padding-left: 10px; margin-bottom: 15px; display: none">
 				<h4 style="font-size: 24px; font-family: Times New Roman">
 					Delivery Details</h4>
-				<br /> <label
+				<br /> <!-- <label
 					style="width: 70px; margin-bottom: 5px; font-weight: lighter">When:</label><label
-					style="width: 400px; font-weight: lighter" align="left"
-					id="print_date_delivery"></label> <br /> <label
+					style="width: 400px;word-break: break-word; font-weight: lighter" align="left"
+					id="print_date_delivery"></label> -->
+					
+					<label
+					style="width: 70px; margin-bottom: 5px; font-weight: lighter">When:</label><label
+					style="width: 80%;word-wrap: break-word;display: inline-block;margin-left: 13%;margin-bottom: 3%;font-weight: lighter; float: down"
+					for="print_date_delivery" id="print_date_delivery" ></label> <br />
+					
+				<!-- 
+					<label
+					style="width: 70px; margin-bottom: 5px; font-weight: lighter">When:</label><label
+					style="width: 400px;word-break: break-word; font-weight: lighter" align="left"
+					id="print_date_delivery"></label> <br />  -->
+					
+					<label
 					style="width: 70px; margin-bottom: 5px; font-weight: lighter">Where:</label><label
 					id="print_corp_address_delivery" style="font-weight: lighter"></label><br />
 				<label style="width: 70px; margin-bottom: 5px; font-weight: lighter"></label>
@@ -1233,7 +1339,7 @@
 
 <div style=" padding-bottom: 20px;">
          <div><h5 style="margin-top: 7%;"><label width=15%></label><label style="width:300px;margin-top: 7%;font-weight:lighter;display: none;padding-left:20px"> Your Credit & Debit Cards</label>
-		 <label style="width:100px;font-weight:lighter;margin-left: 55%;padding-left:10px">Expires</label></h5></div>
+		 <label style="width:100px;font-weight:lighter;margin-left: 52%;padding-left:10px">Expires</label></h5></div>
 		
 		<div id="disply_new_card" style="margin-top:-1%;margin-left: 2%;"></div>
 		
@@ -1274,7 +1380,7 @@
 				<span style="display:none" id="base_review_subtotal"></span>
 				<span style="display:none" id="rest_review_subtotal"></span>
 			</div><br />
-			<div style="width:600px;margin-top: 4%;" class="col-md-12">
+			<div style="width:600px;margin-top: 3%;" class="col-md-12">
 				<div class="col-md-3" style="float:left;padding-right:30px">Coupon</div>
 				<div class="col-md-7" style="padding-bottom:20px;margin-left: 44px;display:block" id="review_coupon"><a style="cursor:pointer;text-decoration:none">Apply Coupon</a></div>
 				
@@ -1337,11 +1443,14 @@
 					Order Now
 				</button> -->
 			</div>
-	  
-			<div style="width:600px;display:none;" class="col-md-12" id="print_driver_tip">
+	           <div style="width:600px;display:none;" class="col-md-12" id="print_driver_tip">
+				<div style="width:320px;" class="col-md-12">Driver's Tip<span style="float:right;padding-right:70px" id="print_np"></span></div><br />
+				<div style="width:320px;" class="col-md-12">Total<span style="float:right;padding-right:70px" id="print_review_place_order_total"></span></div><br />
+			</div>
+			<!-- <div style="width:600px;display:none;" class="col-md-12" id="print_driver_tip">
 				<div style="width:320px" class="col-md-12">Driver's Tip<span style="float:right;padding-right:70px" id="print_np"></span></div><br />
 				<div style="width:320px" class="col-md-12">Total<span style="float:right;padding-right:70px" id="print_review_place_order_total"></span></div><br />
-			</div>
+			</div> -->
 			<button type="button" id="review_order_submit" style="width:410px;margin-bottom:90px;margin-left:10px;display:block" class="btn btn-lg btn-success" >
 					Order Now
 				</button>

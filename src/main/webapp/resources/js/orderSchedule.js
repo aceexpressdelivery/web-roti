@@ -1609,8 +1609,8 @@ function goto_corp_review_order()
 		
 		
 		
-		var n = $("#datepicker").val();
-		var myarray = n.split(',');
+		var dates = $("#datepicker").val();
+		var myarray = dates.split(',');
 		console.log(myarray);
 		var arr=[];
 		var str='';
@@ -1621,9 +1621,7 @@ function goto_corp_review_order()
 		}
 		$("#date_delivery").text(str);
 		
-		/*$("#date_delivery").text(arr);*/
-		//$("#date_delivery").text(day+" "+date_delivery);
-		//alert(day);
+		
 		
 		var user_address=$("#autocomplete").val();
 		$("#address_delivery").text(user_address);
@@ -3498,10 +3496,10 @@ var lastdigits=number.slice( -Count);
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td></tr>');
-		 
+		 /*here*/
 		 $("#disply_new_card").append('<tr id="'+id+'"><td><input type="radio" id="radcc" class="radioBtnClass" name="rad_cc" exp="'+exp+'" value="'+number+'"'+
 		 'cvc="'+cvc+'" cardholdername="'+name+'" address="'+address+'" city="'+city+'" state="'+state+'" zip="'+zip+'" lastdigits="'+lastdigits+'" /></td>'+
-		 '<td><label style="font-weight:lighter;margin-left:5px;width:440px;margin-bottom: 10px;">Card ending in '+ number1+
+		 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
 		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
@@ -3593,10 +3591,10 @@ var lastdigits=number.slice( -Count);
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td></tr>');*/
-		
+		/*here*/
 		$("#disply_new_card").append('<tr id="'+userid+'"><td><input type="radio" id="radcc" class="radioBtnClass" name="rad_cc" exp="'+exp+'" value="'+number+'"'+
 		 'cvc="'+cvc+'" cardholdername="'+name+'" address="'+address+'" city="'+city+'" state="'+state+'" zip="'+zip+'" lastdigits="'+lastdigits+'" /></td>'+
-		 '<td><label style="font-weight:lighter;margin-left:5px;width:440px;margin-bottom: 10px;">Card ending in '+ number1+
+		 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;"><span class="glyphicon glyphicon-pencil"></span></a></td>'+
 		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
@@ -3691,7 +3689,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		 
 		 $("#profile_details").modal('show');
 		
-		
+		alert(ID);
 		 $('#'+ID).html('<td></td>'+
 		 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
@@ -3701,8 +3699,20 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td>');
+		 
+		 $('#disply_new_card #'+ID).html('<td><input type="radio" id="radcc" class="radioBtnClass" name="rad_cc" exp="'+exp+
+				 '" value="'+lastdigits +'"'+'cvc="344" cardholdername="Max" address="'+address+'" city="'+city+'" state="'+state+'" zip="'+
+				 zip+'" lastdigits="'+lastdigits+'" /></td>'+
+				 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in '+ number1+
+				 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
+				 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;">'+
+				 '<span class="glyphicon glyphicon-pencil"></span></a></td>'+
+				 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
+				 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
+				 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
+				 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td>');
 			
-			
+		 
 	   }, 
        error: function(err) {
           // alert('Something went wrong');
@@ -3755,7 +3765,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			
 				
   $('#myModal_payment').on('click', '#update_card', function () {
-						
+	  
 			var number= $("#cc-number").val();
 			var exp= $("#cc-exp").val();
 			var cvc= $("#cc-cvc").val();
@@ -3773,11 +3783,11 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 		
 		 $('#'+ID).html('<td><input type="radio" id="radcc" class="radioBtnClass" name="rad_cc" exp="'+exp+'" value="'+number+'"'+
 		 'cvc="'+cvc+'" cardholdername="'+name+'" address="'+address+'" city="'+city+'" state="'+state+'" zip="'+zip+'" lastdigits="'+lastdigits+'" /></td>'+
-		 '<td><label style="font-weight:lighter;margin-left:5px;width:440px;margin-bottom: 10px;">Card ending in '+ number1+
+		 '<td><label style="font-weight:lighter;margin-left:5px;width:300px;margin-bottom: 10px;">Card ending in '+ number1+
 		 '</label></td><td><span style="width:100px;font-weight:lighter">'+ exp+'</span></td><td><a id="update_creditcard"'+ 
 		 'style="margin-left:30px;margin-bottom:5px;cursor: pointer;">'+
 		 '<span class="glyphicon glyphicon-pencil"></span></a></td>'+
-		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer;"></a></span></td>'+
+		 '<td><a id="remove_creditcard" style="margin-left:20px;"><span class="glyphicon glyphicon-remove" style="color:black;cursor:pointer;"></a></span></td>'+
 		 '<td style="display:none">'+number+'</td>'+'<td style="display:none">'+exp+'</td>'+'<td style="display:none">'+cvc+'</td>'+
 		 '<td style="display:none">'+name+'</td>'+'<td style="display:none">'+address+'</td>'+'<td style="display:none">'+city+'</td>'+
 		 '<td style="display:none">'+state+'</td>'+'<td style="display:none">'+zip+'</td>');
@@ -3821,7 +3831,8 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			
 		 $('#card_details').on('click', '#remove_creditcard', function (i,d) {
 				 var par = $(this).parent().parent();
-				var ID =$(this).closest('tr').attr('id');
+				
+				 var ID =$(this).closest('tr').attr('id');
 				alert(ID);
 		$("#myModal_delete_cc").modal('show');
 		
@@ -3840,6 +3851,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
     	            success:function(data){
     	              console.log(data); 
 					  $('#'+ID).empty();
+					  $('#disply_new_card #'+ID).empty();
 					  $("#myModal_delete_cc").modal('hide');	
     	            },
     	            error:function(){
@@ -4490,8 +4502,23 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 			$("#back_corp_checkout" +
 					"\_panel").css("display", "none");
 			
-			var order_dates = $("#datepicker").val();
-		     $("#print_date_delivery").text(order_dates);
+			var dates = $("#datepicker").val();
+			var myarray = dates.split(',');
+			console.log(myarray);
+			var arr=[];
+			var str='';
+			for (var z = 0; z < myarray.length; z++) {
+				arr[z]  = myarray[z];
+				str+=arr[z]+", "+" "
+				
+			}
+			
+			
+			//var order_dates = $("#datepicker").val();
+		     $("#print_date_delivery").text(str);
+			
+			/*var order_dates = $("#datepicker").val();
+		     $("#print_date_delivery").text(order_dates);*/
 		     
 		     var corp_name_delivery= $("#corp_name_delivery").val();
 		     $("#print_name_delivery").text(corp_name_delivery);
@@ -4524,9 +4551,17 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	   
 	   
 		$("#print_delivery_details").css("display", "block");
+	     $("#review_order_details").css("width", 850);
 	   
-	    $("#review_order_details").css("width", 850);
 	   
+	    /* $("#print_driver_tip").css("display", "none");
+			$("#driver_tip").css("display", "block");
+			$("#driver_tip").css("margin-left", 10);*/
+			$("#remove_tip").css("display", "none");
+	     /*
+	     var tip_value=$("#tip_value").val();
+	     console.log("mmm"+tip_value);*/
+	     
 		$("#print_driver_tip").css("display", "block");
 		$("#driver_tip").css("display", "none");
 		$("#review_order_summary").css("width", 850);
@@ -4544,7 +4579,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	   $("#print_textarea_delivery").text(print_textarea_delivery);
 	   
 	   var print_np=$(".dpui-numberPicker-input").val();
-	    $("#print_np").text(print_np);
+	  $("#print_np").text(print_np);
 		
 		 var print_review_place_order_total=$("#review_place_order_total").text();
 	   $("#print_review_place_order_total").text(print_review_place_order_total);
@@ -4569,7 +4604,7 @@ $('#myModal_payment').on('click', '#update_ccard', function () {
 	   $("#review_order_details").css("width", 630.5);
 	   
 	    $("#print_driver_tip").css("display", "none");
-	   $("#driver_tip").css("display", "block");
+	   $("#driver_tip").css("display", "none");
 	   $("#review_order_summary").css("width", 630.5);
 	   $("#review_paymentcard_details").css("display", "block");
 	   $("#div_address").css("display", "block");	
@@ -5064,10 +5099,10 @@ $(document).ready(
 					});
 
 			$("#Submit_Order1").click(function(e) {
-				var n = $("#datepicker").val();
+				var dates = $("#datepicker").val();
 			//	console.log(n);
 				//var time = $("#order_time").val();
-				var myarray = n.split(',');
+				var myarray = dates.split(',');
 				var arr=[];
 				
 				for (var z = 0; z < myarray.length; z++) {
@@ -5083,14 +5118,14 @@ $(document).ready(
 					data : {mydates:arr},
 					
 					success : function(data) {
-						alert("hi");
+					//	alert("hi");
 						var arry=[];
 						for (var z = 0; z < data.length; z++) {
 							arr[z] = data[z];
 							console.log(data[z]);
 
 						}
-						console.log("Nehapppp"+data);
+					//	console.log("Nehapppp"+data);
 
 					},
 					error : function() {
